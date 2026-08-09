@@ -746,7 +746,7 @@
         /* KATEGORIJE */
         .category-grid {
             display: grid;
-            grid-template-columns: 90px 50px 50px 35px 60px 60px 60px 40px;
+            grid-template-columns: 100px 55px 55px 55px 40px 65px 65px 40px;
             gap: 4px;
             align-items: center;
             background: #e8eaf6;
@@ -764,7 +764,7 @@
 
         .category-row {
             display: grid;
-            grid-template-columns: 90px 50px 50px 35px 60px 60px 60px 40px;
+            grid-template-columns: 100px 55px 55px 55px 40px 65px 65px 40px;
             gap: 4px;
             align-items: center;
             padding: 3px 6px;
@@ -772,6 +772,27 @@
             border-radius: 4px;
             margin: 2px 0;
         }
+
+        .category-row input {
+            margin: 0;
+            padding: 2px;
+            font-size: 9px;
+            width: 100%;
+        }
+
+        .category-row input[type="color"] {
+            height: 28px;
+            padding: 0;
+        }
+
+        .category-row .cat-name {
+            font-weight: bold;
+            font-size: 9px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
 
         .category-row input {
             margin: 0;
@@ -1132,7 +1153,7 @@
         <button class="sidebar-btn" onclick="showTab('help')" data-tab="help">❓ Uputstvo</button>
 
         <div class="sidebar-divider"></div>
-        <button class="sidebar-btn orange" onclick="changeLanguage()">🌐 Jezik</button>
+        <!-- <button class="sidebar-btn orange" onclick="changeLanguage()">🌐 Jezik</button> -->
         <button class="sidebar-btn red" onclick="logout()">🚪 Odjava</button>
         <div style="flex:1;"></div>
         <div
@@ -2008,16 +2029,28 @@
 
         function setViewMode(mode) {
             viewMode = mode;
+
+            // OČISTI SVE KLASE
             document.querySelectorAll('.view-btn').forEach(b => {
                 b.classList.remove('active', 'inactive');
+            });
+
+            // POSTAVI AKTIVNU - gledamo po textContent
+            document.querySelectorAll('.view-btn').forEach(b => {
                 const text = b.textContent.trim();
-                if ((mode === 'mine' && (text.includes('Moje') || text.includes('Моје'))) ||
-                    (mode === 'all' && (text.includes('Sve') || text.includes('Све')))) {
+                // Proveri da li je "Moje smene" ili "Моје смене" (ćirilica)
+                if (mode === 'mine' && (text.includes('Moje') || text.includes('Моје'))) {
                     b.classList.add('active');
-                } else {
+                }
+                // Proveri da li je "Sve smene" ili "Све смене" (ćirilica)
+                else if (mode === 'all' && (text.includes('Sve') || text.includes('Све'))) {
+                    b.classList.add('active');
+                }
+                else {
                     b.classList.add('inactive');
                 }
             });
+
             renderCalendar();
             if (selectedDate) selectDate(selectedDate);
             updateStats();
@@ -3605,6 +3638,11 @@
 
             if (document.getElementById('assignEmployees')) filterAssignEmployees();
             if (document.getElementById('templateEmployees')) filterTemplateEmployees();
+
+            // Postavi na ćirilicu odmah pri pokretanju
+            language = 'cyrillic';
+            translateAll();
+            updateHelp();
         }
 
         // ============================================

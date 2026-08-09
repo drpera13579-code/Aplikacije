@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🚑 Menadžer smena - Odeljenja</title>
     <style>
+        /* ============================================
+           OSVEŽEN STIL - SVE FUNKCIJE
+           ============================================ */
         * {
             margin: 0;
             padding: 0;
@@ -602,17 +605,19 @@
             color: #333;
         }
 
-        /* TABELA */
+        /* TABELA - HORIZONTALNI SKROL */
         .table-wrap {
             overflow: auto;
             flex: 1;
             -webkit-overflow-scrolling: touch;
+            max-width: 100%;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 10px;
+            min-width: 700px;
         }
 
         table th {
@@ -632,6 +637,7 @@
             border-bottom: 1px solid #eee;
             vertical-align: middle;
             font-size: 10px;
+            white-space: nowrap;
         }
 
         table .actions {
@@ -640,15 +646,15 @@
             flex-wrap: wrap;
         }
 
-        /* CHECKBOX GRUPA - LEPŠI I OKRUGLI */
+        /* CHECKBOX GRUPA - VIŠESTRUKI IZBOR */
         .checkbox-group {
             display: flex;
             flex-wrap: wrap;
             gap: 4px;
             max-height: 120px;
             overflow-y: auto;
-            padding: 4px;
-            border: 1px solid #e8e8e8;
+            padding: 6px;
+            border: 1px solid #e0e0e0;
             border-radius: 6px;
             background: #fafafa;
         }
@@ -656,17 +662,18 @@
         .checkbox-group label {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             font-weight: normal;
             font-size: 9px;
-            padding: 3px 8px;
+            padding: 4px 10px;
             background: white;
             border-radius: 20px;
-            border: 1px solid #ddd;
+            border: 1.5px solid #ddd;
             cursor: pointer;
             margin: 0;
             touch-action: manipulation;
             transition: all 0.2s;
+            user-select: none;
         }
 
         .checkbox-group label:hover {
@@ -690,8 +697,8 @@
             border-radius: 50%;
         }
 
-        .checkbox-group input[type="checkbox"]:checked {
-            accent-color: #1a237e;
+        .checkbox-group label.checked input[type="checkbox"] {
+            accent-color: white;
         }
 
         /* MODAL */
@@ -852,6 +859,17 @@
                 font-size: 10px;
                 padding: 5px 8px;
             }
+
+            table {
+                min-width: 500px;
+                font-size: 9px;
+            }
+
+            table th,
+            table td {
+                padding: 3px 4px;
+                font-size: 8px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -900,10 +918,15 @@
                 font-size: 13px;
             }
 
-            table td,
-            table th {
+            table {
+                min-width: 400px;
                 font-size: 8px;
-                padding: 3px 4px;
+            }
+
+            table th,
+            table td {
+                padding: 2px 3px;
+                font-size: 7px;
             }
         }
 
@@ -924,6 +947,119 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: #0d47a1;
+        }
+
+        /* KATEGORIJE - NATPISI IZNAD KOLONA */
+        .category-grid {
+            display: grid;
+            grid-template-columns: 90px 50px 50px 35px 60px 60px 60px 40px;
+            gap: 4px;
+            align-items: center;
+            background: #f0f2f5;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 8px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .category-grid span {
+            text-align: center;
+        }
+
+        .category-row {
+            display: grid;
+            grid-template-columns: 90px 50px 50px 35px 60px 60px 60px 40px;
+            gap: 4px;
+            align-items: center;
+            padding: 3px 6px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin: 2px 0;
+        }
+
+        .category-row input {
+            margin: 0;
+            padding: 2px;
+            font-size: 9px;
+            width: 100%;
+        }
+
+        .category-row input[type="color"] {
+            height: 28px;
+            padding: 0;
+        }
+
+        .category-row .cat-name {
+            font-weight: bold;
+            font-size: 9px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* SWITCH ON/OFF */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ccc;
+            transition: .3s;
+            border-radius: 22px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background: #1a237e;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(18px);
+        }
+
+        /* UPUTSTVO */
+        .help-content {
+            font-size: 10px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .help-content strong {
+            color: #1a237e;
+        }
+
+        .help-content .section {
+            color: #0d47a1;
+            font-weight: bold;
+            margin-top: 6px;
         }
     </style>
 </head>
@@ -1052,12 +1188,8 @@
             <div class="card">
                 <h2>📋 Napravi raspored</h2>
                 <div style="font-size:9px; color:#666; margin-bottom:4px;">Odaberite period, smenu i radnike</div>
-                <div class="form-row"><label>Mesec:</label>
-                    <select id="scheduleMonth"></select>
-                </div>
-                <div class="form-row"><label>Godina:</label>
-                    <select id="scheduleYear"></select>
-                </div>
+                <div class="form-row"><label>Mesec:</label><select id="scheduleMonth"></select></div>
+                <div class="form-row"><label>Godina:</label><select id="scheduleYear"></select></div>
                 <div class="form-row"><label>Od dana:</label><input type="number" id="scheduleDayStart" placeholder="1"
                         min="1" max="31" value="1"></div>
                 <div class="form-row"><label>Do dana:</label><input type="number" id="scheduleDayEnd" placeholder="31"
@@ -1065,7 +1197,7 @@
                 <div class="form-row"><label>Smena:</label><select id="scheduleType"></select></div>
                 <div class="form-row"><label>Sati:</label><input type="number" id="scheduleHours" value="8" step="0.5">
                 </div>
-                <div class="form-row"><label>🔍 Filter zaposlenih:</label>
+                <div class="form-row"><label>🔍 Filter:</label>
                     <select id="scheduleFilter" onchange="filterScheduleEmployees()">
                         <option value="all">Svi</option>
                     </select>
@@ -1092,12 +1224,14 @@
                 </div>
                 <div class="form-row"><label>🔍 Filter:</label><select id="empFilter"
                         onchange="renderEmployees()"></select></div>
-                <div class="table-wrap" style="max-height:300px; overflow:auto;">
+                <div class="table-wrap">
                     <table>
                         <thead>
                             <tr>
                                 <th>Status</th>
                                 <th>Ime</th>
+                                <th>Korisničko ime</th>
+                                <th>Lozinka</th>
                                 <th>Zanimanje</th>
                                 <th>Satnica</th>
                                 <th>Telefon</th>
@@ -1141,7 +1275,7 @@
                 <h2>🔄 Zamene</h2>
                 <div class="form-row"><label>Datum:</label><input type="date" id="replaceDate"></div>
                 <div class="form-row"><label>Smena:</label><select id="replaceShiftType"></select></div>
-                <div class="form-row"><label>🔍 Filter zaposlenih:</label>
+                <div class="form-row"><label>🔍 Filter:</label>
                     <select id="replaceFilter" onchange="filterReplaceEmployees()">
                         <option value="all">Svi</option>
                     </select>
@@ -1251,8 +1385,12 @@
         <div class="tab-pane" id="tabNotifications" style="display:none;">
             <div class="card">
                 <h2>🔔 Obaveštenja</h2>
-                <div class="form-row"><label>Omogući:</label>
-                    <input type="checkbox" id="notifEnabled" checked style="width:20px;height:20px;margin:0;">
+                <div class="form-row">
+                    <label>Omogući:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="notifEnabled" checked>
+                        <span class="slider"></span>
+                    </label>
                 </div>
                 <div class="form-row"><label>Podsetnik (min):</label><input type="number" id="reminderMinutes"
                         value="30" style="width:70px;"></div>
@@ -1322,8 +1460,7 @@
         <div class="tab-pane" id="tabHelp" style="display:none;">
             <div class="card">
                 <h2>❓ Uputstvo</h2>
-                <pre id="helpContent"
-                    style="background:#f5f5f5;padding:10px;border-radius:4px;font-family:monospace;font-size:10px;flex:1;overflow:auto;white-space:pre-wrap;max-height:400px;"></pre>
+                <pre id="helpContent" class="help-content"></pre>
             </div>
         </div>
 
@@ -1331,7 +1468,6 @@
 
     <!-- ==================== MODALI ==================== -->
 
-    <!-- Dodaj smenu -->
     <div class="modal" id="addShiftModal">
         <div class="modal-content">
             <h2>➕ Dodaj smenu</h2>
@@ -1354,7 +1490,6 @@
         </div>
     </div>
 
-    <!-- Dodeli smenu -->
     <div class="modal" id="assignShiftModal">
         <div class="modal-content">
             <h2>👥 Dodeli smenu</h2>
@@ -1378,39 +1513,40 @@
         </div>
     </div>
 
-    <!-- Dodaj zaposlenog -->
     <div class="modal" id="addEmployeeModal">
         <div class="modal-content">
-            <h2>➕ Dodaj zaposlenog</h2>
-            <label>Ime:</label><input type="text" id="empName">
+            <h2>➕ Dodaj / Izmeni zaposlenog</h2>
+            <input type="hidden" id="editEmpId">
+            <label>Ime i prezime:</label><input type="text" id="empName">
+            <div class="row">
+                <div style="flex:1;"><label>Korisničko ime:</label><input type="text" id="empUsername"></div>
+                <div style="flex:1;"><label>Lozinka:</label><input type="password" id="empPassword"></div>
+            </div>
+            <div class="row">
+                <div style="flex:1;"><label>Zanimanje:</label><select id="empRole"></select></div>
+                <div style="flex:1;"><label>Satnica (RSD):</label><input type="number" id="empRate" value="500"
+                        step="10"></div>
+            </div>
             <div class="row">
                 <div style="flex:1;"><label>Telefon:</label><input type="text" id="empPhone"></div>
                 <div style="flex:1;"><label>Adresa:</label><input type="text" id="empAddress"></div>
             </div>
-            <div class="row">
-                <div style="flex:1;"><label>Zanimanje:</label><select id="empRole"></select></div>
-                <div style="flex:1;"><label>Satnica:</label><input type="number" id="empRate" value="500" step="10">
-                </div>
-            </div>
-            <label>Lozinka:</label><input type="password" id="empPassword">
-            <label><input type="checkbox" id="empCanEdit"> Pomoćnik admina</label>
             <div class="modal-btns">
-                <button class="btn btn-green" onclick="addEmployee()">✅ Dodaj</button>
+                <button class="btn btn-green" onclick="saveEmployee()">💾 Sačuvaj</button>
                 <button class="btn btn-red" onclick="closeModal('addEmployeeModal')">❌ Otkaži</button>
             </div>
         </div>
     </div>
 
-    <!-- Masovni unos zaposlenih -->
     <div class="modal" id="massiveEmployeeModal">
         <div class="modal-content">
             <h2>📋 Masovni unos zaposlenih</h2>
             <label>Unesite zaposlene (jedan po redu):</label>
             <textarea id="massiveEmployeeData" rows="5"
                 style="width:100%;font-family:monospace;font-size:11px;padding:6px;border:2px solid #ddd;border-radius:4px;"
-                placeholder="Marko Marković, Lekar, 061123456, Beogradska 1, 800&#10;Jelena Jelić, Sestra, 062234567, Kralja Petra 2, 600"></textarea>
-            <div style="font-size:8px;color:#999;margin-top:2px;">Format: Ime, Zanimanje, Telefon, Adresa (opciono),
-                Satnica (opciono)</div>
+                placeholder="Marko Marković, marko, 123, Lekar, 800, 061123456, Beogradska 1"></textarea>
+            <div style="font-size:8px;color:#999;margin-top:2px;">Format: Ime, Korisničko ime, Lozinka, Zanimanje,
+                Satnica, Telefon, Adresa</div>
             <div class="modal-btns">
                 <button class="btn btn-green" onclick="massiveAddEmployees()">💾 Dodaj sve</button>
                 <button class="btn btn-red" onclick="closeModal('massiveEmployeeModal')">❌ Otkaži</button>
@@ -1418,15 +1554,21 @@
         </div>
     </div>
 
-    <!-- Kategorije -->
     <div class="modal" id="categoriesModal">
         <div class="modal-content">
             <h2>📊 Kategorije smena</h2>
-            <div style="font-size:9px;color:#999;margin-bottom:6px;">
-                <span>🕐 Sati | 📈 Koeficijent | 💰 Satnica | 🎨 Boja | ⏰ Od-Do</span>
+            <div class="category-grid">
+                <span>📌 Naziv</span>
+                <span>🕐 Sati</span>
+                <span>📈 Koef.</span>
+                <span>💰 Cena</span>
+                <span>🎨 Boja</span>
+                <span>⏰ Od</span>
+                <span>⏰ Do</span>
+                <span>🗑️</span>
             </div>
             <div id="categoriesList"></div>
-            <div class="form-row"><label>Nova:</label><input type="text" id="newCategoryName"
+            <div class="form-row" style="margin-top:6px;"><label>Nova:</label><input type="text" id="newCategoryName"
                     placeholder="Naziv kategorije"></div>
             <button class="btn btn-green" onclick="addCategory()">➕ Dodaj</button>
             <div class="modal-btns">
@@ -1436,7 +1578,6 @@
         </div>
     </div>
 
-    <!-- Filteri -->
     <div class="modal" id="filterSettingsModal">
         <div class="modal-content">
             <h2>🔍 Filteri</h2>
@@ -1452,7 +1593,6 @@
         </div>
     </div>
 
-    <!-- Dodaj šablon -->
     <div class="modal" id="addTemplateModal">
         <div class="modal-content">
             <h2>➕ Dodaj šablon</h2>
@@ -1475,7 +1615,6 @@
         </div>
     </div>
 
-    <!-- Primeni šablon -->
     <div class="modal" id="applyTemplateModal">
         <div class="modal-content">
             <h2>📅 Primeni šablon</h2>
@@ -1502,7 +1641,6 @@
         let currentYear = new Date().getFullYear();
         let language = 'latin';
 
-        // DEFAULT KATEGORIJE
         const defaultCategories = {
             'Prva smena': { hours: 8, coeff: 1.0, color: '#4CAF50', rate: 500, start: '07:00', end: '15:00' },
             'Druga smena': { hours: 8, coeff: 1.1, color: '#2196F3', rate: 500, start: '15:00', end: '23:00' },
@@ -1518,9 +1656,7 @@
             'Slobodan dan': { hours: 0, coeff: 0, color: '#9E9E9E', rate: 0, start: '00:00', end: '00:00' }
         };
 
-        // DEFAULT FILTERI
         let customFilters = ['Lekar', 'Medicinska sestra', 'Viša medicinska sestra', 'Vozač', 'Pomoćno osoblje', 'Tehničar', 'Administrativac'];
-
         let categories = {};
         let employees = [];
         let departments = ['Hitna pomoć', 'Dečije odeljenje', 'Zubar', 'Kućna nega'];
@@ -1531,14 +1667,13 @@
 
         const monthNames = ['Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun', 'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'];
         const daysOfWeek = ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'];
-        const allDays = ['Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota', 'Nedelja'];
 
         // ============================================
         // 📦 ČUVANJE PODATAKA
         // ============================================
         function loadData() {
             try {
-                const saved = localStorage.getItem('menadzer_smena_odeljenje_v3');
+                const saved = localStorage.getItem('menadzer_smena_odeljenje_v4');
                 if (saved) {
                     const data = JSON.parse(saved);
                     if (data.categories) categories = data.categories;
@@ -1561,7 +1696,7 @@
 
         function saveData() {
             try {
-                localStorage.setItem('menadzer_smena_odeljenje_v3', JSON.stringify({
+                localStorage.setItem('menadzer_smena_odeljenje_v4', JSON.stringify({
                     categories, employees, departments, shifts, templates, templateEmployees,
                     customFilters, notificationHistory, currentUser, currentDept
                 }));
@@ -1576,10 +1711,9 @@
 
             if (employees.length === 0) {
                 employees = [
-                    { id: 1, name: 'Dr. Dejan Janković', password: 'dejan123', role: 'Lekar', rate: 800, phone: '0641234567', address: 'Beogradska 1' },
-                    { id: 2, name: 'Dr. Milan Petrović', password: 'milan123', role: 'Lekar', rate: 750, phone: '0647654321', address: 'Nemanjina 5' },
-                    { id: 3, name: 'Sestra Jelena Nikolić', password: 'jelena123', role: 'Medicinska sestra', rate: 600, phone: '0623456789', address: 'Bulevar 15' },
-                    { id: 4, name: 'Vozač Nikola Nikolić', password: 'nikola123', role: 'Vozač', rate: 500, phone: '0634567890', address: 'Vojvode Stepe 10' },
+                    { id: 1, name: 'Dr. Dejan Janković', username: 'dejan', password: 'dejan123', role: 'Lekar', rate: 800, phone: '0641234567', address: 'Beogradska 1' },
+                    { id: 2, name: 'Dr. Milan Petrović', username: 'milan', password: 'milan123', role: 'Lekar', rate: 750, phone: '0647654321', address: 'Nemanjina 5' },
+                    { id: 3, name: 'Sestra Jelena Nikolić', username: 'jelena', password: 'jelena123', role: 'Medicinska sestra', rate: 600, phone: '0623456789', address: 'Bulevar 15' },
                 ];
                 saveData();
             }
@@ -1593,7 +1727,6 @@
             document.getElementById('deptDisplay').textContent = '🏥 ' + currentDept;
             document.getElementById('headerTitle').textContent = '🚑 ' + currentDept;
 
-            // Default datumi
             const dateStr = today.toISOString().slice(0, 10);
             document.getElementById('shiftDate').value = dateStr;
             document.getElementById('assignDate').value = dateStr;
@@ -1610,7 +1743,6 @@
             document.getElementById('deptStatsStart').value = start.toISOString().slice(0, 10);
             document.getElementById('deptStatsEnd').value = dateStr;
 
-            // Popuni godine
             const yearSelect = document.getElementById('scheduleYear');
             yearSelect.innerHTML = '';
             for (let y = 2024; y <= 2030; y++) {
@@ -1621,7 +1753,6 @@
                 yearSelect.appendChild(opt);
             }
 
-            // Popuni mesece
             const monthSelect = document.getElementById('scheduleMonth');
             monthSelect.innerHTML = '';
             monthNames.forEach((m, i) => {
@@ -1632,9 +1763,7 @@
                 monthSelect.appendChild(opt);
             });
 
-            // Popuni role za zaposlene
             populateRoleSelects();
-
             renderAll();
             showTab('calendar');
             showToast('👋 Dobrodošli, ' + currentUser + (isAdmin ? ' (Admin)' : ''));
@@ -1654,29 +1783,23 @@
                 return;
             }
 
-            if (username === 'admin') {
-                if (password === 'admin123') {
-                    currentUser = 'admin';
-                    isAdmin = true;
-                    currentDept = 'Hitna pomoć';
-                    errorEl.style.display = 'none';
-                    document.getElementById('loginScreen').style.display = 'none';
-                    document.getElementById('mainContent').style.display = 'block';
-                    document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
-                    document.getElementById('userDisplay2').textContent = '👤 ' + currentUser;
-                    document.getElementById('deptDisplay').textContent = '🏥 ' + currentDept;
-                    document.getElementById('headerTitle').textContent = '🚑 ' + currentDept;
-                    renderAll();
-                    showToast('👋 Dobrodošli, admin (Admin)');
-                    return;
-                } else {
-                    errorEl.textContent = '❌ Pogrešna lozinka za admina!';
-                    errorEl.style.display = 'block';
-                    return;
-                }
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = 'admin';
+                isAdmin = true;
+                currentDept = 'Hitna pomoć';
+                errorEl.style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+                document.getElementById('userDisplay2').textContent = '👤 ' + currentUser;
+                document.getElementById('deptDisplay').textContent = '🏥 ' + currentDept;
+                document.getElementById('headerTitle').textContent = '🚑 ' + currentDept;
+                renderAll();
+                showToast('👋 Dobrodošli, admin (Admin)');
+                return;
             }
 
-            const emp = employees.find(e => e.name === username);
+            const emp = employees.find(e => e.username === username);
             if (!emp) {
                 errorEl.textContent = '❌ Korisnik nije pronađen!';
                 errorEl.style.display = 'block'; return;
@@ -1728,24 +1851,14 @@
 
             toggleSidebar();
 
-            if (tab === 'calendar') {
-                renderCalendar();
-                renderLegend();
-                updateStats();
-            }
+            if (tab === 'calendar') { renderCalendar(); renderLegend(); updateStats(); }
             if (tab === 'employees') renderEmployees();
             if (tab === 'departments') renderDepartments();
             if (tab === 'templates') renderTemplates();
             if (tab === 'stats') showStats();
-            if (tab === 'report') {
-                generateReport();
-                populateReportSelects();
-            }
+            if (tab === 'report') { generateReport(); populateReportSelects(); }
             if (tab === 'deptstats') showDeptStats();
-            if (tab === 'schedule') {
-                renderScheduleEmployees();
-                populateScheduleSelects();
-            }
+            if (tab === 'schedule') { renderScheduleEmployees(); populateScheduleSelects(); }
             if (tab === 'search') { populateSearchSelects(); }
             if (tab === 'replacements') { populateReplaceSelects(); }
             if (tab === 'notifications') { renderNotificationSettings(); }
@@ -1852,14 +1965,8 @@
 
         function changeMonth(delta) {
             currentMonth += delta;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            }
-            if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
+            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
             renderCalendar();
         }
 
@@ -1903,8 +2010,7 @@
         function updateStats() {
             const userShifts = viewMode === 'mine' ? shifts.filter(s => s.user === currentUser && !s.cancelled) : shifts.filter(s => !s.cancelled);
             let totalShifts = userShifts.length;
-            let totalHours = 0,
-                totalPay = 0;
+            let totalHours = 0, totalPay = 0;
             userShifts.forEach(s => {
                 const cat = getCategory(s.category);
                 const hours = s.hours || cat.hours || 8;
@@ -1931,8 +2037,7 @@
             }
 
             const groups = {};
-            let totalHours = 0,
-                totalPay = 0;
+            let totalHours = 0, totalPay = 0;
             userShifts.forEach(s => {
                 const cat = getCategory(s.category);
                 const hours = s.hours || cat.hours || 8;
@@ -1989,7 +2094,7 @@
             const empSelect = document.getElementById('reportEmployee');
             const curEmp = empSelect.value;
             empSelect.innerHTML = '<option value="all">Svi zaposleni</option>' +
-                employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('');
+                employees.map(e => `<option value="${e.username}">${e.name}</option>`).join('');
             if (curEmp) empSelect.value = curEmp;
         }
 
@@ -2023,8 +2128,7 @@
             }
 
             const groups = {};
-            let totalHours = 0,
-                totalPay = 0;
+            let totalHours = 0, totalPay = 0;
             const userStats = {};
             filtered.forEach(s => {
                 const cat = getCategory(s.category);
@@ -2041,10 +2145,7 @@
                 userStats[s.user].count++;
                 userStats[s.user].hours += hours;
                 userStats[s.user].pay += pay;
-                if (!userStats[s.user].categories[s.category]) userStats[s.user].categories[s.category] = {
-                    count: 0,
-                    hours: 0, pay: 0
-                };
+                if (!userStats[s.user].categories[s.category]) userStats[s.user].categories[s.category] = { count: 0, hours: 0, pay: 0 };
                 userStats[s.user].categories[s.category].count++;
                 userStats[s.user].categories[s.category].hours += hours;
                 userStats[s.user].categories[s.category].pay += pay;
@@ -2144,17 +2245,18 @@
                 list = employees.filter(e => e.role === filter);
             }
 
-            // Popuni filter
             const roles = ['Sve grupe', ...new Set(employees.map(e => e.role).filter(r => r))];
             const filterSelect = document.getElementById('empFilter');
             filterSelect.innerHTML = roles.map(r => `<option value="${r}">${r}</option>`).join('');
 
             list.forEach(e => {
+                const status = shifts.some(s => s.user === e.username && s.date === new Date().toISOString().slice(0, 10) && !s.cancelled) ? '🟢' : '🔴';
                 const tr = document.createElement('tr');
-                const status = shifts.some(s => s.user === e.name && s.date === new Date().toISOString().slice(0, 10) && !s.cancelled) ? '🟢' : '🔴';
                 tr.innerHTML = `
                     <td>${status}</td>
                     <td>${e.name}</td>
+                    <td>${e.username || ''}</td>
+                    <td>${e.password || '***'}</td>
                     <td>${e.role || ''}</td>
                     <td>${e.rate || 0}</td>
                     <td>${e.phone || ''}</td>
@@ -2168,31 +2270,107 @@
             });
         }
 
-        function addEmployee() {
+        function openAddEmployeeModal(employeeId) {
+            const modal = document.getElementById('addEmployeeModal');
+            if (employeeId) {
+                const e = employees.find(emp => emp.id === employeeId);
+                if (e) {
+                    document.getElementById('editEmpId').value = e.id;
+                    document.getElementById('empName').value = e.name;
+                    document.getElementById('empUsername').value = e.username || '';
+                    document.getElementById('empPassword').value = e.password || '';
+                    document.getElementById('empRole').value = e.role || '';
+                    document.getElementById('empRate').value = e.rate || 500;
+                    document.getElementById('empPhone').value = e.phone || '';
+                    document.getElementById('empAddress').value = e.address || '';
+                    modal.querySelector('h2').textContent = '✏️ Izmeni zaposlenog';
+                }
+            } else {
+                document.getElementById('editEmpId').value = '';
+                document.getElementById('empName').value = '';
+                document.getElementById('empUsername').value = '';
+                document.getElementById('empPassword').value = '';
+                document.getElementById('empRole').value = 'Lekar';
+                document.getElementById('empRate').value = 500;
+                document.getElementById('empPhone').value = '';
+                document.getElementById('empAddress').value = '';
+                modal.querySelector('h2').textContent = '➕ Dodaj zaposlenog';
+            }
+            modal.classList.add('show');
+        }
+
+        function saveEmployee() {
+            const id = document.getElementById('editEmpId').value;
             const name = document.getElementById('empName').value.trim();
-            if (!name) { showToast('⚠️ Unesite ime!'); return; }
-            if (employees.some(e => e.name === name)) { showToast('⚠️ Već postoji!'); return; }
-
+            const username = document.getElementById('empUsername').value.trim();
+            const password = document.getElementById('empPassword').value.trim();
             const role = document.getElementById('empRole').value;
+            const rate = parseFloat(document.getElementById('empRate').value) || 500;
+            const phone = document.getElementById('empPhone').value.trim();
+            const address = document.getElementById('empAddress').value.trim();
 
-            employees.push({
-                id: Date.now(),
-                name,
-                password: document.getElementById('empPassword').value || '123',
-                role: role,
-                rate: parseFloat(document.getElementById('empRate').value) || 500,
-                phone: document.getElementById('empPhone').value || '',
-                address: document.getElementById('empAddress').value || '',
-            });
+            if (!name || !username || !password) {
+                showToast('⚠️ Popunite ime, korisničko ime i lozinku!');
+                return;
+            }
+
+            if (id) {
+                // Izmena
+                const e = employees.find(emp => emp.id == id);
+                if (e) {
+                    e.name = name;
+                    e.username = username;
+                    e.password = password;
+                    e.role = role;
+                    e.rate = rate;
+                    e.phone = phone;
+                    e.address = address;
+                    showToast('✅ ' + name + ' ažuriran!');
+                }
+            } else {
+                // Dodavanje
+                if (employees.some(e => e.username === username)) {
+                    showToast('⚠️ Korisničko ime već postoji!');
+                    return;
+                }
+                employees.push({
+                    id: Date.now(),
+                    name, username, password, role, rate, phone, address
+                });
+                showToast('✅ ' + name + ' dodat!');
+            }
+
             saveData();
             closeModal('addEmployeeModal');
             renderEmployees();
-            showToast('✅ ' + name + ' dodat!');
-            document.getElementById('empName').value = '';
-            document.getElementById('empPassword').value = '';
-            document.getElementById('empPhone').value = '';
-            document.getElementById('empAddress').value = '';
-            document.getElementById('empRate').value = '500';
+        }
+
+        function editEmployee(id) {
+            openAddEmployeeModal(id);
+        }
+
+        function deleteEmployeeById(id) {
+            const e = employees.find(emp => emp.id === id);
+            if (!e) return;
+            if (!confirm('Obrisati ' + e.name + '?')) return;
+            employees = employees.filter(emp => emp.id !== id);
+            shifts = shifts.filter(s => s.user !== e.username);
+            saveData();
+            renderEmployees();
+            showToast('🗑️ ' + e.name + ' obrisan!');
+        }
+
+        function deleteEmployee() {
+            const username = prompt('Unesite korisničko ime za brisanje:');
+            if (!username) return;
+            const e = employees.find(emp => emp.username === username);
+            if (!e) { showToast('⚠️ Nije pronađen!'); return; }
+            if (!confirm('Obrisati ' + e.name + '?')) return;
+            employees = employees.filter(emp => emp.id !== e.id);
+            shifts = shifts.filter(s => s.user !== username);
+            saveData();
+            renderEmployees();
+            showToast('🗑️ ' + e.name + ' obrisan!');
         }
 
         function massiveAddEmployees() {
@@ -2203,16 +2381,18 @@
             let added = 0;
             lines.forEach(line => {
                 const parts = line.split(',').map(p => p.trim());
-                if (parts.length >= 2) {
+                if (parts.length >= 3) {
                     const name = parts[0];
-                    const role = parts[1] || 'Ostalo';
-                    const phone = parts[2] || '';
-                    const address = parts[3] || '';
+                    const username = parts[1];
+                    const password = parts[2];
+                    const role = parts[3] || 'Ostalo';
                     const rate = parseFloat(parts[4]) || 500;
-                    if (name && !employees.some(e => e.name === name)) {
+                    const phone = parts[5] || '';
+                    const address = parts[6] || '';
+                    if (name && username && password && !employees.some(e => e.username === username)) {
                         employees.push({
                             id: Date.now() + added,
-                            name, password: '123', role, phone, address, rate
+                            name, username, password, role, rate, phone, address
                         });
                         added++;
                     }
@@ -2226,46 +2406,6 @@
             showToast('✅ Dodato ' + added + ' zaposlenih!');
         }
 
-        function editEmployee(id) {
-            const e = employees.find(emp => emp.id === id);
-            if (!e) return;
-            const newName = prompt('Novo ime:', e.name);
-            if (newName && newName.trim()) e.name = newName.trim();
-            const newRole = prompt('Novo zanimanje:', e.role);
-            if (newRole && newRole.trim()) e.role = newRole.trim();
-            const newRate = prompt('Nova satnica (RSD):', e.rate);
-            if (newRate && !isNaN(newRate)) e.rate = parseFloat(newRate);
-            const newPhone = prompt('Novi telefon:', e.phone);
-            if (newPhone !== null) e.phone = newPhone.trim();
-            const newAddress = prompt('Nova adresa:', e.address);
-            if (newAddress !== null) e.address = newAddress.trim();
-            saveData();
-            renderEmployees();
-            showToast('✅ ' + e.name + ' ažuriran!');
-        }
-
-        function deleteEmployeeById(id) {
-            const e = employees.find(emp => emp.id === id);
-            if (!e) return;
-            if (!confirm('Obrisati ' + e.name + '?')) return;
-            employees = employees.filter(emp => emp.id !== id);
-            shifts = shifts.filter(s => s.user !== e.name);
-            saveData();
-            renderEmployees();
-        }
-
-        function deleteEmployee() {
-            const name = prompt('Unesite ime za brisanje:');
-            if (!name) return;
-            const e = employees.find(emp => emp.name === name);
-            if (!e) { showToast('⚠️ Nije pronađen!'); return; }
-            if (!confirm('Obrisati ' + name + '?')) return;
-            employees = employees.filter(emp => emp.id !== e.id);
-            shifts = shifts.filter(s => s.user !== name);
-            saveData();
-            renderEmployees();
-        }
-
         // ============================================
         // 🏥 ODELJENJA
         // ============================================
@@ -2274,8 +2414,7 @@
             tbody.innerHTML = '';
             departments.forEach(d => {
                 const tr = document.createElement('tr');
-                tr.innerHTML =
-                    `<td>${d}</td><td>admin</td><td><button class="btn btn-small btn-red" onclick="deleteDept('${d}')">🗑️</button></td>`;
+                tr.innerHTML = `<td>${d}</td><td>admin</td><td><button class="btn btn-small btn-red" onclick="deleteDept('${d}')">🗑️</button></td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -2315,11 +2454,8 @@
             let list = employees;
             if (filter !== 'all') list = employees.filter(e => e.role === filter);
             list.forEach(e => {
-                if (e.name === 'admin') return;
                 const label = document.createElement('label');
-                const checked = false;
-                label.className = checked ? 'checked' : '';
-                label.innerHTML = `<input type="checkbox" value="${e.name}" ${checked ? 'checked' : ''}> ${e.name}`;
+                label.innerHTML = `<input type="checkbox" value="${e.username}"> ${e.name}`;
                 container.appendChild(label);
             });
         }
@@ -2347,9 +2483,9 @@
             const type = document.getElementById('scheduleType').value;
             const hours = parseFloat(document.getElementById('scheduleHours').value) || 8;
             const selected = document.querySelectorAll('#scheduleEmployeeList input:checked');
-            const selectedNames = Array.from(selected).map(cb => cb.value);
+            const selectedUsers = Array.from(selected).map(cb => cb.value);
 
-            if (selectedNames.length === 0) { showToast('⚠️ Odaberite radnike!'); return; }
+            if (selectedUsers.length === 0) { showToast('⚠️ Odaberite radnike!'); return; }
 
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const startDay = Math.max(1, dayStart);
@@ -2363,8 +2499,7 @@
             for (let d = startDay; d <= endDay; d++) {
                 const date = new Date(year, month, d);
                 const dateStr = date.toISOString().split('T')[0];
-                selectedNames.forEach(user => {
-                    // Proveri da li već postoji smena za taj dan i korisnika
+                selectedUsers.forEach(user => {
                     const exists = shifts.some(s => s.date === dateStr && s.user === user && s.category === type && !s.cancelled);
                     if (!exists) {
                         shifts.push({
@@ -2390,12 +2525,10 @@
         // ============================================
         function populateSearchSelects() {
             const catSelect = document.getElementById('searchCategory');
-            catSelect.innerHTML = '<option value="all">Sve</option>' +
-                Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
+            catSelect.innerHTML = '<option value="all">Sve</option>' + Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
 
             const empSelect = document.getElementById('searchEmployee');
-            empSelect.innerHTML = '<option value="all">Svi</option>' +
-                employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('');
+            empSelect.innerHTML = '<option value="all">Svi</option>' + employees.map(e => `<option value="${e.username}">${e.name}</option>`).join('');
         }
 
         function doSearch() {
@@ -2428,8 +2561,7 @@
         // ============================================
         function populateReplaceSelects() {
             const shiftSelect = document.getElementById('replaceShiftType');
-            shiftSelect.innerHTML = '<option value="all">Sve smene</option>' +
-                Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
+            shiftSelect.innerHTML = '<option value="all">Sve smene</option>' + Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
 
             const filterSelect = document.getElementById('replaceFilter');
             const filters = ['all', ...new Set(employees.map(e => e.role).filter(r => r))];
@@ -2444,10 +2576,9 @@
             let list = employees;
             if (filter !== 'all') list = employees.filter(e => e.role === filter);
             list.forEach(e => {
-                if (e.name === 'admin') return;
                 const label = document.createElement('label');
                 label.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-weight:normal;font-size:9px;padding:3px 8px;background:white;border-radius:20px;border:1px solid #ddd;cursor:pointer;margin:2px;transition:all 0.2s;';
-                label.innerHTML = `<input type="checkbox" value="${e.name}" class="replace-checkbox"> ${e.name}`;
+                label.innerHTML = `<input type="checkbox" value="${e.username}" class="replace-checkbox"> ${e.name}`;
                 container.appendChild(label);
             });
         }
@@ -2460,14 +2591,11 @@
             let dayShifts = shifts.filter(s => s.date === date && !s.cancelled);
             if (shiftType !== 'all') dayShifts = dayShifts.filter(s => s.category === shiftType);
 
-            document.getElementById('currentShifts').textContent = dayShifts.length === 0 ? '📅 Nema smena.' : dayShifts
-                .map((s, i) => (i + 1) + '. ' + s.category + ' - ' + s.user + ' (' + s.start + '-' + s.end + ')').join('\n');
+            document.getElementById('currentShifts').textContent = dayShifts.length === 0 ? '📅 Nema smena.' : dayShifts.map((s, i) => (i + 1) + '. ' + s.category + ' - ' + s.user + ' (' + s.start + '-' + s.end + ')').join('\n');
 
             const working = dayShifts.map(s => s.user);
-            const free = employees.filter(e => !working.includes(e.name) && e.name !== 'admin');
-            document.getElementById('freeWorkers').innerHTML = free.length === 0 ? '🟢 Nema slobodnih.' : free.map(e =>
-                '• ' + e.name + ' (' + e.role + ')')
-                .join('\n');
+            const free = employees.filter(e => !working.includes(e.username) && e.username !== 'admin');
+            document.getElementById('freeWorkers').innerHTML = free.length === 0 ? '🟢 Nema slobodnih.' : free.map(e => '• ' + e.name + ' (' + e.role + ')').join('\n');
         }
 
         function addToShift() {
@@ -2487,8 +2615,7 @@
             let added = 0;
             selected.forEach(cb => {
                 const user = cb.value;
-                const exists = shifts.some(s => s.date === date && s.user === user && s.category === shiftType && !s
-                    .cancelled);
+                const exists = shifts.some(s => s.date === date && s.user === user && s.category === shiftType && !s.cancelled);
                 if (!exists) {
                     shifts.push({
                         id: Date.now() + Math.random() * 1000 + added,
@@ -2517,8 +2644,7 @@
             let removed = 0;
             selected.forEach(cb => {
                 const user = cb.value;
-                const idx = shifts.findIndex(s => s.date === date && s.user === user && s.category === shiftType && !s
-                    .cancelled);
+                const idx = shifts.findIndex(s => s.date === date && s.user === user && s.category === shiftType && !s.cancelled);
                 if (idx !== -1) {
                     shifts.splice(idx, 1);
                     removed++;
@@ -2542,15 +2668,12 @@
             if (!start || !end) { showToast('⚠️ Odaberite period!'); return; }
 
             let text = '📊 STATISTIKA ODELJENJA: ' + currentDept + '\n📅 Period: ' + start + ' - ' + end + '\n' + '='.repeat(60) + '\n\n';
-            let totalAllHours = 0,
-                totalAllPay = 0,
-                totalShifts = 0;
+            let totalAllHours = 0, totalAllPay = 0, totalShifts = 0;
 
             employees.forEach(e => {
-                if (e.name === 'admin') return;
-                const empShifts = shifts.filter(s => s.user === e.name && s.date >= start && s.date <= end && !s.cancelled);
-                let hours = 0,
-                    pay = 0;
+                if (e.username === 'admin') return;
+                const empShifts = shifts.filter(s => s.user === e.username && s.date >= start && s.date <= end && !s.cancelled);
+                let hours = 0, pay = 0;
                 const catStats = {};
                 empShifts.forEach(s => {
                     const cat = getCategory(s.category);
@@ -2630,11 +2753,9 @@
             let list = employees;
             if (filter !== 'all') list = employees.filter(e => e.role === filter);
             list.forEach(e => {
-                if (e.name === 'admin') return;
+                if (e.username === 'admin') return;
                 const label = document.createElement('label');
-                const checked = false;
-                label.className = checked ? 'checked' : '';
-                label.innerHTML = `<input type="checkbox" value="${e.name}" ${checked ? 'checked' : ''}> ${e.name}`;
+                label.innerHTML = `<input type="checkbox" value="${e.username}"> ${e.name}`;
                 container.appendChild(label);
             });
         }
@@ -2676,11 +2797,7 @@
             const t = templates.find(tm => tm.id === id);
             if (!t) return;
             const newName = prompt('Novi naziv:', t.name);
-            if (newName && newName.trim()) {
-                t.name = newName.trim();
-                saveData();
-                renderTemplates();
-            }
+            if (newName && newName.trim()) { t.name = newName.trim(); saveData(); renderTemplates(); }
         }
 
         function deleteTemplate(id) {
@@ -2740,15 +2857,15 @@
             container.innerHTML = '';
             Object.entries(categories).forEach(([name, cat]) => {
                 const div = document.createElement('div');
-                div.style.cssText = 'display:flex;gap:4px;align-items:center;margin:3px 0;flex-wrap:wrap;background:#f8f9fa;padding:4px;border-radius:4px;';
+                div.className = 'category-row';
                 div.innerHTML = `
-                    <span style="min-width:80px;font-weight:bold;font-size:10px;">${name}</span>
-                    <input type="number" value="${cat.hours}" style="width:40px;font-size:9px;padding:2px;" placeholder="Sati">
-                    <input type="number" value="${cat.coeff}" style="width:40px;font-size:9px;padding:2px;" placeholder="Koef." step="0.1">
-                    <input type="color" value="${cat.color}" style="width:30px;height:25px;padding:0;">
-                    <input type="number" value="${cat.rate}" style="width:60px;font-size:9px;padding:2px;" placeholder="Rate" step="10">
-                    <input type="time" value="${cat.start || '07:00'}" style="width:60px;font-size:9px;padding:2px;" placeholder="Od">
-                    <input type="time" value="${cat.end || '15:00'}" style="width:60px;font-size:9px;padding:2px;" placeholder="Do">
+                    <span class="cat-name" title="${name}">${name}</span>
+                    <input type="number" value="${cat.hours}" step="0.5" min="0">
+                    <input type="number" value="${cat.coeff}" step="0.1" min="0">
+                    <input type="number" value="${cat.rate}" step="10" min="0">
+                    <input type="color" value="${cat.color}">
+                    <input type="time" value="${cat.start || '07:00'}">
+                    <input type="time" value="${cat.end || '15:00'}">
                     <button class="btn btn-small btn-red" onclick="removeCategory('${name}')" style="padding:2px 6px;">🗑️</button>
                 `;
                 container.appendChild(div);
@@ -2777,15 +2894,15 @@
         }
 
         function saveCategories() {
-            const items = document.querySelectorAll('#categoriesList > div');
+            const items = document.querySelectorAll('#categoriesList .category-row');
             items.forEach(div => {
                 const inputs = div.querySelectorAll('input');
-                const name = div.querySelector('span').textContent;
+                const name = div.querySelector('.cat-name').textContent;
                 if (categories[name]) {
                     categories[name].hours = parseFloat(inputs[0].value) || 8;
                     categories[name].coeff = parseFloat(inputs[1].value) || 1.0;
-                    categories[name].color = inputs[2].value;
-                    categories[name].rate = parseFloat(inputs[3].value) || 500;
+                    categories[name].rate = parseFloat(inputs[2].value) || 500;
+                    categories[name].color = inputs[3].value;
                     categories[name].start = inputs[4].value || '07:00';
                     categories[name].end = inputs[5].value || '15:00';
                 }
@@ -2806,10 +2923,7 @@
             customFilters.forEach(f => {
                 const div = document.createElement('div');
                 div.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #eee;';
-                div.innerHTML = `
-                    <span style="font-size:10px;">${f}</span>
-                    <button class="btn btn-small btn-red" onclick="removeFilter('${f}')" style="padding:2px 8px;">🗑️</button>
-                `;
+                div.innerHTML = `<span style="font-size:10px;">${f}</span><button class="btn btn-small btn-red" onclick="removeFilter('${f}')" style="padding:2px 8px;">🗑️</button>`;
                 container.appendChild(div);
             });
         }
@@ -2863,10 +2977,8 @@
                 container.appendChild(label);
             });
 
-            // Prikaži istoriju
             const history = notificationHistory.slice(0, 20);
-            document.getElementById('notifHistory').textContent = history.length === 0 ? 'Nema istorije.' :
-                history.map(h => '[' + h.date + '] ' + h.message).join('\n');
+            document.getElementById('notifHistory').textContent = history.length === 0 ? 'Nema istorije.' : history.map(h => '[' + h.date + '] ' + h.message).join('\n');
 
             toggleNotifOptions();
         }
@@ -2878,10 +2990,7 @@
             const filter = document.getElementById('notifShiftFilter').value;
 
             const now = new Date().toLocaleString();
-            notificationHistory.unshift({
-                date: now, message: 'Podešavanja sačuvana: ' + (enabled ? 'UKLJUČENO' : 'ISKLJUČENO') +
-                    ', ' + minutes + 'min, zvuk: ' + sound
-            });
+            notificationHistory.unshift({ date: now, message: 'Podešavanja sačuvana: ' + (enabled ? 'UKLJUČENO' : 'ISKLJUČENO') + ', ' + minutes + 'min, zvuk: ' + sound });
 
             if (notificationHistory.length > 50) notificationHistory = notificationHistory.slice(0, 50);
 
@@ -2894,9 +3003,7 @@
                     showToast('🔔 Test notifikacija!');
                     if (sound !== 'silent') {
                         try {
-                            const audio = new Audio(
-                                'data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACAgICAf39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/fw=='
-                            );
+                            const audio = new Audio('data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACAgICAf39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/fw==');
                             audio.play();
                         } catch (e) { }
                     }
@@ -2920,11 +3027,8 @@
             const confirm = document.getElementById('confirmPass').value;
             if (!newP || newP.length < 3) { showToast('⚠️ Lozinka mora imati bar 3 karaktera!'); return; }
             if (newP !== confirm) { showToast('⚠️ Lozinke se ne poklapaju!'); return; }
-            const e = employees.find(emp => emp.name === currentUser);
-            if (e) {
-                e.password = newP;
-                saveData();
-            }
+            const e = employees.find(emp => emp.username === currentUser);
+            if (e) { e.password = newP; saveData(); }
             showToast('✅ Lozinka promenjena!');
             document.getElementById('newPass').value = '';
             document.getElementById('confirmPass').value = '';
@@ -2932,9 +3036,7 @@
 
         function saveDefaultRate() {
             const rate = parseFloat(document.getElementById('defaultRate').value) || 500;
-            Object.keys(categories).forEach(key => {
-                categories[key].rate = rate;
-            });
+            Object.keys(categories).forEach(key => { categories[key].rate = rate; });
             saveData();
             showToast('✅ Default satnica sačuvana!');
         }
@@ -2942,9 +3044,7 @@
         function resetAllData() {
             if (!confirm('🗑️ DA LI STE SIGURNI? Ovo će obrisati SVE podatke!')) return;
             if (!confirm('Poslednja potvrda - obrisati sve?')) return;
-
-            localStorage.removeItem('menadzer_smena_odeljenje_v3');
-            // Reload stranice
+            localStorage.removeItem('menadzer_smena_odeljenje_v4');
             location.reload();
         }
 
@@ -2993,9 +3093,7 @@
             const end = cat.end || '15:00';
 
             selected.forEach(cb => {
-                // Proveri da li već postoji
-                const exists = shifts.some(s => s.date === date && s.user === cb.value && s.category === category && !s
-                    .cancelled);
+                const exists = shifts.some(s => s.date === date && s.user === cb.value && s.category === category && !s.cancelled);
                 if (!exists) {
                     shifts.push({
                         id: Date.now() + Math.random() * 1000,
@@ -3017,15 +3115,12 @@
             const dayShifts = getShiftsForDate(selectedDate);
             if (dayShifts.length === 0) { showToast('📌 Nema smena!'); return; }
 
-            const msg = dayShifts.map((s, i) => (i + 1) + '. ' + s.category + ' - ' + s.user + ' (' + s.start + '-' + s
-                .end + ')').join('\n');
-            const choice = prompt('Odaberite smenu za brisanje (' + selectedDate + '):\n\n' + msg + '\n\nUnesite broj (1-' +
-                dayShifts.length + ') ili 0:');
+            const msg = dayShifts.map((s, i) => (i + 1) + '. ' + s.category + ' - ' + s.user + ' (' + s.start + '-' + s.end + ')').join('\n');
+            const choice = prompt('Odaberite smenu za brisanje (' + selectedDate + '):\n\n' + msg + '\n\nUnesite broj (1-' + dayShifts.length + ') ili 0:');
             if (choice && parseInt(choice) > 0 && parseInt(choice) <= dayShifts.length) {
                 const idx = parseInt(choice) - 1;
                 const toDelete = dayShifts[idx];
-                shifts = shifts.filter(s => !(s.date === toDelete.date && s.user === toDelete.user && s.category ===
-                    toDelete.category));
+                shifts = shifts.filter(s => !(s.date === toDelete.date && s.user === toDelete.user && s.category === toDelete.category));
                 saveData();
                 renderAll();
                 if (selectedDate) selectDate(selectedDate);
@@ -3043,9 +3138,9 @@
             let list = employees;
             if (filter !== 'all') list = employees.filter(e => e.role === filter);
             list.forEach(e => {
-                if (e.name === 'admin') return;
+                if (e.username === 'admin') return;
                 const label = document.createElement('label');
-                label.innerHTML = `<input type="checkbox" value="${e.name}"> ${e.name}`;
+                label.innerHTML = `<input type="checkbox" value="${e.username}"> ${e.name}`;
                 container.appendChild(label);
             });
         }
@@ -3056,41 +3151,6 @@
 
         function deselectAllAssign() {
             document.querySelectorAll('#assignEmployees input').forEach(cb => cb.checked = false);
-        }
-
-        // ============================================
-        // 🖼️ RENDER ALL
-        // ============================================
-        function renderAll() {
-            renderCalendar();
-            renderLegend();
-            renderEmployees();
-            renderDepartments();
-            renderTemplates();
-            renderScheduleEmployees();
-            populateSearchSelects();
-            populateReplaceSelects();
-            renderApplyTemplates();
-            renderTemplateEmployees();
-            updateStats();
-            renderFilters();
-
-            // Popuni combobox za zaposlene
-            const shiftUser = document.getElementById('shiftUser');
-            shiftUser.innerHTML = employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('');
-
-            // Popuni kategorije
-            const categorySelects = ['shiftCategory', 'assignCategory', 'applyCategory'];
-            categorySelects.forEach(id => {
-                const select = document.getElementById(id);
-                select.innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
-            });
-
-            // Popuni assign employees
-            filterAssignEmployees();
-
-            // Popuni template filter
-            filterTemplateEmployees();
         }
 
         // ============================================
@@ -3113,49 +3173,15 @@
 
 👑 АДМИНИСТРАТОР (admin / admin123):
 
-📅 КАЛЕНДАР
-• Приказује све смене по данима
-• Клик на дан → приказ детаља
-• Дугмад: Додај, Додели, Обриши
-
-👥 ЗАПОСЛЕНИ
-• Додавање појединачно и масовно
-• Измена свих података
-• Брисање запослених
-• Филтрирање по занимању
-
-🏥 ОДЕЉЕЊА
-• Креирање нових одељења
-• Брисање одељења
-
-📋 РАСПОРЕД
-• Масовно креирање смена
-• Избор периода, смене и радника
-• Филтрирање радника
-
-🔄 ЗАМЕНЕ
-• Преглед смена за датум
-• Додавање радника у смену
-• Уклањање радника из смене
-
-📊 СТАТИСТИКА ОДЕЉЕЊА
-• Детаљан преглед за цело одељење
-• По запосленима и категоријама
-• Извоз у TXT, CSV, PDF
-
-📋 ШАБЛОНИ
-• Креирање група за брзо додавање
-• Измена и брисање шаблона
-
-🔔 ОБАВЕШТЕЊА
-• Подешавање подсећања
-• Избор звука
-• Преглед историје
-
-⚙️ ПОДЕШАВАЊА
-• Креирање категорија са временом
-• Креирање филтера
-• Промена лозинке
+📅 КАЛЕНДАР - Приказује све смене по данима. Клик на дан → детаљи.
+👥 ЗАПОСЛЕНИ - Додавање, масовни унос, измена, брисање.
+🏥 ОДЕЉЕЊА - Креирање и брисање одељења.
+📋 РАСПОРЕД - Масовно креирање смена за период.
+🔄 ЗАМЕНЕ - Додавање и уклањање радника из смена.
+📊 СТАТИСТИКА ОДЕЉЕЊА - Детаљан преглед за цело одељење.
+📋 ШАБЛОНИ - Групе за брзо додавање смена.
+🔔 ОБАВЕШТЕЊА - Подсећања, звук, историја.
+⚙️ ПОДЕШАВАЊА - Категорије (са временом), филтери, лозинка.
 
 👤 ЗАПОСЛЕНИ (пријава са својим именом):
 • Преглед сопствених смена
@@ -3168,7 +3194,7 @@
 • Извештаји у TXT, CSV, PDF
 
 💡 САВЕТИ:
-• Користите "Моје смене" за лични преглед
+• "Моје смене" за лични преглед
 • Шаблони штеде време
 • Извештаји се могу делити
             ` : `
@@ -3176,49 +3202,15 @@
 
 👑 ADMINISTRATOR (admin / admin123):
 
-📅 KALENDAR
-• Prikazuje sve smene po danima
-• Klik na dan → prikaz detalja
-• Dugmad: Dodaj, Dodeli, Obriši
-
-👥 ZAPOSLENI
-• Dodavanje pojedinačno i masovno
-• Izmena svih podataka
-• Brisanje zaposlenih
-• Filtriranje po zanimanju
-
-🏥 ODELJENJA
-• Kreiranje novih odeljenja
-• Brisanje odeljenja
-
-📋 RASPORED
-• Masovno kreiranje smena
-• Izbor perioda, smene i radnika
-• Filtriranje radnika
-
-🔄 ZAMENE
-• Pregled smena za datum
-• Dodavanje radnika u smenu
-• Uklanjanje radnika iz smene
-
-📊 STATISTIKA ODELJENJA
-• Detaljan pregled za celo odeljenje
-• Po zaposlenima i kategorijama
-• Izvoz u TXT, CSV, PDF
-
-📋 ŠABLONI
-• Kreiranje grupa za brzo dodavanje
-• Izmena i brisanje šablona
-
-🔔 OBAVEŠTENJA
-• Podešavanje podsećanja
-• Izbor zvuka
-• Pregled istorije
-
-⚙️ PODEŠAVANJA
-• Kreiranje kategorija sa vremenom
-• Kreiranje filtera
-• Promena lozinke
+📅 KALENDAR - Prikazuje sve smene po danima. Klik na dan → detalji.
+👥 ZAPOSLENI - Dodavanje, masovni unos, izmena, brisanje.
+🏥 ODELJENJA - Kreiranje i brisanje odeljenja.
+📋 RASPORED - Masovno kreiranje smena za period.
+🔄 ZAMENE - Dodavanje i uklanjanje radnika iz smena.
+📊 STATISTIKA ODELJENJA - Detaljan pregled za celo odeljenje.
+📋 ŠABLONI - Grupe za brzo dodavanje smena.
+🔔 OBAVEŠTENJA - Podsećanja, zvuk, istorija.
+⚙️ PODEŠAVANJA - Kategorije (sa vremenom), filteri, lozinka.
 
 👤 ZAPOSLENI (prijava sa svojim imenom):
 • Pregled sopstvenih smena
@@ -3231,7 +3223,7 @@
 • Izveštaji u TXT, CSV, PDF
 
 💡 SAVETI:
-• Koristite "Moje smene" za lični pregled
+• "Moje smene" za lični pregled
 • Šabloni štede vreme
 • Izveštaji se mogu deliti
             `;
@@ -3275,21 +3267,10 @@
             if (id === 'categoriesModal') renderCategories();
             if (id === 'filterSettingsModal') renderFilters();
             if (id === 'addTemplateModal') renderTemplateEmployees();
-            if (id === 'applyTemplateModal') {
-                renderApplyTemplates();
-                document.getElementById('applyCategory').innerHTML = Object.keys(categories).map(c =>
-                    `<option value="${c}">${c}</option>`).join('');
-            }
-            if (id === 'assignShiftModal') {
-                filterAssignEmployees();
-                document.getElementById('assignCategory').innerHTML = Object.keys(categories).map(c =>
-                    `<option value="${c}">${c}</option>`).join('');
-            }
-            if (id === 'addShiftModal') {
-                document.getElementById('shiftCategory').innerHTML = Object.keys(categories).map(c =>
-                    `<option value="${c}">${c}</option>`).join('');
-            }
-            if (id === 'notifications') renderNotificationSettings();
+            if (id === 'applyTemplateModal') { renderApplyTemplates(); document.getElementById('applyCategory').innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join(''); }
+            if (id === 'assignShiftModal') { filterAssignEmployees(); document.getElementById('assignCategory').innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join(''); }
+            if (id === 'addShiftModal') { document.getElementById('shiftCategory').innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join(''); document.getElementById('shiftUser').innerHTML = employees.map(e => `<option value="${e.username}">${e.name}</option>`).join(''); }
+            if (id === 'addEmployeeModal') { openAddEmployeeModal(); }
         }
 
         function closeModal(id) {
@@ -3301,13 +3282,43 @@
         };
 
         // ============================================
+        // 🖼️ RENDER ALL
+        // ============================================
+        function renderAll() {
+            renderCalendar();
+            renderLegend();
+            renderEmployees();
+            renderDepartments();
+            renderTemplates();
+            renderScheduleEmployees();
+            populateSearchSelects();
+            populateReplaceSelects();
+            renderApplyTemplates();
+            renderTemplateEmployees();
+            updateStats();
+            renderFilters();
+            populateRoleSelects();
+
+            const shiftUser = document.getElementById('shiftUser');
+            shiftUser.innerHTML = employees.map(e => `<option value="${e.username}">${e.name}</option>`).join('');
+
+            const categorySelects = ['shiftCategory', 'assignCategory', 'applyCategory'];
+            categorySelects.forEach(id => {
+                const select = document.getElementById(id);
+                select.innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
+            });
+
+            filterAssignEmployees();
+            filterTemplateEmployees();
+        }
+
+        // ============================================
         // 🚀 POKRENI
         // ============================================
         renderAll();
 
-        console.log('🚑 Menadžer Smena - Odeljenja v3.0');
+        console.log('🚑 Menadžer Smena - Odeljenja v4.0');
         console.log('👑 Admin: admin / admin123');
-        console.log('📱 Optimizovano za mobilne uređaje');
         console.log('✅ SVE FUNKCIJE SU KOMPLETNE!');
     </script>
 </body>

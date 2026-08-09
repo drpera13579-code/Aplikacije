@@ -1689,7 +1689,7 @@
         let selectedDate = null;
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
-        let language = 'latin';
+        let language = 'cyrillic';
 
         const defaultCategories = {
             'Prva smena': { hours: 8, coeff: 1.0, color: '#4CAF50', rate: 500, start: '07:00', end: '15:00' },
@@ -1817,6 +1817,10 @@
             renderAll();
             showTab('calendar');
             showToast('👋 Dobrodošli, ' + currentUser + (isAdmin ? ' (Admin)' : ''));
+            // Postavi na ćirilicu
+            language = 'cyrillic';
+            translateAll();
+            updateHelp();
         });
 
         // ============================================
@@ -3413,76 +3417,76 @@
         }
 
         function translateAll() {
-            const isCyr = language === 'cyrillic';
+            const isCyr = true; // UVEK ĆIRILICA
 
             const t = {
-                '📅 Kalendar': isCyr ? '📅 Календар' : '📅 Kalendar',
-                '🔍 Pretraga': isCyr ? '🔍 Претрага' : '🔍 Pretraga',
-                '📋 Raspored': isCyr ? '📋 Распоред' : '📋 Raspored',
-                '👥 Zaposleni': isCyr ? '👥 Запослени' : '👥 Zaposleni',
-                '🏥 Odeljenja': isCyr ? '🏥 Одељења' : '🏥 Odeljenja',
-                '🔄 Zamene': isCyr ? '🔄 Замене' : '🔄 Zamene',
-                '📊 Moja statistika': isCyr ? '📊 Моја статистика' : '📊 Moja statistika',
-                '📄 Izveštaji': isCyr ? '📄 Извештаји' : '📄 Izveštaji',
-                '📊 Statistika odeljenja': isCyr ? '📊 Статистика одељења' : '📊 Statistika odeljenja',
-                '📋 Šabloni': isCyr ? '📋 Шаблони' : '📋 Šabloni',
-                '🔔 Obaveštenja': isCyr ? '🔔 Обавештења' : '🔔 Obaveštenja',
-                '⚙️ Podešavanja': isCyr ? '⚙️ Подешавања' : '⚙️ Podešavanja',
-                '❓ Uputstvo': isCyr ? '❓ Упутство' : '❓ Uputstvo',
-                '🌐 Jezik': isCyr ? '🌐 Језик' : '🌐 Jezik',
-                '🚪 Odjava': isCyr ? '🚪 Одјава' : '🚪 Odjava',
-                '👤 Moje smene': isCyr ? '👤 Моје смене' : '👤 Moje smene',
-                '👥 Sve smene': isCyr ? '👥 Све смене' : '👥 Sve smene',
-                '🚑 Hitna pomoć': isCyr ? '🚑 Хитна помоћ' : '🚑 Hitna pomoć',
-                '📄 TXT': isCyr ? '📄 TXT' : '📄 TXT',
-                '📊 CSV': isCyr ? '📊 CSV' : '📊 CSV',
-                '📄 PDF': isCyr ? '📄 PDF' : '📄 PDF',
-                '📄 HTML': isCyr ? '📄 HTML' : '📄 HTML',
-                '📤 Podeli': isCyr ? '📤 Подели' : '📤 Podeli',
-                '📊 Generiši': isCyr ? '📊 Генериши' : '📊 Generiši',
-                '🔍 Pretraži': isCyr ? '🔍 Претражи' : '🔍 Pretraži',
-                '➕ Dodaj': isCyr ? '➕ Додај' : '➕ Dodaj',
-                '🗑️ Obriši': isCyr ? '🗑️ Обриши' : '🗑️ Obriši',
-                '💾 Sačuvaj': isCyr ? '💾 Сачувај' : '💾 Sačuvaj',
-                '❌ Otkaži': isCyr ? '❌ Откажи' : '❌ Otkaži'
+                '📅 Kalendar': '📅 Календар',
+                '🔍 Pretraga': '🔍 Претрага',
+                '📋 Raspored': '📋 Распоред',
+                '👥 Zaposleni': '👥 Запослени',
+                '🏥 Odeljenja': '🏥 Одељења',
+                '🔄 Zamene': '🔄 Замене',
+                '📊 Moja statistika': '📊 Моја статистика',
+                '📄 Izveštaji': '📄 Извештаји',
+                '📊 Statistika odeljenja': '📊 Статистика одељења',
+                '📋 Šabloni': '📋 Шаблони',
+                '🔔 Obaveštenja': '🔔 Обавештења',
+                '⚙️ Podešavanja': '⚙️ Подешавања',
+                '❓ Uputstvo': '❓ Упутство',
+                '🌐 Jezik': '🌐 Језик',
+                '🚪 Odjava': '🚪 Одјава',
+                '👤 Moje smene': '👤 Моје смене',
+                '👥 Sve smene': '👥 Све смене',
+                '🚑 Hitna pomoć': '🚑 Хитна помоћ',
+                '📄 TXT': '📄 TXT',
+                '📊 CSV': '📊 CSV',
+                '📄 PDF': '📄 PDF',
+                '📄 HTML': '📄 HTML',
+                '📤 Podeli': '📤 Подели',
+                '📊 Generiši': '📊 Генериши',
+                '🔍 Pretraži': '🔍 Претражи',
+                '➕ Dodaj': '➕ Додај',
+                '🗑️ Obriši': '🗑️ Обриши',
+                '💾 Sačuvaj': '💾 Сачувај',
+                '❌ Otkaži': '❌ Откажи'
             };
 
+            // PREVOD LEVE STRANE
             document.querySelectorAll('.sidebar-btn').forEach(btn => {
                 let text = btn.textContent.trim();
                 Object.keys(t).forEach(key => {
-                    if (text.includes(key)) text = text.replace(key, t[key]);
+                    if (text.includes(key)) {
+                        text = text.replace(key, t[key]);
+                    }
                 });
                 if (text !== btn.textContent.trim()) btn.textContent = text;
             });
 
+            // PREVOD VIEW MODE DUGMADI
             document.querySelectorAll('.view-btn').forEach(btn => {
                 const text = btn.textContent.trim();
                 if (t[text]) btn.textContent = t[text];
             });
 
+            // PREVOD OSTALIH DUGMADI
             document.querySelectorAll('.btn').forEach(btn => {
                 const text = btn.textContent.trim();
                 if (t[text]) btn.textContent = t[text];
             });
 
+            // PREVOD HEADER-A
             const header = document.getElementById('headerTitle');
             if (header) {
                 const text = header.textContent.trim();
                 if (t[text]) header.textContent = t[text];
             }
 
+            // PREVOD "ODJAVA" I "JEZIK"
             document.querySelectorAll('.sidebar-btn.red').forEach(btn => {
-                const text = btn.textContent.trim();
-                if (text === '🚪 Odjava' || text === '🚪 Одјава') {
-                    btn.textContent = isCyr ? '🚪 Одјава' : '🚪 Odjava';
-                }
+                btn.textContent = '🚪 Одјава';
             });
-
             document.querySelectorAll('.sidebar-btn.orange').forEach(btn => {
-                const text = btn.textContent.trim();
-                if (text === '🌐 Jezik' || text === '🌐 Језик') {
-                    btn.textContent = isCyr ? '🌐 Језик' : '🌐 Jezik';
-                }
+                btn.textContent = '🌐 Језик';
             });
         }
 

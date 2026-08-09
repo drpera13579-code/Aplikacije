@@ -1,0 +1,3100 @@
+<!DOCTYPE html>
+<html lang="sr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🚑 Menadžer Smena - Odeljenje</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LOGIN */
+        #loginScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        #loginScreen .logo {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        #loginScreen h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        #loginScreen .subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        #loginScreen input {
+            width: 90%;
+            max-width: 320px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 8px;
+            background: white;
+        }
+
+        #loginScreen input:focus {
+            outline: 2px solid #FF9800;
+        }
+
+        #loginScreen .login-btn {
+            background: white;
+            color: #1a237e;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #loginScreen .login-btn:hover {
+            transform: scale(1.05);
+        }
+
+        #loginError {
+            color: #ff6b6b;
+            margin-top: 8px;
+            display: none;
+            background: rgba(255, 0, 0, 0.2);
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        #loginScreen .footer-text {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 10px;
+            margin-top: 12px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* HAMBURGER */
+        .hamburger {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: #1a237e;
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .hamburger:hover {
+            background: #0d47a1;
+        }
+
+        .hamburger.active {
+            left: 230px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 230px;
+            background: linear-gradient(180deg, #1a237e, #0d47a1);
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 10px 0;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 999;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.closed {
+            transform: translateX(-230px);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px 0 5px;
+        }
+
+        .sidebar-user {
+            text-align: center;
+            font-size: 12px;
+            color: #64b5f6;
+            padding: 2px 0;
+        }
+
+        .sidebar-dept {
+            text-align: center;
+            font-size: 11px;
+            color: #90caf9;
+            padding: 2px 0 10px;
+        }
+
+        .sidebar-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 6px 15px;
+        }
+
+        .sidebar-btn {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 8px 16px;
+            text-align: left;
+            font-size: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            border-radius: 6px;
+            margin: 1px 0;
+        }
+
+        .sidebar-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-btn.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: bold;
+        }
+
+        .sidebar-btn.green {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .sidebar-btn.green:hover {
+            background: #388E3C;
+        }
+
+        .sidebar-btn.orange {
+            background: #FF9800;
+            color: white;
+        }
+
+        .sidebar-btn.orange:hover {
+            background: #E65100;
+        }
+
+        .sidebar-btn.red {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .sidebar-btn.red:hover {
+            background: #b71c1c;
+        }
+
+        .sidebar-btn.purple {
+            background: #9C27B0;
+            color: white;
+        }
+
+        .sidebar-btn.purple:hover {
+            background: #7B1FA2;
+        }
+
+        .sidebar-close {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 22px;
+            padding: 5px 15px;
+            text-align: right;
+            cursor: pointer;
+        }
+
+        /* MAIN */
+        .main-content {
+            flex: 1;
+            margin-left: 230px;
+            padding: 10px;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: margin-left 0.3s ease;
+            padding-top: 10px;
+            display: none;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 16px;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+
+        /* KARTICE */
+        .card {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            margin-bottom: 8px;
+        }
+
+        .card h2 {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* VIEW MODE */
+        .view-mode {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .view-btn {
+            padding: 5px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .view-btn.active {
+            background: #1a237e;
+            color: white;
+            font-weight: bold;
+        }
+
+        .view-btn.inactive {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        /* DUGMAD */
+        .btn {
+            background: #1a237e;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            width: 100%;
+            touch-action: manipulation;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-blue {
+            background: #2196F3;
+        }
+
+        .btn-blue:hover {
+            background: #1976D2;
+        }
+
+        .btn-green {
+            background: #4CAF50;
+        }
+
+        .btn-green:hover {
+            background: #388E3C;
+        }
+
+        .btn-red {
+            background: #f44336;
+        }
+
+        .btn-red:hover {
+            background: #d32f2f;
+        }
+
+        .btn-orange {
+            background: #FF9800;
+        }
+
+        .btn-orange:hover {
+            background: #E65100;
+        }
+
+        .btn-purple {
+            background: #9C27B0;
+        }
+
+        .btn-purple:hover {
+            background: #7B1FA2;
+        }
+
+        .btn-gray {
+            background: #9E9E9E;
+        }
+
+        .btn-gray:hover {
+            background: #757575;
+        }
+
+        .btn-small {
+            padding: 3px 8px;
+            font-size: 9px;
+            width: auto;
+            display: inline-block;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 4px 0;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+            min-width: 60px;
+        }
+
+        .row {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .row>* {
+            flex: 1;
+            min-width: 60px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 5px 7px;
+            border-radius: 5px;
+            border: 2px solid #e0e0e0;
+            font-size: 11px;
+            margin-bottom: 4px;
+            outline: none;
+            font-family: inherit;
+            -webkit-appearance: none;
+            appearance: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #1a237e;
+        }
+
+        label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #555;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 3px 0;
+        }
+
+        .form-row label {
+            font-weight: bold;
+            font-size: 10px;
+            min-width: 60px;
+            margin: 0;
+        }
+
+        .form-row input,
+        .form-row select {
+            flex: 1;
+            min-width: 60px;
+            margin: 0;
+        }
+
+        .details {
+            background: #f8f9fa;
+            padding: 6px 8px;
+            border-radius: 6px;
+            margin-top: 6px;
+            border: 1px solid #ddd;
+            font-size: 11px;
+            white-space: pre-wrap;
+            max-height: 100px;
+            overflow: auto;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 6px 0;
+            border-top: 1px solid #e8e8e8;
+            margin-top: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 8px;
+            color: #666;
+        }
+
+        .legend-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* KALENDAR */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .calendar-grid .day-label {
+            text-align: center;
+            font-weight: bold;
+            font-size: 7px;
+            color: #999;
+            padding: 3px 0;
+        }
+
+        .calendar-grid .day-cell {
+            padding: 5px 1px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 9px;
+            font-weight: 500;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: transform 0.1s;
+        }
+
+        .calendar-grid .day-cell:active {
+            transform: scale(0.93);
+        }
+
+        .calendar-grid .day-empty {
+            visibility: hidden;
+            min-height: 20px;
+        }
+
+        .calendar-grid .day-today {
+            border: 2px solid #FF5722;
+        }
+
+        .calendar-grid .day-selected {
+            border: 3px solid #1a237e;
+        }
+
+        .calendar-grid .day-cell .shift-count {
+            position: absolute;
+            top: 0px;
+            right: 1px;
+            font-size: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            padding: 0 2px;
+            color: white;
+        }
+
+        .month-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .month-nav button {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0 8px;
+            color: #1a237e;
+            touch-action: manipulation;
+        }
+
+        .month-nav .month-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* TABELA */
+        .table-wrap {
+            overflow: auto;
+            flex: 1;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        table th {
+            background: #1a237e;
+            color: white;
+            padding: 4px 6px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+            font-size: 9px;
+        }
+
+        table td {
+            padding: 4px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+            font-size: 10px;
+        }
+
+        table .actions {
+            display: flex;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
+
+        /* CHECKBOX GRUPA */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            max-height: 100px;
+            overflow-y: auto;
+            padding: 4px;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        .checkbox-group label {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-weight: normal;
+            font-size: 9px;
+            padding: 2px 5px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e8e8e8;
+            cursor: pointer;
+            margin: 0;
+            touch-action: manipulation;
+        }
+
+        .checkbox-group label:active {
+            background: #e3f2fd;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 13px;
+            height: 13px;
+            margin: 0;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            font-size: 15px;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        .modal-content label {
+            font-size: 10px;
+            margin: 4px 0 2px;
+        }
+
+        .modal-content input,
+        .modal-content select {
+            font-size: 11px;
+            padding: 5px 7px;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .modal-btns .btn {
+            flex: 1;
+            min-width: 70px;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 10px;
+            z-index: 3000;
+            display: none;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .sidebar {
+                width: 230px;
+                padding-top: 45px;
+            }
+
+            .sidebar.closed {
+                transform: translateX(-230px);
+            }
+
+            .sidebar-close {
+                display: block;
+                position: absolute;
+                top: 5px;
+                right: 10px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 8px;
+                padding-top: 45px;
+            }
+
+            .calendar-grid .day-cell {
+                min-height: 28px;
+                font-size: 8px;
+                padding: 3px 1px;
+            }
+
+            .row {
+                flex-direction: column;
+            }
+
+            .row>* {
+                min-width: 100%;
+            }
+
+            .form-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-row label {
+                min-width: 100%;
+            }
+
+            .modal-content {
+                padding: 12px;
+                margin: 5px;
+            }
+
+            .header h1 {
+                font-size: 14px;
+            }
+
+            .btn-group .btn {
+                min-width: 50px;
+                font-size: 10px;
+                padding: 5px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-grid .day-cell {
+                min-height: 22px;
+                font-size: 7px;
+                padding: 2px 1px;
+            }
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .sidebar.closed {
+                transform: translateX(-200px);
+            }
+
+            .hamburger.active {
+                left: 200px;
+            }
+
+            .main-content {
+                padding: 5px;
+                padding-top: 40px;
+            }
+
+            .card {
+                padding: 8px;
+            }
+
+            .card h2 {
+                font-size: 12px;
+            }
+
+            .view-btn {
+                font-size: 10px;
+                padding: 4px 8px;
+                min-width: 60px;
+            }
+
+            .modal-content {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 13px;
+            }
+
+            table td,
+            table th {
+                font-size: 8px;
+                padding: 3px 4px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1a237e;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0d47a1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOGIN -->
+    <div id="loginScreen">
+        <div class="logo">🚑</div>
+        <h1>Menadžer Smena</h1>
+        <p class="subtitle">Upravljanje smenama po odeljenjima</p>
+        <input type="text" id="loginUsername" placeholder="Korisničko ime" autocomplete="off">
+        <input type="password" id="loginPassword" placeholder="Lozinka" autocomplete="off">
+        <button class="login-btn" onclick="loginUser()">🔓 Prijavi se</button>
+        <div id="loginError">❌ Pogrešno korisničko ime ili lozinka!</div>
+        <div class="footer-text">👑 <strong>Admin:</strong> admin / admin123<br>📌 Zaposleni se prijavljuju sa svojim
+            imenom i lozinkom</div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast"></div>
+
+    <!-- HAMBURGER -->
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar closed" id="sidebar">
+        <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+        <div class="sidebar-title">🚑 Menadžer</div>
+        <div class="sidebar-dept" id="deptDisplay">🏥 Hitna pomoć</div>
+        <div class="sidebar-user" id="userDisplay">👤 admin</div>
+        <div class="sidebar-divider"></div>
+
+        <button class="sidebar-btn active" onclick="showTab('calendar')" data-tab="calendar">📅 Kalendar</button>
+        <button class="sidebar-btn" onclick="showTab('search')" data-tab="search">🔍 Pretraga</button>
+        <button class="sidebar-btn" onclick="showTab('schedule')" data-tab="schedule">📋 Raspored</button>
+        <button class="sidebar-btn" onclick="showTab('employees')" data-tab="employees">👥 Zaposleni</button>
+        <button class="sidebar-btn" onclick="showTab('departments')" data-tab="departments">🏥 Odeljenja</button>
+        <button class="sidebar-btn" onclick="showTab('replacements')" data-tab="replacements">🔄 Zamene</button>
+        <button class="sidebar-btn" onclick="showTab('stats')" data-tab="stats">📊 Statistika</button>
+        <button class="sidebar-btn" onclick="showTab('report')" data-tab="report">📄 Izveštaji</button>
+        <button class="sidebar-btn" onclick="showTab('notifications')" data-tab="notifications">🔔 Obaveštenja</button>
+        <button class="sidebar-btn" onclick="showTab('settings')" data-tab="settings">⚙️ Podešavanja</button>
+        <button class="sidebar-btn" onclick="showTab('deptstats')" data-tab="deptstats">📊 Statistika odeljenja</button>
+        <button class="sidebar-btn" onclick="showTab('templates')" data-tab="templates">📋 Šabloni</button>
+        <button class="sidebar-btn" onclick="showTab('help')" data-tab="help">❓ Uputstvo</button>
+
+        <div class="sidebar-divider"></div>
+        <button class="sidebar-btn orange" onclick="changeLanguage()">🌐 Jezik</button>
+        <button class="sidebar-btn red" onclick="logout()">🚪 Odjava</button>
+        <div style="flex:1;"></div>
+        <div
+            style="padding:8px; text-align:center; font-size:8px; color:rgba(255,255,255,0.3); border-top:1px solid rgba(255,255,255,0.05);">
+            v2.0</div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content" id="mainContent">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1 id="headerTitle">🚑 Hitna pomoć</h1>
+            <p id="todayDate"></p>
+            <p id="userDisplay2" style="font-size:9px; opacity:0.7;"></p>
+        </div>
+
+        <!-- VIEW MODE -->
+        <div class="view-mode">
+            <button class="view-btn active" onclick="setViewMode('mine')">👤 Samo moje</button>
+            <button class="view-btn inactive" onclick="setViewMode('all')">👥 Sve smene</button>
+        </div>
+
+        <!-- ==================== KALENDAR ==================== -->
+        <div class="tab-pane active" id="tabCalendar">
+            <div class="card">
+                <h2>📅 Kalendar</h2>
+                <div class="month-nav">
+                    <button onclick="changeMonth(-1)">◀</button>
+                    <span class="month-label" id="monthLabel">Januar 2026</span>
+                    <button onclick="changeMonth(1)">▶</button>
+                    <button class="btn btn-small btn-blue" onclick="goToday()" style="width:auto;padding:2px 10px;">📆
+                        Danas</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+                <div class="details" id="detailsDisplay">📌 Odaberite datum za prikaz smena</div>
+                <div class="btn-group">
+                    <button class="btn btn-blue" onclick="openModal('addShiftModal')">➕ Dodaj</button>
+                    <button class="btn btn-green" onclick="openModal('assignShiftModal')">👥 Dodeli</button>
+                    <button class="btn btn-red" onclick="deleteShift()">🗑️ Obriši</button>
+                </div>
+                <div class="legend" id="legendContainer"></div>
+            </div>
+            <div class="card">
+                <h2>📊 Brzi pregled</h2>
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:5px;">
+                    <div style="background:#f8f9fa; padding:6px; border-radius:5px; text-align:center;">
+                        <div id="statShifts" style="font-size:16px; font-weight:bold; color:#1a237e;">0</div>
+                        <div style="font-size:7px; color:#999;">Smena</div>
+                    </div>
+                    <div style="background:#f8f9fa; padding:6px; border-radius:5px; text-align:center;">
+                        <div id="statHours" style="font-size:16px; font-weight:bold; color:#1a237e;">0</div>
+                        <div style="font-size:7px; color:#999;">Sati</div>
+                    </div>
+                    <div style="background:#f8f9fa; padding:6px; border-radius:5px; text-align:center;">
+                        <div id="statPay" style="font-size:16px; font-weight:bold; color:#1a237e;">0</div>
+                        <div style="font-size:7px; color:#999;">Zarada</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PRETRAGA ==================== -->
+        <div class="tab-pane" id="tabSearch" style="display:none;">
+            <div class="card">
+                <h2>🔍 Pretraga</h2>
+                <div class="form-row"><label>Datum:</label><input type="date" id="searchDate"></div>
+                <div class="form-row"><label>Kategorija:</label><select id="searchCategory"></select></div>
+                <div class="form-row"><label>Zaposleni:</label><select id="searchEmployee"></select></div>
+                <button class="btn btn-blue" onclick="doSearch()">🔍 Pretraži</button>
+                <pre id="searchResult"
+                    style="background:#f5f5f5;padding:8px;border-radius:4px;margin-top:6px;font-family:monospace;font-size:10px;flex:1;overflow:auto;"></pre>
+            </div>
+        </div>
+
+        <!-- ==================== RASPORED ==================== -->
+        <div class="tab-pane" id="tabSchedule" style="display:none;">
+            <div class="card">
+                <h2>📋 Napravi raspored</h2>
+                <div style="font-size:9px; color:#666; margin-bottom:4px;">Odaberite period, smenu i radnike</div>
+                <div class="form-row"><label>Mesec:</label>
+                    <select id="scheduleMonth">
+                        <option value="0">Januar</option>
+                        <option value="1">Februar</option>
+                        <option value="2">Mart</option>
+                        <option value="3">April</option>
+                        <option value="4">Maj</option>
+                        <option value="5">Jun</option>
+                        <option value="6">Jul</option>
+                        <option value="7">Avgust</option>
+                        <option value="8">Septembar</option>
+                        <option value="9">Oktobar</option>
+                        <option value="10">Novembar</option>
+                        <option value="11">Decembar</option>
+                    </select>
+                </div>
+                <div class="form-row"><label>Godina:</label>
+                    <select id="scheduleYear"></select>
+                </div>
+                <div class="form-row"><label>Od dana:</label><input type="number" id="scheduleDayStart" placeholder="1"
+                        min="1" max="31" value="1"></div>
+                <div class="form-row"><label>Do dana:</label><input type="number" id="scheduleDayEnd" placeholder="31"
+                        min="1" max="31" value="31"></div>
+                <div class="form-row"><label>Smena:</label><select id="scheduleType"></select></div>
+                <div class="form-row"><label>Sati:</label><input type="number" id="scheduleHours" value="8" step="0.5">
+                </div>
+                <div class="form-row"><label>🔍 Filter zaposlenih:</label>
+                    <select id="scheduleFilter" onchange="filterScheduleEmployees()">
+                        <option value="all">Svi</option>
+                    </select>
+                </div>
+                <label>👥 Radnici:</label>
+                <div id="scheduleEmployeeList" class="checkbox-group"></div>
+                <div class="btn-group">
+                    <button class="btn btn-small btn-blue" onclick="selectAllSchedule()">✅ Sve</button>
+                    <button class="btn btn-small btn-gray" onclick="deselectAllSchedule()">⬜ Nijedna</button>
+                </div>
+                <button class="btn btn-green" onclick="makeSchedule()" style="margin-top:4px;">📋 Napravi
+                    raspored</button>
+            </div>
+        </div>
+
+        <!-- ==================== ZAPOSLENI ==================== -->
+        <div class="tab-pane" id="tabEmployees" style="display:none;">
+            <div class="card">
+                <h2>👥 Zaposleni</h2>
+                <div class="btn-group">
+                    <button class="btn btn-green" onclick="openModal('addEmployeeModal')">➕ Dodaj</button>
+                    <button class="btn btn-red" onclick="deleteEmployee()">🗑️ Obriši</button>
+                </div>
+                <div class="form-row"><label>🔍 Filter:</label><select id="empFilter"
+                        onchange="renderEmployees()"></select></div>
+                <div class="table-wrap" style="max-height:300px; overflow:auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Ime</th>
+                                <th>Zanimanje</th>
+                                <th>Satnica</th>
+                                <th>Telefon</th>
+                                <th>Akcije</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ODELJENJA ==================== -->
+        <div class="tab-pane" id="tabDepartments" style="display:none;">
+            <div class="card">
+                <h2>🏥 Odeljenja</h2>
+                <div class="form-row"><label>Naziv:</label><input type="text" id="newDeptName"
+                        placeholder="Naziv odeljenja"></div>
+                <div class="form-row"><label>Lozinka:</label><input type="password" id="newDeptPass"
+                        placeholder="Lozinka"></div>
+                <button class="btn btn-green" onclick="addDepartment()">➕ Dodaj</button>
+                <div class="table-wrap" style="margin-top:6px; max-height:200px; overflow:auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Naziv</th>
+                                <th>Admin</th>
+                                <th>Akcije</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deptBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ZAMENE ==================== -->
+        <div class="tab-pane" id="tabReplacements" style="display:none;">
+            <div class="card">
+                <h2>🔄 Zamene</h2>
+                <div class="form-row"><label>Datum:</label><input type="date" id="replaceDate"></div>
+                <div class="form-row"><label>Smena:</label><select id="replaceShiftType"></select></div>
+                <div class="form-row"><label>🔍 Filter zaposlenih:</label>
+                    <select id="replaceFilter" onchange="filterReplaceEmployees()">
+                        <option value="all">Svi</option>
+                    </select>
+                </div>
+                <button class="btn btn-blue" onclick="showReplacements()">🔍 Prikaži</button>
+                <div
+                    style="display:flex; flex-direction:column; gap:8px; margin-top:6px; max-height:300px; overflow:auto;">
+                    <div style="flex:1; background:#f5f5f5; padding:8px; border-radius:4px;">
+                        <h4 style="font-size:10px;">📋 Trenutne smene</h4>
+                        <pre id="currentShifts" style="font-family:monospace; font-size:10px;"></pre>
+                    </div>
+                    <div style="flex:1; background:#f5f5f5; padding:8px; border-radius:4px;">
+                        <h4 style="font-size:10px;">🟢 Slobodni</h4>
+                        <div id="freeWorkers" style="font-size:10px;"></div>
+                    </div>
+                    <div style="flex:1; background:#f5f5f5; padding:8px; border-radius:4px;">
+                        <h4 style="font-size:10px;">✏️ Dodaj u smenu</h4>
+                        <div id="addToShiftWorkers" style="font-size:10px;"></div>
+                        <button class="btn btn-green btn-small" onclick="addToShift()" style="margin-top:4px;">➕ Dodaj
+                            izabrane</button>
+                        <button class="btn btn-red btn-small" onclick="removeFromShift()" style="margin-top:4px;">🗑️
+                            Ukloni iz smene</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== STATISTIKA ==================== -->
+        <div class="tab-pane" id="tabStats" style="display:none;">
+            <div class="card">
+                <h2>📊 Moja statistika</h2>
+                <div class="form-row"><label>Od:</label><input type="date" id="statsStart"></div>
+                <div class="form-row"><label>Do:</label><input type="date" id="statsEnd"></div>
+                <button class="btn btn-blue" onclick="showStats()">📊 Prikaži</button>
+                <pre id="statsResult"
+                    style="background:#f5f5f5;padding:8px;border-radius:4px;margin-top:6px;font-family:monospace;font-size:10px;flex:1;overflow:auto;"></pre>
+                <div class="btn-group" style="margin-top:4px;">
+                    <button class="btn btn-small btn-green" onclick="exportStats('txt')">📄 TXT</button>
+                    <button class="btn btn-small btn-green" onclick="exportStats('csv')">📊 CSV</button>
+                    <button class="btn btn-small btn-purple" onclick="shareStats()">📤 Podeli</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== IZVEŠTAJI ==================== -->
+        <div class="tab-pane" id="tabReport" style="display:none;">
+            <div class="card">
+                <h2>📄 Izveštaji</h2>
+                <div class="form-row"><label>Tip:</label>
+                    <select id="reportType">
+                        <option value="personal">Lični izveštaj</option>
+                        <option value="department">Izveštaj odeljenja</option>
+                        <option value="all">Kompletan izveštaj</option>
+                    </select>
+                </div>
+                <div class="form-row"><label>Odeljenje:</label><select id="reportDept"></select></div>
+                <div class="form-row"><label>Zaposleni:</label><select id="reportEmployee"></select></div>
+                <div class="form-row"><label>Od:</label><input type="date" id="reportStart"></div>
+                <div class="form-row"><label>Do:</label><input type="date" id="reportEnd"></div>
+                <div class="btn-group">
+                    <button class="btn btn-blue" onclick="generateReport()">📄 Generiši</button>
+                    <button class="btn btn-small btn-green" onclick="exportReport('txt')">📄 TXT</button>
+                    <button class="btn btn-small btn-green" onclick="exportReport('csv')">📊 CSV</button>
+                    <button class="btn btn-small btn-green" onclick="exportReport('pdf')">📄 PDF</button>
+                    <button class="btn btn-small btn-purple" onclick="shareReport()">📤 Podeli</button>
+                </div>
+                <pre id="reportResult"
+                    style="background:#f5f5f5;padding:8px;border-radius:4px;margin-top:6px;font-family:monospace;font-size:10px;flex:1;overflow:auto;display:none;"></pre>
+            </div>
+        </div>
+
+        <!-- ==================== OBAVEŠTENJA ==================== -->
+        <div class="tab-pane" id="tabNotifications" style="display:none;">
+            <div class="card">
+                <h2>🔔 Obaveštenja</h2>
+                <div class="form-row"><label>Omogući:</label>
+                    <input type="checkbox" id="notifEnabled" checked style="width:20px;height:20px;margin:0;">
+                </div>
+                <div class="form-row"><label>Podsetnik (min):</label><input type="number" id="reminderMinutes"
+                        value="30" style="width:70px;"></div>
+                <div class="form-row"><label>Zvuk:</label>
+                    <select id="notifSound">
+                        <option value="default">Default</option>
+                        <option value="melody">Melody</option>
+                        <option value="vibrate">Vibrate</option>
+                        <option value="silent">Silent</option>
+                    </select>
+                </div>
+                <div class="form-row"><label>Podseti za smene:</label>
+                    <select id="notifShiftFilter">
+                        <option value="all">Sve smene</option>
+                        <option value="selected">Odabrane smene</option>
+                        <option value="specific">Specifičan datum</option>
+                    </select>
+                </div>
+                <div class="form-row" id="notifShiftSelect" style="display:none;">
+                    <label>Odaberi smene:</label>
+                    <div id="notifShiftCheckboxes" class="checkbox-group"></div>
+                </div>
+                <div class="form-row" id="notifDateSelect" style="display:none;">
+                    <label>Datum:</label><input type="date" id="notifSpecificDate">
+                </div>
+                <button class="btn btn-blue" onclick="saveNotificationSettings()">💾 Sačuvaj</button>
+                <div style="margin-top:6px;">
+                    <h4 style="font-size:10px;">📋 Istorija</h4>
+                    <pre id="notifHistory"
+                        style="background:#f5f5f5;padding:6px;border-radius:4px;font-family:monospace;font-size:9px;max-height:100px;overflow:auto;"></pre>
+                    <button class="btn btn-small btn-red" onclick="clearNotificationHistory()"
+                        style="margin-top:4px;">🗑️ Obriši istoriju</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PODEŠAVANJA ==================== -->
+        <div class="tab-pane" id="tabSettings" style="display:none;">
+            <div class="card">
+                <h2>⚙️ Podešavanja</h2>
+                <button class="btn btn-orange" onclick="openModal('categoriesModal')">📊 Kategorije</button>
+                <div style="margin-top:8px;">
+                    <h4 style="font-size:10px;">🔑 Promena lozinke</h4>
+                    <div class="form-row"><label>Nova:</label><input type="password" id="newPass" style="width:120px;">
+                    </div>
+                    <div class="form-row"><label>Potvrdi:</label><input type="password" id="confirmPass"
+                            style="width:120px;"></div>
+                    <button class="btn btn-orange" onclick="changePassword()">🔑 Promeni</button>
+                </div>
+                <div style="margin-top:8px;">
+                    <h4 style="font-size:10px;">💰 Default satnica</h4>
+                    <div class="form-row"><label>Satnica:</label><input type="number" id="defaultRate" value="500"
+                            step="10"></div>
+                    <button class="btn btn-blue" onclick="saveDefaultRate()">💾 Sačuvaj</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== STATISTIKA ODELJENJA ==================== -->
+        <div class="tab-pane" id="tabDeptStats" style="display:none;">
+            <div class="card">
+                <h2>📊 Statistika odeljenja</h2>
+                <div class="form-row"><label>Od:</label><input type="date" id="deptStatsStart"></div>
+                <div class="form-row"><label>Do:</label><input type="date" id="deptStatsEnd"></div>
+                <button class="btn btn-blue" onclick="showDeptStats()">📊 Prikaži</button>
+                <pre id="deptStatsResult"
+                    style="background:#f5f5f5;padding:8px;border-radius:4px;margin-top:6px;font-family:monospace;font-size:10px;flex:1;overflow:auto;"></pre>
+                <div class="btn-group" style="margin-top:4px;">
+                    <button class="btn btn-small btn-green" onclick="exportDeptStats('txt')">📄 TXT</button>
+                    <button class="btn btn-small btn-green" onclick="exportDeptStats('csv')">📊 CSV</button>
+                    <button class="btn btn-small btn-purple" onclick="shareDeptStats()">📤 Podeli</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ŠABLONI ==================== -->
+        <div class="tab-pane" id="tabTemplates" style="display:none;">
+            <div class="card">
+                <h2>📋 Šabloni smena</h2>
+                <div class="btn-group">
+                    <button class="btn btn-green" onclick="openModal('addTemplateModal')">➕ Dodaj šablon</button>
+                    <button class="btn btn-purple" onclick="openModal('applyTemplateModal')">📅 Primeni</button>
+                </div>
+                <div id="templatesContainer"
+                    style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:6px; margin-top:6px; max-height:300px; overflow:auto;">
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== UPUTSTVO ==================== -->
+        <div class="tab-pane" id="tabHelp" style="display:none;">
+            <div class="card">
+                <h2>❓ Uputstvo</h2>
+                <pre id="helpContent"
+                    style="background:#f5f5f5;padding:10px;border-radius:4px;font-family:monospace;font-size:10px;flex:1;overflow:auto;white-space:pre-wrap;max-height:400px;"></pre>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ==================== MODALI ==================== -->
+
+    <!-- Dodaj smenu -->
+    <div class="modal" id="addShiftModal">
+        <div class="modal-content">
+            <h2>➕ Dodaj smenu</h2>
+            <label>Kategorija:</label><select id="shiftCategory"></select>
+            <label>Datum:</label><input type="date" id="shiftDate">
+            <div class="row">
+                <div style="flex:1;"><label>Početak:</label><input type="time" id="shiftStart" value="07:00"></div>
+                <div style="flex:1;"><label>Kraj:</label><input type="time" id="shiftEnd" value="15:00"></div>
+            </div>
+            <div class="row">
+                <div style="flex:1;"><label>Sati:</label><input type="number" id="shiftHours" value="8" step="0.5">
+                </div>
+                <div style="flex:1;"><label>Zaposleni:</label><select id="shiftUser"></select></div>
+            </div>
+            <label>Napomena:</label><input type="text" id="shiftNote" placeholder="Opciono...">
+            <div class="modal-btns">
+                <button class="btn btn-green" onclick="saveShift()">💾 Sačuvaj</button>
+                <button class="btn btn-red" onclick="closeModal('addShiftModal')">❌ Otkaži</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dodeli smenu -->
+    <div class="modal" id="assignShiftModal">
+        <div class="modal-content">
+            <h2>👥 Dodeli smenu</h2>
+            <label>Kategorija:</label><select id="assignCategory"></select>
+            <label>Datum:</label><input type="date" id="assignDate">
+            <label>Sati:</label><input type="number" id="assignHours" value="8" step="0.5">
+            <label>🔍 Filter:</label>
+            <select id="assignFilter" onchange="filterAssignEmployees()">
+                <option value="all">Svi</option>
+            </select>
+            <label>Zaposleni:</label>
+            <div id="assignEmployees" class="checkbox-group"></div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-blue" onclick="selectAllAssign()">✅ Sve</button>
+                <button class="btn btn-small btn-gray" onclick="deselectAllAssign()">⬜ Nijedna</button>
+            </div>
+            <div class="modal-btns">
+                <button class="btn btn-green" onclick="assignShift()">💾 Dodeli</button>
+                <button class="btn btn-red" onclick="closeModal('assignShiftModal')">❌ Otkaži</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dodaj zaposlenog -->
+    <div class="modal" id="addEmployeeModal">
+        <div class="modal-content">
+            <h2>➕ Dodaj zaposlenog</h2>
+            <label>Ime:</label><input type="text" id="empName">
+            <div class="row">
+                <div style="flex:1;"><label>Telefon:</label><input type="text" id="empPhone"></div>
+                <div style="flex:1;"><label>Adresa:</label><input type="text" id="empAddress"></div>
+            </div>
+            <div class="row">
+                <div style="flex:1;"><label>Zanimanje:</label>
+                    <select id="empRole">
+                        <option>Lekar</option>
+                        <option>Medicinska sestra</option>
+                        <option>Viša medicinska sestra</option>
+                        <option>Vozač</option>
+                        <option>Pomoćno osoblje</option>
+                        <option value="custom">✏️ Prilagođeno</option>
+                    </select>
+                </div>
+                <div style="flex:1;" id="customRoleDiv" style="display:none;">
+                    <label>Unesite zanimanje:</label><input type="text" id="customRoleInput">
+                </div>
+                <div style="flex:1;"><label>Satnica:</label><input type="number" id="empRate" value="500" step="10">
+                </div>
+            </div>
+            <label>Lozinka:</label><input type="password" id="empPassword">
+            <label><input type="checkbox" id="empCanEdit"> Pomoćnik admina</label>
+            <div class="modal-btns">
+                <button class="btn btn-green" onclick="addEmployee()">✅ Dodaj</button>
+                <button class="btn btn-red" onclick="closeModal('addEmployeeModal')">❌ Otkaži</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kategorije -->
+    <div class="modal" id="categoriesModal">
+        <div class="modal-content">
+            <h2>📊 Kategorije</h2>
+            <div id="categoriesList"></div>
+            <div class="form-row"><label>Nova:</label><input type="text" id="newCategoryName" placeholder="Naziv"></div>
+            <button class="btn btn-green" onclick="addCategory()">➕ Dodaj</button>
+            <div class="modal-btns">
+                <button class="btn btn-blue" onclick="saveCategories()">💾 Sačuvaj</button>
+                <button class="btn btn-red" onclick="closeModal('categoriesModal')">❌ Zatvori</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dodaj šablon -->
+    <div class="modal" id="addTemplateModal">
+        <div class="modal-content">
+            <h2>➕ Dodaj šablon</h2>
+            <label>Naziv:</label><input type="text" id="templateName" placeholder="Npr. Tim A">
+            <label>Napomena:</label><input type="text" id="templateNote" placeholder="Opciono...">
+            <label>🔍 Filter:</label>
+            <select id="templateFilter" onchange="filterTemplateEmployees()">
+                <option value="all">Svi</option>
+            </select>
+            <label>Zaposleni:</label>
+            <div id="templateEmployees" class="checkbox-group"></div>
+            <div class="btn-group">
+                <button class="btn btn-small btn-blue" onclick="selectAllTemplate()">✅ Sve</button>
+                <button class="btn btn-small btn-gray" onclick="deselectAllTemplate()">⬜ Nijedna</button>
+            </div>
+            <div class="modal-btns">
+                <button class="btn btn-green" onclick="saveTemplate()">💾 Sačuvaj</button>
+                <button class="btn btn-red" onclick="closeModal('addTemplateModal')">❌ Otkaži</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Primeni šablon -->
+    <div class="modal" id="applyTemplateModal">
+        <div class="modal-content">
+            <h2>📅 Primeni šablon</h2>
+            <label>Datum:</label><input type="date" id="applyDate">
+            <label>Kategorija:</label><select id="applyCategory"></select>
+            <label>Šablon:</label><select id="applyTemplate"></select>
+            <div class="modal-btns">
+                <button class="btn btn-green" onclick="applyTemplate()">📋 Primeni</button>
+                <button class="btn btn-red" onclick="closeModal('applyTemplateModal')">❌ Otkaži</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 📦 PODACI (LocalStorage)
+        // ============================================
+        let currentUser = 'admin';
+        let currentDept = 'Hitna pomoć';
+        let isAdmin = true;
+        let viewMode = 'all';
+        let selectedDate = null;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let language = 'latin';
+        let selectedReplacements = [];
+
+        // Default kategorije
+        const defaultCategories = {
+            'Prva smena': { hours: 8, coeff: 1.0, color: '#4CAF50', rate: 500, default_start: '07:00', default_end: '15:00' },
+            'Druga smena': { hours: 8, coeff: 1.1, color: '#2196F3', rate: 500, default_start: '15:00', default_end: '23:00' },
+            'Treća smena': { hours: 8, coeff: 1.3, color: '#FF9800', rate: 500, default_start: '23:00', default_end: '07:00' },
+            'Noćna smena': { hours: 8, coeff: 1.5, color: '#3F51B5', rate: 500, default_start: '00:00', default_end: '08:00' },
+            'Po pozivu': { hours: 4, coeff: 1.8, color: '#9C27B0', rate: 600, default_start: '08:00', default_end: '12:00' },
+            'Pripravnost': { hours: 12, coeff: 1.2, color: '#009688', rate: 400, default_start: '08:00', default_end: '20:00' },
+            'Praznik': { hours: 8, coeff: 2.5, color: '#F44336', rate: 500, default_start: '07:00', default_end: '15:00' },
+            'Put': { hours: 8, coeff: 1.0, color: '#795548', rate: 500, default_start: '07:00', default_end: '15:00' },
+            'Teren': { hours: 8, coeff: 1.0, color: '#607D8B', rate: 500, default_start: '07:00', default_end: '15:00' },
+            'Prekovremeni': { hours: 4, coeff: 1.5, color: '#E91E63', rate: 600, default_start: '07:00', default_end: '11:00' },
+            'Odmor': { hours: 0, coeff: 0, color: '#26A69A', rate: 0, default_start: '00:00', default_end: '00:00' },
+            'Slobodan dan': { hours: 0, coeff: 0, color: '#9E9E9E', rate: 0, default_start: '00:00', default_end: '00:00' }
+        };
+
+        let categories = {};
+        let employees = [];
+        let departments = ['Hitna pomoć', 'Dečije odeljenje', 'Zubar', 'Kućna nega'];
+        let shifts = [];
+        let templates = [];
+        let templateEmployees = {};
+
+        const monthNames = ['Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun', 'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'];
+        const daysOfWeek = ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'];
+
+        // ============================================
+        // 📦 ČUVANJE PODATAKA
+        // ============================================
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('menadzer_smena_odeljenje_v2');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.categories) categories = data.categories;
+                    if (data.employees) employees = data.employees;
+                    if (data.departments) departments = data.departments;
+                    if (data.shifts) shifts = data.shifts;
+                    if (data.templates) templates = data.templates;
+                    if (data.templateEmployees) templateEmployees = data.templateEmployees;
+                    if (data.currentUser) currentUser = data.currentUser;
+                    if (data.currentDept) currentDept = data.currentDept;
+                }
+            } catch (e) { console.error('Load error:', e); }
+
+            // Postavi default kategorije ako nema
+            if (Object.keys(categories).length === 0) {
+                categories = JSON.parse(JSON.stringify(defaultCategories));
+            }
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem('menadzer_smena_odeljenje_v2', JSON.stringify({
+                    categories, employees, departments, shifts, templates, templateEmployees,
+                    currentUser, currentDept
+                }));
+            } catch (e) { console.error('Save error:', e); }
+        }
+
+        // ============================================
+        // 🚀 INICIJALIZACIJA
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function () {
+            loadData();
+
+            // Dodaj default zaposlene ako nema
+            if (employees.length === 0) {
+                employees = [
+                    {
+                        id: 1, name: 'Dr. Dejan Janković', password: 'dejan123', role: 'Lekar', rate: 800, phone: '0641234567',
+                        address: 'Beogradska 1'
+                    },
+                    {
+                        id: 2, name: 'Dr. Milan Petrović', password: 'milan123', role: 'Lekar', rate: 750, phone: '0647654321',
+                        address: 'Nemanjina 5'
+                    },
+                    {
+                        id: 3, name: 'Sestra Jelena Nikolić', password: 'jelena123', role: 'Medicinska sestra', rate: 600,
+                        phone: '0623456789', address: 'Bulevar 15'
+                    },
+                ];
+                saveData();
+            }
+
+            const today = new Date();
+            document.getElementById('todayDate').textContent = today.toLocaleDateString('sr-RS', {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+            document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+            document.getElementById('userDisplay2').textContent = '👤 ' + currentUser;
+            document.getElementById('deptDisplay').textContent = '🏥 ' + currentDept;
+            document.getElementById('headerTitle').textContent = '🚑 ' + currentDept;
+
+            // Default datumi
+            document.getElementById('shiftDate').value = today.toISOString().slice(0, 10);
+            document.getElementById('assignDate').value = today.toISOString().slice(0, 10);
+            document.getElementById('replaceDate').value = today.toISOString().slice(0, 10);
+            document.getElementById('searchDate').value = today.toISOString().slice(0, 10);
+            document.getElementById('applyDate').value = today.toISOString().slice(0, 10);
+            document.getElementById('notifSpecificDate').value = today.toISOString().slice(0, 10);
+
+            const start = new Date(today.getFullYear(), today.getMonth(), 1);
+            document.getElementById('statsStart').value = start.toISOString().slice(0, 10);
+            document.getElementById('statsEnd').value = today.toISOString().slice(0, 10);
+            document.getElementById('reportStart').value = start.toISOString().slice(0, 10);
+            document.getElementById('reportEnd').value = today.toISOString().slice(0, 10);
+            document.getElementById('deptStatsStart').value = start.toISOString().slice(0, 10);
+            document.getElementById('deptStatsEnd').value = today.toISOString().slice(0, 10);
+
+            // Popuni godine za raspored
+            const yearSelect = document.getElementById('scheduleYear');
+            yearSelect.innerHTML = '';
+            for (let y = 2024; y <= 2030; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                if (y === today.getFullYear()) opt.selected = true;
+                yearSelect.appendChild(opt);
+            }
+
+            // Popuni mesece
+            document.getElementById('scheduleMonth').value = today.getMonth();
+
+            renderAll();
+            showTab('calendar');
+            showToast('👋 Dobrodošli, ' + currentUser + (isAdmin ? ' (Admin)' : ''));
+        });
+
+        // ============================================
+        // 🔐 LOGIN
+        // ============================================
+        function loginUser() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (!username || !password) {
+                errorEl.textContent = '⚠️ Unesite korisničko ime i lozinku!';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            if (username === 'admin') {
+                if (password === 'admin123') {
+                    currentUser = 'admin';
+                    isAdmin = true;
+                    currentDept = 'Hitna pomoć';
+                    errorEl.style.display = 'none';
+                    document.getElementById('loginScreen').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+                    document.getElementById('userDisplay2').textContent = '👤 ' + currentUser;
+                    document.getElementById('deptDisplay').textContent = '🏥 ' + currentDept;
+                    document.getElementById('headerTitle').textContent = '🚑 ' + currentDept;
+                    renderAll();
+                    showToast('👋 Dobrodošli, admin (Admin)');
+                    return;
+                } else {
+                    errorEl.textContent = '❌ Pogrešna lozinka za admina!';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+            }
+
+            const emp = employees.find(e => e.name === username);
+            if (!emp) {
+                errorEl.textContent = '❌ Korisnik nije pronađen!';
+                errorEl.style.display = 'block'; return;
+            }
+            if (emp.password !== password) {
+                errorEl.textContent = '❌ Pogrešna lozinka!';
+                errorEl.style.display = 'block'; return;
+            }
+
+            currentUser = username;
+            isAdmin = false;
+            currentDept = 'Hitna pomoć';
+            errorEl.style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+            document.getElementById('userDisplay2').textContent = '👤 ' + currentUser;
+            document.getElementById('deptDisplay').textContent = '🏥 ' + currentDept;
+            document.getElementById('headerTitle').textContent = '🚑 ' + currentDept;
+            renderAll();
+            showToast('👋 Dobrodošli, ' + username);
+        }
+
+        document.getElementById('loginPassword').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') loginUser();
+        });
+
+        // ============================================
+        // 🍔 SIDEBAR
+        // ============================================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.getElementById('hamburgerBtn');
+            sidebar.classList.toggle('closed');
+            hamburger.classList.toggle('active');
+        }
+
+        // ============================================
+        // 📱 TABOVI
+        // ============================================
+        function showTab(tab) {
+            document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+            const pane = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            if (pane) pane.style.display = 'block';
+
+            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.querySelector(`.sidebar-btn[data-tab="${tab}"]`);
+            if (btn) btn.classList.add('active');
+
+            toggleSidebar();
+
+            if (tab === 'calendar') {
+                renderCalendar();
+                renderLegend();
+                updateStats();
+            }
+            if (tab === 'employees') renderEmployees();
+            if (tab === 'departments') renderDepartments();
+            if (tab === 'templates') renderTemplates();
+            if (tab === 'stats') showStats();
+            if (tab === 'report') {
+                generateReport();
+                populateReportSelects();
+            }
+            if (tab === 'deptstats') showDeptStats();
+            if (tab === 'schedule') {
+                renderScheduleEmployees();
+                populateScheduleSelects();
+            }
+            if (tab === 'search') { populateSearchSelects(); }
+            if (tab === 'replacements') { populateReplaceSelects(); }
+            if (tab === 'notifications') { renderNotificationSettings(); }
+            if (tab === 'help') updateHelp();
+        }
+
+        // ============================================
+        // 📅 KALENDAR
+        // ============================================
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            document.getElementById('monthLabel').textContent = monthNames[currentMonth] + ' ' + currentYear;
+            grid.innerHTML = '';
+
+            daysOfWeek.forEach(day => {
+                const div = document.createElement('div');
+                div.className = 'day-label';
+                div.textContent = day;
+                grid.appendChild(div);
+            });
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const today = new Date().toISOString().slice(0, 10);
+            const emptyDays = (firstDay === 0) ? 6 : firstDay - 1;
+
+            for (let i = 0; i < emptyDays; i++) {
+                const div = document.createElement('div');
+                div.className = 'day-cell day-empty';
+                grid.appendChild(div);
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateStr = currentYear + '-' + String(currentMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2,
+                    '0');
+                const div = document.createElement('div');
+                div.className = 'day-cell';
+                if (dateStr === today) div.classList.add('day-today');
+                if (dateStr === selectedDate) div.classList.add('day-selected');
+
+                const dayShifts = getShiftsForDate(dateStr);
+                let bgColor = '#f0f0f0';
+                let textColor = '#333';
+
+                if (dayShifts.length > 0) {
+                    const first = dayShifts[0];
+                    const cat = getCategory(first.category);
+                    bgColor = cat?.color || '#757575';
+                    textColor = 'white';
+                }
+
+                div.style.background = bgColor;
+                div.style.color = textColor;
+                div.textContent = d;
+                if (dayShifts.length > 0) {
+                    const count = document.createElement('span');
+                    count.className = 'shift-count';
+                    count.textContent = dayShifts.length;
+                    div.appendChild(count);
+                }
+                div.onclick = function () { selectDate(dateStr); };
+                grid.appendChild(div);
+            }
+        }
+
+        function getShiftsForDate(dateStr) {
+            if (viewMode === 'mine') {
+                return shifts.filter(s => s.date === dateStr && s.user === currentUser && !s.cancelled);
+            }
+            return shifts.filter(s => s.date === dateStr && !s.cancelled);
+        }
+
+        function getCategory(name) {
+            if (categories[name]) return categories[name];
+            return defaultCategories[name] || {
+                hours: 8, coeff: 1.0, color: '#757575', rate: 500, default_start: '07:00',
+                default_end: '15:00'
+            };
+        }
+
+        function selectDate(dateStr) {
+            selectedDate = dateStr;
+            renderCalendar();
+            const dayShifts = getShiftsForDate(dateStr);
+            const dateObj = new Date(dateStr + 'T00:00:00');
+            const dateDisplay = dateObj.toLocaleDateString('sr-RS', { day: '2-digit', month: 'long', year: 'numeric' });
+
+            if (dayShifts.length === 0) {
+                document.getElementById('detailsDisplay').textContent = '📌 ' + dateDisplay + ': Nema smena za ovaj dan';
+                return;
+            }
+
+            let text = '📌 ' + dateDisplay + '\n';
+            dayShifts.forEach(s => {
+                const cat = getCategory(s.category);
+                const hours = s.hours || cat.hours || 8;
+                const total = Math.round(hours * s.rate * cat.coeff);
+                const timeStr = s.start && s.end ? ` (${s.start}-${s.end})` : '';
+                text += `   🔹 ${s.category}${timeStr}: ${hours}h × ${s.rate}RSD × ${cat.coeff}x = ${total}RSD\n`;
+                text += `      👤 ${s.user}\n`;
+                if (s.note) text += `      📝 ${s.note}\n`;
+            });
+            document.getElementById('detailsDisplay').textContent = text;
+            document.getElementById('shiftDate').value = dateStr;
+            document.getElementById('assignDate').value = dateStr;
+        }
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+
+        function goToday() {
+            const today = new Date();
+            currentMonth = today.getMonth();
+            currentYear = today.getFullYear();
+            renderCalendar();
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            document.querySelectorAll('.view-btn').forEach(b => {
+                b.className = 'view-btn';
+                if (b.textContent.includes('Samo') && mode === 'mine') b.classList.add('active');
+                else if (b.textContent.includes('Sve') && mode === 'all') b.classList.add('active');
+                else b.classList.add('inactive');
+            });
+            renderCalendar();
+            if (selectedDate) selectDate(selectedDate);
+        }
+
+        // ============================================
+        // 🎨 LEGENDA
+        // ============================================
+        function renderLegend() {
+            const container = document.getElementById('legendContainer');
+            container.innerHTML = '';
+            const cats = ['Prva smena', 'Druga smena', 'Treća smena', 'Noćna smena', 'Po pozivu', 'Pripravnost', 'Praznik',
+                'Put', 'Teren', 'Prekovremeni', 'Odmor', 'Slobodan dan'
+            ];
+            cats.forEach(name => {
+                const cat = getCategory(name);
+                const div = document.createElement('div');
+                div.className = 'legend-item';
+                div.innerHTML = `<span class="legend-color" style="background:${cat.color}"></span> ${name}`;
+                container.appendChild(div);
+            });
+        }
+
+        // ============================================
+        // 📊 STATISTIKA
+        // ============================================
+        function updateStats() {
+            const userShifts = viewMode === 'mine' ? shifts.filter(s => s.user === currentUser && !s.cancelled) : shifts
+                .filter(s => !s.cancelled);
+            let totalShifts = userShifts.length;
+            let totalHours = 0,
+                totalPay = 0;
+            userShifts.forEach(s => {
+                const cat = getCategory(s.category);
+                const hours = s.hours || cat.hours || 8;
+                totalHours += hours;
+                totalPay += hours * s.rate * cat.coeff;
+            });
+            document.getElementById('statShifts').textContent = totalShifts;
+            document.getElementById('statHours').textContent = Math.round(totalHours * 10) / 10;
+            document.getElementById('statPay').textContent = Math.round(totalPay);
+        }
+
+        function showStats() {
+            const start = document.getElementById('statsStart').value;
+            const end = document.getElementById('statsEnd').value;
+            const result = document.getElementById('statsResult');
+            const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end && !s.cancelled);
+
+            if (userShifts.length === 0) {
+                result.textContent = '📊 Nema podataka za period ' + start + ' - ' + end;
+                return;
+            }
+
+            const groups = {};
+            let totalHours = 0,
+                totalPay = 0;
+            userShifts.forEach(s => {
+                const cat = getCategory(s.category);
+                const hours = s.hours || cat.hours || 8;
+                const pay = hours * s.rate * cat.coeff;
+                if (!groups[s.category]) groups[s.category] = { count: 0, hours: 0, pay: 0 };
+                groups[s.category].count++;
+                groups[s.category].hours += hours;
+                groups[s.category].pay += pay;
+                totalHours += hours;
+                totalPay += pay;
+            });
+
+            let text = '📊 MOJA STATISTIKA\n' + '='.repeat(50) + '\n';
+            text += '👤 ' + currentUser + '\n📅 Period: ' + start + ' - ' + end + '\n📋 Smena: ' + userShifts.length +
+                '\n' + '='.repeat(50) + '\n\n';
+            Object.entries(groups).forEach(([cat, data]) => {
+                const c = getCategory(cat);
+                text += '🔹 ' + cat + ' (' + c.coeff + 'x, ' + c.rate + ' RSD/h):\n';
+                text += '   Broj: ' + data.count + '\n   Sati: ' + data.hours.toFixed(1) + 'h\n   Zarada: ' + data.pay
+                    .toFixed(0) + ' RSD\n\n';
+            });
+            text += '='.repeat(50) + '\n💰 UKUPNO:\n   Sati: ' + totalHours.toFixed(1) + 'h\n   Zarada: ' + totalPay
+                .toFixed(0) + ' RSD\n';
+            text += (totalHours >= 160) ? '   ✅ 160+ sati' : '   ⚠️ Manje od 160 sati (' + totalHours.toFixed(1) + 'h)';
+            result.textContent = text;
+        }
+
+        function exportStats(format) {
+            const text = document.getElementById('statsResult').textContent;
+            if (!text || text.includes('Nema podataka')) { showToast('⚠️ Generišite statistiku!'); return; }
+            const filename = 'statistika_' + currentUser + '_' + new Date().toISOString().slice(0, 10);
+            if (format === 'txt') downloadFile(text, filename + '.txt', 'text/plain');
+            else if (format === 'csv') downloadFile(text.replace(/[═=]/g, '').replace(/\n/g, ','), filename + '.csv',
+                'text/csv');
+        }
+
+        function shareStats() {
+            const text = document.getElementById('statsResult').textContent;
+            if (!text || text.includes('Nema podataka')) { showToast('⚠️ Generišite statistiku!'); return; }
+            if (navigator.share) {
+                navigator.share({ title: 'Statistika smena', text: text });
+            } else {
+                navigator.clipboard.writeText(text).then(() => showToast('📋 Statistika kopirana!'));
+            }
+        }
+
+        // ============================================
+        // 📄 IZVEŠTAJI
+        // ============================================
+        function populateReportSelects() {
+            const deptSelect = document.getElementById('reportDept');
+            const current = deptSelect.value;
+            deptSelect.innerHTML = '<option value="all">Sva odeljenja</option>' +
+                departments.map(d => `<option value="${d}">${d}</option>`).join('');
+            if (current) deptSelect.value = current;
+
+            const empSelect = document.getElementById('reportEmployee');
+            const curEmp = empSelect.value;
+            empSelect.innerHTML = '<option value="all">Svi zaposleni</option>' +
+                employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('');
+            if (curEmp) empSelect.value = curEmp;
+        }
+
+        function generateReport() {
+            const type = document.getElementById('reportType').value;
+            const dept = document.getElementById('reportDept').value;
+            const employee = document.getElementById('reportEmployee').value;
+            const start = document.getElementById('reportStart').value;
+            const end = document.getElementById('reportEnd').value;
+            const result = document.getElementById('reportResult');
+
+            if (!start || !end) { showToast('⚠️ Odaberite period!'); return; }
+
+            let filtered = shifts.filter(s => !s.cancelled);
+
+            if (type === 'personal' || employee !== 'all') {
+                const target = type === 'personal' ? currentUser : employee;
+                filtered = filtered.filter(s => s.user === target);
+            }
+
+            if (dept !== 'all') {
+                filtered = filtered.filter(s => s.department === dept);
+            }
+
+            filtered = filtered.filter(s => s.date >= start && s.date <= end);
+
+            if (filtered.length === 0) {
+                result.textContent = '📊 Nema podataka za izabrani period.';
+                result.style.display = 'block';
+                return;
+            }
+
+            const groups = {};
+            let totalHours = 0,
+                totalPay = 0;
+            const userStats = {};
+            filtered.forEach(s => {
+                const cat = getCategory(s.category);
+                const hours = s.hours || cat.hours || 8;
+                const pay = hours * s.rate * cat.coeff;
+                if (!groups[s.category]) groups[s.category] = { count: 0, hours: 0, pay: 0 };
+                groups[s.category].count++;
+                groups[s.category].hours += hours;
+                groups[s.category].pay += pay;
+                totalHours += hours;
+                totalPay += pay;
+
+                if (!userStats[s.user]) userStats[s.user] = { count: 0, hours: 0, pay: 0, categories: {} };
+                userStats[s.user].count++;
+                userStats[s.user].hours += hours;
+                userStats[s.user].pay += pay;
+                if (!userStats[s.user].categories[s.category]) userStats[s.user].categories[s.category] = {
+                    count: 0,
+                    hours: 0, pay: 0
+                };
+                userStats[s.user].categories[s.category].count++;
+                userStats[s.user].categories[s.category].hours += hours;
+                userStats[s.user].categories[s.category].pay += pay;
+            });
+
+            let text = '📊 IZVEŠTAJ O SMENAMA\n' + '='.repeat(60) + '\n';
+            text += '📅 Period: ' + start + ' - ' + end + '\n';
+            text += '🏥 Odeljenje: ' + (dept !== 'all' ? dept : 'SVA') + '\n';
+            if (type === 'personal' || employee !== 'all') {
+                text += '👤 Zaposleni: ' + (type === 'personal' ? currentUser : employee) + '\n';
+            }
+            text += '📋 Ukupno smena: ' + filtered.length + '\n';
+            text += '💰 Ukupna zarada: ' + Math.round(totalPay) + ' RSD\n';
+            text += '🕐 Ukupno sati: ' + totalHours.toFixed(1) + 'h\n';
+            text += '='.repeat(60) + '\n\n';
+
+            // Po kategorijama
+            text += '📊 PO KATEGORIJAMA:\n';
+            Object.entries(groups).forEach(([cat, data]) => {
+                const c = getCategory(cat);
+                text += '🔹 ' + cat + ' (' + c.coeff + 'x, ' + c.rate + ' RSD/h):\n';
+                text += '   Broj: ' + data.count + '\n   Sati: ' + data.hours.toFixed(1) + 'h\n   Zarada: ' + data.pay
+                    .toFixed(0) + ' RSD\n\n';
+            });
+
+            // Po zaposlenima (ako je odeljenje)
+            if (dept !== 'all' || type === 'department' || type === 'all') {
+                text += '👥 PO ZAPOSLENIMA:\n';
+                Object.entries(userStats).forEach(([user, data]) => {
+                    text += '👤 ' + user + ':\n';
+                    text += '   Smena: ' + data.count + '\n   Sati: ' + data.hours.toFixed(1) + 'h\n   Zarada: ' +
+                        data.pay.toFixed(0) + ' RSD\n';
+                    Object.entries(data.categories).forEach(([cat, d]) => {
+                        text += '      🔸 ' + cat + ': ' + d.count + ' smena, ' + d.hours.toFixed(1) +
+                            'h, ' + d.pay.toFixed(0) + ' RSD\n';
+                    });
+                    text += '\n';
+                });
+            }
+
+            text += '='.repeat(60) + '\n';
+            text += '📊 UKUPNO ZA IZVEŠTAJ:\n';
+            text += '   Smena: ' + filtered.length + '\n   Sati: ' + totalHours.toFixed(1) + 'h\n   Zarada: ' + Math.round(
+                totalPay) + ' RSD';
+
+            result.textContent = text;
+            result.style.display = 'block';
+            showToast('✅ Izveštaj generisan!');
+        }
+
+        function exportReport(format) {
+            const text = document.getElementById('reportResult').textContent;
+            if (!text || text.includes('Nema podataka')) { showToast('⚠️ Generišite izveštaj!'); return; }
+            const filename = 'izvestaj_' + new Date().toISOString().slice(0, 10);
+            if (format === 'txt') downloadFile(text, filename + '.txt', 'text/plain');
+            else if (format === 'csv') downloadFile(text.replace(/[═=]/g, '').replace(/\n/g, ','), filename + '.csv',
+                'text/csv');
+            else if (format === 'pdf') {
+                const pdfContent = 'IZVEŠTAJ O SMENAMA\n' + '='.repeat(50) + '\n' + text;
+                downloadFile(pdfContent, filename + '.pdf', 'application/pdf');
+            }
+        }
+
+        function shareReport() {
+            const text = document.getElementById('reportResult').textContent;
+            if (!text || text.includes('Nema podataka')) { showToast('⚠️ Generišite izveštaj!'); return; }
+            if (navigator.share) {
+                navigator.share({ title: 'Izveštaj o smenama', text: text });
+            } else {
+                navigator.clipboard.writeText(text).then(() => showToast('📋 Izveštaj kopiran!'));
+            }
+        }
+
+        function downloadFile(content, filename, mime) {
+            const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('✅ ' + filename + ' preuzet!');
+        }
+
+        // ============================================
+        // 👥 ZAPOSLENI
+        // ============================================
+        function renderEmployees() {
+            const filter = document.getElementById('empFilter').value;
+            const tbody = document.getElementById('employeeBody');
+            tbody.innerHTML = '';
+
+            let list = employees;
+            if (filter !== 'Sve grupe' && filter !== 'all' && filter) {
+                list = employees.filter(e => e.role === filter);
+            }
+
+            // Popuni filter
+            const roles = ['Sve grupe', ...new Set(employees.map(e => e.role).filter(r => r))];
+            const filterSelect = document.getElementById('empFilter');
+            filterSelect.innerHTML = roles.map(r => `<option value="${r}">${r}</option>`).join('');
+
+            list.forEach(e => {
+                const tr = document.createElement('tr');
+                const status = shifts.some(s => s.user === e.name && s.date === new Date().toISOString().slice(0, 10) &&
+                    !s.cancelled) ? '🟢' : '🔴';
+                tr.innerHTML = `
+                    <td>${status}</td>
+                    <td>${e.name}</td>
+                    <td>${e.role || ''}</td>
+                    <td>${e.rate || 0}</td>
+                    <td>${e.phone || ''}</td>
+                    <td>
+                        <button class="btn btn-small btn-blue" onclick="editEmployee(${e.id})" style="padding:2px 6px;">✏️</button>
+                        ${isAdmin ? `<button class="btn btn-small btn-red" onclick="deleteEmployeeById(${e.id})" style="padding:2px 6px;">❌</button>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function addEmployee() {
+            const name = document.getElementById('empName').value.trim();
+            if (!name) { showToast('⚠️ Unesite ime!'); return; }
+            if (employees.some(e => e.name === name)) { showToast('⚠️ Već postoji!'); return; }
+
+            let role = document.getElementById('empRole').value;
+            if (role === 'custom') {
+                role = document.getElementById('customRoleInput').value.trim() || 'Ostalo';
+            }
+
+            employees.push({
+                id: Date.now(),
+                name,
+                password: document.getElementById('empPassword').value || '123',
+                role: role,
+                rate: parseFloat(document.getElementById('empRate').value) || 500,
+                phone: document.getElementById('empPhone').value || '',
+                address: document.getElementById('empAddress').value || '',
+            });
+            saveData();
+            closeModal('addEmployeeModal');
+            renderEmployees();
+            showToast('✅ ' + name + ' dodat!');
+            document.getElementById('empName').value = '';
+            document.getElementById('empPassword').value = '';
+            document.getElementById('empPhone').value = '';
+            document.getElementById('empAddress').value = '';
+            document.getElementById('empRate').value = '500';
+        }
+
+        function editEmployee(id) {
+            const e = employees.find(emp => emp.id === id);
+            if (!e) return;
+            const newName = prompt('Novo ime:', e.name);
+            if (newName && newName.trim()) e.name = newName.trim();
+            const newRole = prompt('Novo zanimanje:', e.role);
+            if (newRole && newRole.trim()) e.role = newRole.trim();
+            const newRate = prompt('Nova satnica (RSD):', e.rate);
+            if (newRate && !isNaN(newRate)) e.rate = parseFloat(newRate);
+            const newPhone = prompt('Novi telefon:', e.phone);
+            if (newPhone !== null) e.phone = newPhone.trim();
+            const newAddress = prompt('Nova adresa:', e.address);
+            if (newAddress !== null) e.address = newAddress.trim();
+            saveData();
+            renderEmployees();
+            showToast('✅ ' + e.name + ' ažuriran!');
+        }
+
+        function deleteEmployeeById(id) {
+            const e = employees.find(emp => emp.id === id);
+            if (!e) return;
+            if (!confirm('Obrisati ' + e.name + '?')) return;
+            employees = employees.filter(emp => emp.id !== id);
+            shifts = shifts.filter(s => s.user !== e.name);
+            saveData();
+            renderEmployees();
+        }
+
+        function deleteEmployee() {
+            const name = prompt('Unesite ime za brisanje:');
+            if (!name) return;
+            const e = employees.find(emp => emp.name === name);
+            if (!e) { showToast('⚠️ Nije pronađen!'); return; }
+            if (!confirm('Obrisati ' + name + '?')) return;
+            employees = employees.filter(emp => emp.id !== e.id);
+            shifts = shifts.filter(s => s.user !== name);
+            saveData();
+            renderEmployees();
+        }
+
+        // ============================================
+        // 🏥 ODELJENJA
+        // ============================================
+        function renderDepartments() {
+            const tbody = document.getElementById('deptBody');
+            tbody.innerHTML = '';
+            departments.forEach(d => {
+                const tr = document.createElement('tr');
+                tr.innerHTML =
+                    `<td>${d}</td><td>admin</td><td><button class="btn btn-small btn-red" onclick="deleteDept('${d}')">🗑️</button></td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function addDepartment() {
+            const name = document.getElementById('newDeptName').value.trim();
+            if (!name) { showToast('⚠️ Unesite naziv!'); return; }
+            if (departments.includes(name)) { showToast('⚠️ Već postoji!'); return; }
+            departments.push(name);
+            saveData();
+            renderDepartments();
+            document.getElementById('newDeptName').value = '';
+            showToast('✅ ' + name + ' dodato!');
+        }
+
+        function deleteDept(name) {
+            if (name === 'Hitna pomoć') { showToast('⚠️ Ne možete obrisati Hitnu pomoć!'); return; }
+            if (!confirm('Obrisati ' + name + '?')) return;
+            departments = departments.filter(d => d !== name);
+            saveData();
+            renderDepartments();
+        }
+
+        // ============================================
+        // 📋 RASPORED
+        // ============================================
+        function populateScheduleSelects() {
+            const typeSelect = document.getElementById('scheduleType');
+            typeSelect.innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
+            renderScheduleEmployees();
+        }
+
+        function filterScheduleEmployees() {
+            const filter = document.getElementById('scheduleFilter').value;
+            const container = document.getElementById('scheduleEmployeeList');
+            container.innerHTML = '';
+            let list = employees;
+            if (filter !== 'all') list = employees.filter(e => e.role === filter || e.name === filter);
+            list.forEach(e => {
+                if (e.name === 'admin') return;
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" value="${e.name}"> ${e.name}`;
+                container.appendChild(label);
+            });
+        }
+
+        function renderScheduleEmployees() {
+            const filters = ['all', ...new Set(employees.map(e => e.role).filter(r => r))];
+            const filterSelect = document.getElementById('scheduleFilter');
+            filterSelect.innerHTML = filters.map(f => `<option value="${f}">${f === 'all' ? 'Svi' : f}</option>`).join('');
+            filterScheduleEmployees();
+        }
+
+        function selectAllSchedule() {
+            document.querySelectorAll('#scheduleEmployeeList input').forEach(cb => cb.checked = true);
+        }
+
+        function deselectAllSchedule() {
+            document.querySelectorAll('#scheduleEmployeeList input').forEach(cb => cb.checked = false);
+        }
+
+        function makeSchedule() {
+            const month = parseInt(document.getElementById('scheduleMonth').value);
+            const year = parseInt(document.getElementById('scheduleYear').value);
+            const dayStart = parseInt(document.getElementById('scheduleDayStart').value) || 1;
+            const dayEnd = parseInt(document.getElementById('scheduleDayEnd').value) || 31;
+            const type = document.getElementById('scheduleType').value;
+            const hours = parseFloat(document.getElementById('scheduleHours').value) || 8;
+            const selected = document.querySelectorAll('#scheduleEmployeeList input:checked');
+            const selectedNames = Array.from(selected).map(cb => cb.value);
+
+            if (selectedNames.length === 0) { showToast('⚠️ Odaberite radnike!'); return; }
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const startDay = Math.max(1, dayStart);
+            const endDay = Math.min(daysInMonth, dayEnd);
+            const cat = getCategory(type);
+            const rate = cat.rate || 500;
+            const start = cat.default_start || '07:00';
+            const end = cat.default_end || '15:00';
+
+            let added = 0;
+            for (let d = startDay; d <= endDay; d++) {
+                const date = new Date(year, month, d);
+                const dateStr = date.toISOString().split('T')[0];
+                selectedNames.forEach(user => {
+                    shifts = shifts.filter(s => !(s.date === dateStr && s.category === type && s.user === user));
+                    shifts.push({
+                        id: Date.now() + Math.random() * 1000 + added,
+                        user, department: currentDept,
+                        category: type,
+                        date: dateStr,
+                        start, end,
+                        hours, rate, note: 'Automatski raspored'
+                    });
+                    added++;
+                });
+            }
+
+            saveData();
+            renderAll();
+            showToast('✅ Dodato ' + added + ' smena!');
+        }
+
+        // ============================================
+        // 🔍 PRETRAGA
+        // ============================================
+        function populateSearchSelects() {
+            const catSelect = document.getElementById('searchCategory');
+            catSelect.innerHTML = '<option value="all">Sve</option>' +
+                Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
+
+            const empSelect = document.getElementById('searchEmployee');
+            empSelect.innerHTML = '<option value="all">Svi</option>' +
+                employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('');
+        }
+
+        function doSearch() {
+            const date = document.getElementById('searchDate').value;
+            const cat = document.getElementById('searchCategory').value;
+            const emp = document.getElementById('searchEmployee').value;
+            const result = document.getElementById('searchResult');
+
+            if (!date) { showToast('⚠️ Odaberite datum!'); return; }
+
+            let found = shifts.filter(s => s.date === date && !s.cancelled);
+            if (cat !== 'all') found = found.filter(s => s.category === cat);
+            if (emp !== 'all') found = found.filter(s => s.user === emp);
+
+            if (found.length === 0) {
+                result.textContent = '📅 ' + date + ': Nema smena.';
+                return;
+            }
+
+            let text = '📅 ' + date + ':\n\n';
+            found.forEach(s => {
+                const timeStr = s.start && s.end ? ` (${s.start}-${s.end})` : '';
+                text += '• ' + s.category + timeStr + ' - 👤 ' + s.user + ' - ' + (s.hours || 8) + 'h\n';
+            });
+            result.textContent = text;
+        }
+
+        // ============================================
+        // 🔄 ZAMENE
+        // ============================================
+        function populateReplaceSelects() {
+            const shiftSelect = document.getElementById('replaceShiftType');
+            shiftSelect.innerHTML = '<option value="all">Sve smene</option>' +
+                Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
+
+            const filterSelect = document.getElementById('replaceFilter');
+            const filters = ['all', ...new Set(employees.map(e => e.role).filter(r => r))];
+            filterSelect.innerHTML = filters.map(f => `<option value="${f}">${f === 'all' ? 'Svi' : f}</option>`).join('');
+            filterReplaceEmployees();
+        }
+
+        function filterReplaceEmployees() {
+            const filter = document.getElementById('replaceFilter').value;
+            const container = document.getElementById('addToShiftWorkers');
+            container.innerHTML = '';
+            let list = employees;
+            if (filter !== 'all') list = employees.filter(e => e.role === filter);
+            list.forEach(e => {
+                if (e.name === 'admin') return;
+                const label = document.createElement('label');
+                label.style.cssText =
+                    'display:inline-flex;align-items:center;gap:3px;font-weight:normal;font-size:9px;padding:2px 5px;background:white;border-radius:4px;border:1px solid #e8e8e8;cursor:pointer;margin:2px;';
+                label.innerHTML = `<input type="checkbox" value="${e.name}" class="replace-checkbox"> ${e.name}`;
+                container.appendChild(label);
+            });
+        }
+
+        function showReplacements() {
+            const date = document.getElementById('replaceDate').value;
+            const shiftType = document.getElementById('replaceShiftType').value;
+            if (!date) { showToast('⚠️ Unesite datum!'); return; }
+
+            let dayShifts = shifts.filter(s => s.date === date && !s.cancelled);
+            if (shiftType !== 'all') dayShifts = dayShifts.filter(s => s.category === shiftType);
+
+            document.getElementById('currentShifts').textContent = dayShifts.length === 0 ? '📅 Nema smena.' : dayShifts
+                .map((s, i) => (i + 1) + '. ' + s.category + ' - ' + s.user + ' (' + s.start + '-' + s.end + ')').join('\n');
+
+            const working = dayShifts.map(s => s.user);
+            const free = employees.filter(e => !working.includes(e.name) && e.name !== 'admin');
+            document.getElementById('freeWorkers').innerHTML = free.length === 0 ? '🟢 Nema slobodnih.' : free.map(e =>
+                '• ' + e.name + ' (' + e.role + ')')
+                .join('\n');
+        }
+
+        function addToShift() {
+            const date = document.getElementById('replaceDate').value;
+            const shiftType = document.getElementById('replaceShiftType').value;
+            const selected = document.querySelectorAll('#addToShiftWorkers .replace-checkbox:checked');
+
+            if (!date) { showToast('⚠️ Unesite datum!'); return; }
+            if (selected.length === 0) { showToast('⚠️ Izaberite radnike!'); return; }
+
+            const cat = getCategory(shiftType === 'all' ? 'Prva smena' : shiftType);
+            const rate = cat.rate || 500;
+            const hours = cat.hours || 8;
+            const start = cat.default_start || '07:00';
+            const end = cat.default_end || '15:00';
+
+            let added = 0;
+            selected.forEach(cb => {
+                const user = cb.value;
+                const exists = shifts.some(s => s.date === date && s.user === user && s.category === shiftType && !s
+                    .cancelled);
+                if (!exists) {
+                    shifts.push({
+                        id: Date.now() + Math.random() * 1000 + added,
+                        user, department: currentDept,
+                        category: shiftType === 'all' ? 'Prva smena' : shiftType,
+                        date, start, end, hours, rate, note: 'Dodat u smenu'
+                    });
+                    added++;
+                }
+            });
+
+            saveData();
+            showReplacements();
+            renderAll();
+            showToast('✅ Dodato ' + added + ' radnika u smenu!');
+        }
+
+        function removeFromShift() {
+            const date = document.getElementById('replaceDate').value;
+            const shiftType = document.getElementById('replaceShiftType').value;
+            const selected = document.querySelectorAll('#addToShiftWorkers .replace-checkbox:checked');
+
+            if (!date) { showToast('⚠️ Unesite datum!'); return; }
+            if (selected.length === 0) { showToast('⚠️ Izaberite radnike!'); return; }
+
+            let removed = 0;
+            selected.forEach(cb => {
+                const user = cb.value;
+                const toRemove = shifts.findIndex(s => s.date === date && s.user === user && s.category ===
+                    shiftType && !s.cancelled);
+                if (toRemove !== -1) {
+                    shifts.splice(toRemove, 1);
+                    removed++;
+                }
+            });
+
+            saveData();
+            showReplacements();
+            renderAll();
+            showToast('✅ Uklonjeno ' + removed + ' radnika iz smene!');
+        }
+
+        // ============================================
+        // 📊 STATISTIKA ODELJENJA
+        // ============================================
+        function showDeptStats() {
+            const start = document.getElementById('deptStatsStart').value;
+            const end = document.getElementById('deptStatsEnd').value;
+            const result = document.getElementById('deptStatsResult');
+
+            if (!start || !end) { showToast('⚠️ Odaberite period!'); return; }
+
+            let text = '📊 STATISTIKA ODELJENJA: ' + currentDept + '\n📅 Period: ' + start + ' - ' + end + '\n' + '='.repeat(
+                60) + '\n\n';
+            let totalAllHours = 0,
+                totalAllPay = 0,
+                totalShifts = 0;
+
+            // Po zaposlenima
+            employees.forEach(e => {
+                if (e.name === 'admin') return;
+                const empShifts = shifts.filter(s => s.user === e.name && s.date >= start && s.date <= end && !s
+                    .cancelled);
+                let hours = 0,
+                    pay = 0;
+                const catStats = {};
+                empShifts.forEach(s => {
+                    const cat = getCategory(s.category);
+                    const h = s.hours || cat.hours || 8;
+                    hours += h;
+                    pay += h * s.rate * cat.coeff;
+                    if (!catStats[s.category]) catStats[s.category] = { count: 0, hours: 0 };
+                    catStats[s.category].count++;
+                    catStats[s.category].hours += h;
+                });
+                if (empShifts.length > 0 || true) {
+                    text += '👤 ' + e.name + ' (' + e.role + '):\n';
+                    text += '   Smena: ' + empShifts.length + '\n   Sati: ' + hours.toFixed(1) + 'h\n   Zarada: ' + pay
+                        .toFixed(0) + ' RSD\n';
+                    if (Object.keys(catStats).length > 0) {
+                        text += '   📋 Po kategorijama:\n';
+                        Object.entries(catStats).forEach(([cat, data]) => {
+                            text += '      🔸 ' + cat + ': ' + data.count + ' smena, ' + data.hours.toFixed(
+                                1) + 'h\n';
+                        });
+                    }
+                    text += '\n';
+                    totalAllHours += hours;
+                    totalAllPay += pay;
+                    totalShifts += empShifts.length;
+                }
+            });
+
+            text += '='.repeat(60) + '\n🏢 UKUPNO ODELJENJE:\n';
+            text += '   Smena: ' + totalShifts + '\n   Sati: ' + totalAllHours.toFixed(1) + 'h\n   Zarada: ' + Math.round(
+                totalAllPay) + ' RSD';
+            result.textContent = text;
+        }
+
+        function exportDeptStats(format) {
+            const text = document.getElementById('deptStatsResult').textContent;
+            if (!text || text.includes('Nema podataka')) { showToast('⚠️ Generišite statistiku!'); return; }
+            const filename = 'statistika_odeljenja_' + currentDept + '_' + new Date().toISOString().slice(0, 10);
+            if (format === 'txt') downloadFile(text, filename + '.txt', 'text/plain');
+            else if (format === 'csv') downloadFile(text.replace(/[═=]/g, '').replace(/\n/g, ','), filename + '.csv',
+                'text/csv');
+        }
+
+        function shareDeptStats() {
+            const text = document.getElementById('deptStatsResult').textContent;
+            if (!text || text.includes('Nema podataka')) { showToast('⚠️ Generišite statistiku!'); return; }
+            if (navigator.share) {
+                navigator.share({ title: 'Statistika odeljenja', text: text });
+            } else {
+                navigator.clipboard.writeText(text).then(() => showToast('📋 Statistika kopirana!'));
+            }
+        }
+
+        // ============================================
+        // 📋 ŠABLONI
+        // ============================================
+        function renderTemplates() {
+            const container = document.getElementById('templatesContainer');
+            container.innerHTML = '';
+            templates.forEach(t => {
+                const users = templateEmployees[t.id] || [];
+                const div = document.createElement('div');
+                div.style.cssText =
+                    'background:#f8f9fa;border-radius:6px;padding:8px;border:1px solid #ddd;';
+                div.innerHTML = `
+                    <strong style="font-size:11px;">📌 ${t.name}</strong>
+                    <div style="font-size:9px;margin:3px 0;">${users.map(u => '• ' + u).join('<br>') || '(Nema)'}</div>
+                    <div style="display:flex;gap:3px;margin-top:4px;">
+                        <button class="btn btn-small btn-blue" onclick="editTemplate(${t.id})" style="padding:2px 8px;">✏️</button>
+                        <button class="btn btn-small btn-red" onclick="deleteTemplate(${t.id})" style="padding:2px 8px;">❌</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function filterTemplateEmployees() {
+            const filter = document.getElementById('templateFilter').value;
+            const container = document.getElementById('templateEmployees');
+            container.innerHTML = '';
+            let list = employees;
+            if (filter !== 'all') list = employees.filter(e => e.role === filter);
+            list.forEach(e => {
+                if (e.name === 'admin') return;
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" value="${e.name}"> ${e.name}`;
+                container.appendChild(label);
+            });
+        }
+
+        function renderTemplateEmployees() {
+            const filters = ['all', ...new Set(employees.map(e => e.role).filter(r => r))];
+            const filterSelect = document.getElementById('templateFilter');
+            filterSelect.innerHTML = filters.map(f => `<option value="${f}">${f === 'all' ? 'Svi' : f}</option>`).join('');
+            filterTemplateEmployees();
+        }
+
+        function selectAllTemplate() {
+            document.querySelectorAll('#templateEmployees input').forEach(cb => cb.checked = true);
+        }
+
+        function deselectAllTemplate() {
+            document.querySelectorAll('#templateEmployees input').forEach(cb => cb.checked = false);
+        }
+
+        function saveTemplate() {
+            const name = document.getElementById('templateName').value.trim();
+            if (!name) { showToast('⚠️ Unesite naziv!'); return; }
+            const selected = document.querySelectorAll('#templateEmployees input:checked');
+            if (selected.length === 0) { showToast('⚠️ Odaberite bar jednog!'); return; }
+
+            const id = Date.now();
+            templates.push({ id, name, note: document.getElementById('templateNote').value || '' });
+            templateEmployees[id] = Array.from(selected).map(cb => cb.value);
+
+            saveData();
+            closeModal('addTemplateModal');
+            renderTemplates();
+            showToast('✅ Šablon ' + name + ' dodat!');
+            document.getElementById('templateName').value = '';
+            document.getElementById('templateNote').value = '';
+        }
+
+        function editTemplate(id) {
+            const t = templates.find(tm => tm.id === id);
+            if (!t) return;
+            const newName = prompt('Novi naziv:', t.name);
+            if (newName && newName.trim()) {
+                t.name = newName.trim();
+                saveData();
+                renderTemplates();
+            }
+        }
+
+        function deleteTemplate(id) {
+            if (!confirm('Obrisati šablon?')) return;
+            templates = templates.filter(t => t.id !== id);
+            delete templateEmployees[id];
+            saveData();
+            renderTemplates();
+        }
+
+        function renderApplyTemplates() {
+            const select = document.getElementById('applyTemplate');
+            select.innerHTML = templates.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+        }
+
+        function applyTemplate() {
+            const date = document.getElementById('applyDate').value;
+            const category = document.getElementById('applyCategory').value;
+            const templateId = parseInt(document.getElementById('applyTemplate').value);
+
+            if (!date || !category || !templateId) { showToast('⚠️ Popunite sva polja!'); return; }
+
+            const users = templateEmployees[templateId] || [];
+            if (users.length === 0) { showToast('⚠️ Šablon nema zaposlenih!'); return; }
+
+            const cat = getCategory(category);
+            const rate = cat.rate || 500;
+            const hours = cat.hours || 8;
+            const start = cat.default_start || '07:00';
+            const end = cat.default_end || '15:00';
+
+            users.forEach(user => {
+                const exists = shifts.some(s => s.date === date && s.user === user && s.category === category && !s
+                    .cancelled);
+                if (!exists) {
+                    shifts.push({
+                        id: Date.now() + Math.random() * 1000,
+                        user, department: currentDept,
+                        category, date,
+                        start, end, hours, rate, note: 'Iz šablona'
+                    });
+                }
+            });
+
+            saveData();
+            closeModal('applyTemplateModal');
+            renderAll();
+            showToast('✅ Primenjeno ' + users.length + ' smena!');
+        }
+
+        // ============================================
+        // ⚙️ KATEGORIJE
+        // ============================================
+        function renderCategories() {
+            const container = document.getElementById('categoriesList');
+            container.innerHTML = '';
+            Object.entries(categories).forEach(([name, cat]) => {
+                const div = document.createElement('div');
+                div.style.cssText =
+                    'display:flex;gap:4px;align-items:center;margin:3px 0;flex-wrap:wrap;';
+                div.innerHTML = `
+                    <span style="min-width:80px;font-weight:bold;font-size:10px;">${name}</span>
+                    <input type="number" value="${cat.hours}" style="width:40px;font-size:9px;padding:2px;" placeholder="Sati">
+                    <input type="number" value="${cat.coeff}" style="width:40px;font-size:9px;padding:2px;" placeholder="Koef." step="0.1">
+                    <input type="color" value="${cat.color}" style="width:30px;height:25px;padding:0;">
+                    <input type="number" value="${cat.rate}" style="width:60px;font-size:9px;padding:2px;" placeholder="Rate" step="10">
+                    <button class="btn btn-small btn-red" onclick="removeCategory('${name}')" style="padding:2px 6px;">🗑️</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function removeCategory(name) {
+            if (defaultCategories[name]) { showToast('⚠️ Ne možete obrisati default kategoriju!'); return; }
+            if (!confirm('Obrisati kategoriju ' + name + '?')) return;
+            delete categories[name];
+            saveData();
+            renderCategories();
+            renderLegend();
+            showToast('🗑️ Kategorija obrisana!');
+        }
+
+        function addCategory() {
+            const name = document.getElementById('newCategoryName').value.trim();
+            if (!name) { showToast('⚠️ Unesite naziv!'); return; }
+            if (categories[name]) { showToast('⚠️ Već postoji!'); return; }
+            categories[name] = {
+                hours: 8, coeff: 1.0, color: '#757575', rate: 500, default_start: '07:00',
+                default_end: '15:00'
+            };
+            saveData();
+            renderCategories();
+            document.getElementById('newCategoryName').value = '';
+            showToast('✅ Kategorija dodata!');
+        }
+
+        function saveCategories() {
+            const items = document.querySelectorAll('#categoriesList > div');
+            items.forEach(div => {
+                const inputs = div.querySelectorAll('input');
+                const name = div.querySelector('span').textContent;
+                if (categories[name]) {
+                    categories[name].hours = parseFloat(inputs[0].value) || 8;
+                    categories[name].coeff = parseFloat(inputs[1].value) || 1.0;
+                    categories[name].color = inputs[2].value;
+                    categories[name].rate = parseFloat(inputs[3].value) || 500;
+                }
+            });
+            saveData();
+            renderLegend();
+            renderAll();
+            showToast('✅ Kategorije sačuvane!');
+            closeModal('categoriesModal');
+        }
+
+        // ============================================
+        // 🔔 OBAVEŠTENJA
+        // ============================================
+        function renderNotificationSettings() {
+            document.getElementById('notifEnabled').checked = true;
+            document.getElementById('reminderMinutes').value = 30;
+            document.getElementById('notifSound').value = 'default';
+
+            // Popuni checkboxove za smene
+            const container = document.getElementById('notifShiftCheckboxes');
+            container.innerHTML = '';
+            Object.keys(categories).forEach(cat => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" value="${cat}" checked> ${cat}`;
+                container.appendChild(label);
+            });
+
+            // Event listener za filter
+            document.getElementById('notifShiftFilter').addEventListener('change', function () {
+                document.getElementById('notifShiftSelect').style.display = this.value === 'selected' ? 'block' :
+                    'none';
+                document.getElementById('notifDateSelect').style.display = this.value === 'specific' ? 'block' :
+                    'none';
+            });
+        }
+
+        function saveNotificationSettings() {
+            const enabled = document.getElementById('notifEnabled').checked;
+            const minutes = parseInt(document.getElementById('reminderMinutes').value) || 30;
+            const sound = document.getElementById('notifSound').value;
+            const filter = document.getElementById('notifShiftFilter').value;
+
+            let history = document.getElementById('notifHistory').textContent || '';
+            const now = new Date().toLocaleString();
+            history = '[' + now + '] Podešavanja sačuvana: ' + (enabled ? 'UKLJUČENO' : 'ISKLJUČENO') + ', ' + minutes +
+                'min, zvuk: ' + sound + '\n' + history;
+            document.getElementById('notifHistory').textContent = history;
+
+            localStorage.setItem('notif_settings', JSON.stringify({ enabled, minutes, sound, filter }));
+            showToast('✅ Podešavanja sačuvana!');
+
+            // Test notifikacija
+            if (enabled) {
+                setTimeout(() => {
+                    showToast('🔔 Test notifikacija!');
+                    if (sound !== 'silent') {
+                        try {
+                            const audio = new Audio(
+                                'data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACAgICAf39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/fw=='
+                            );
+                            audio.play();
+                        } catch (e) { }
+                    }
+                }, 1000);
+            }
+        }
+
+        function clearNotificationHistory() {
+            if (!confirm('Obrisati istoriju obaveštenja?')) return;
+            document.getElementById('notifHistory').textContent = '';
+            showToast('🗑️ Istorija obrisana!');
+        }
+
+        // ============================================
+        // 🔑 PODEŠAVANJA
+        // ============================================
+        function changePassword() {
+            const newP = document.getElementById('newPass').value;
+            const confirm = document.getElementById('confirmPass').value;
+            if (!newP || newP.length < 3) { showToast('⚠️ Lozinka mora imati bar 3 karaktera!'); return; }
+            if (newP !== confirm) { showToast('⚠️ Lozinke se ne poklapaju!'); return; }
+            const e = employees.find(emp => emp.name === currentUser);
+            if (e) {
+                e.password = newP;
+                saveData();
+            }
+            showToast('✅ Lozinka promenjena!');
+            document.getElementById('newPass').value = '';
+            document.getElementById('confirmPass').value = '';
+        }
+
+        function saveDefaultRate() {
+            const rate = parseFloat(document.getElementById('defaultRate').value) || 500;
+            Object.keys(categories).forEach(key => {
+                categories[key].rate = rate;
+            });
+            saveData();
+            showToast('✅ Default satnica sačuvana!');
+        }
+
+        // ============================================
+        // 📦 SMENE
+        // ============================================
+        function saveShift() {
+            const category = document.getElementById('shiftCategory').value;
+            const date = document.getElementById('shiftDate').value;
+            const start = document.getElementById('shiftStart').value;
+            const end = document.getElementById('shiftEnd').value;
+            const hours = parseFloat(document.getElementById('shiftHours').value) || 8;
+            const user = document.getElementById('shiftUser').value;
+            const note = document.getElementById('shiftNote').value || '';
+
+            if (!category || !date || !user) { showToast('⚠️ Popunite sva polja!'); return; }
+
+            const cat = getCategory(category);
+            const rate = cat.rate || 500;
+
+            shifts.push({
+                id: Date.now() + Math.random() * 1000,
+                user, department: currentDept,
+                category, date, start, end, hours, rate, note
+            });
+
+            saveData();
+            closeModal('addShiftModal');
+            renderAll();
+            if (selectedDate) selectDate(selectedDate);
+            showToast('✅ Smena dodata!');
+            document.getElementById('shiftNote').value = '';
+        }
+
+        function assignShift() {
+            const category = document.getElementById('assignCategory').value;
+            const date = document.getElementById('assignDate').value;
+            const hours = parseFloat(document.getElementById('assignHours').value) || 8;
+            const selected = document.querySelectorAll('#assignEmployees input:checked');
+
+            if (!category || !date || selected.length === 0) { showToast('⚠️ Popunite sva polja!'); return; }
+
+            const cat = getCategory(category);
+            const rate = cat.rate || 500;
+            const start = cat.default_start || '07:00';
+            const end = cat.default_end || '15:00';
+
+            selected.forEach(cb => {
+                shifts.push({
+                    id: Date.now() + Math.random() * 1000,
+                    user: cb.value, department: currentDept,
+                    category, date, start, end, hours, rate, note: 'Dodeljena smena'
+                });
+            });
+
+            saveData();
+            closeModal('assignShiftModal');
+            renderAll();
+            if (selectedDate) selectDate(selectedDate);
+            showToast('✅ Dodato ' + selected.length + ' smena!');
+        }
+
+        function deleteShift() {
+            if (!selectedDate) { showToast('⚠️ Odaberite datum!'); return; }
+            const dayShifts = getShiftsForDate(selectedDate);
+            if (dayShifts.length === 0) { showToast('📌 Nema smena!'); return; }
+
+            const msg = dayShifts.map((s, i) => (i + 1) + '. ' + s.category + ' - ' + s.user + ' (' + s.start + '-' + s
+                .end + ')').join('\n');
+            const choice = prompt('Odaberite smenu za brisanje (' + selectedDate + '):\n\n' + msg + '\n\nUnesite broj (1-' +
+                dayShifts.length + ') ili 0:');
+            if (choice && parseInt(choice) > 0 && parseInt(choice) <= dayShifts.length) {
+                const idx = parseInt(choice) - 1;
+                const toDelete = dayShifts[idx];
+                shifts = shifts.filter(s => !(s.date === toDelete.date && s.user === toDelete.user && s.category ===
+                    toDelete.category));
+                saveData();
+                renderAll();
+                if (selectedDate) selectDate(selectedDate);
+                showToast('🗑️ Smena obrisana!');
+            }
+        }
+
+        // ============================================
+        // 🔄 FILTER FUNKCIJE
+        // ============================================
+        function filterAssignEmployees() {
+            const filter = document.getElementById('assignFilter').value;
+            const container = document.getElementById('assignEmployees');
+            container.innerHTML = '';
+            let list = employees;
+            if (filter !== 'all') list = employees.filter(e => e.role === filter);
+            list.forEach(e => {
+                if (e.name === 'admin') return;
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" value="${e.name}"> ${e.name}`;
+                container.appendChild(label);
+            });
+        }
+
+        function selectAllAssign() {
+            document.querySelectorAll('#assignEmployees input').forEach(cb => cb.checked = true);
+        }
+
+        function deselectAllAssign() {
+            document.querySelectorAll('#assignEmployees input').forEach(cb => cb.checked = false);
+        }
+
+        // ============================================
+        // 🖼️ RENDER ALL
+        // ============================================
+        function renderAll() {
+            renderCalendar();
+            renderLegend();
+            renderEmployees();
+            renderDepartments();
+            renderTemplates();
+            renderScheduleEmployees();
+            populateSearchSelects();
+            populateReplaceSelects();
+            renderApplyTemplates();
+            renderTemplateEmployees();
+            updateStats();
+
+            // Popuni combobox za zaposlene
+            const shiftUser = document.getElementById('shiftUser');
+            shiftUser.innerHTML = employees.map(e => `<option value="${e.name}">${e.name}</option>`).join('');
+
+            // Popuni kategorije
+            const categorySelects = ['shiftCategory', 'assignCategory', 'applyCategory'];
+            categorySelects.forEach(id => {
+                const select = document.getElementById(id);
+                select.innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join('');
+            });
+
+            // Popuni assign employees
+            filterAssignEmployees();
+
+            // Popuni template filter
+            filterTemplateEmployees();
+        }
+
+        // ============================================
+        // 🌐 JEZIK
+        // ============================================
+        function changeLanguage() {
+            language = (language === 'latin') ? 'cyrillic' : 'latin';
+            const msg = (language === 'cyrillic') ? '✅ Пребачено на ћирилицу!' : '✅ Prebačeno na latinicu!';
+            showToast(msg);
+            updateHelp();
+        }
+
+        // ============================================
+        // 📖 UPUTSTVO
+        // ============================================
+        function updateHelp() {
+            const isCyr = language === 'cyrillic';
+            const content = isCyr ? `
+📚 МЕНАЏЕР СМЕНА - КОМПЛЕТНО УПУТСТВО
+
+👑 АДМИНИСТРАТОР (admin / admin123):
+• 📅 КАЛЕНДАР - Преглед свих смена, додавање, брисање
+• 👥 ЗАПОСЛЕНИ - Додавање, измена, брисање запослених
+• 🏥 ОДЕЉЕЊА - Креирање и управљање одељењима
+• 📋 РАСПОРЕД - Масовно креирање смена за период
+• 🔄 ЗАМЕНЕ - Додавање и уклањање радника из смена
+• 📊 СТАТИСТИКА ОДЕЉЕЊА - Детаљан преглед за цело одељење
+• 📋 ШАБЛОНИ - Креирање група за брзо додавање смена
+
+👤 ЗАПОСЛЕНИ (пријава са својим именом):
+• 📅 КАЛЕНДАР - Преглед сопствених смена
+• 📊 МОЈА СТАТИСТИКА - Преглед сати и зараде
+• 📄 МОЈ ИЗВЕШТАЈ - Детаљан извештај о раду
+
+📌 СВИ КОРИСНИЦИ:
+• 🔍 ПРЕТРАГА - Претрага смена по датуму, категорији, запосленом
+• 🔔 ОБАВЕШТЕЊА - Подешавање подсећaња за смене
+
+💡 САВЕТИ:
+• Кликните на дан у календару за преглед смена
+• Користите "View Mode" за преглед само својих смена
+• Шаблони вам штеде време при креирању распореда
+• Извештаји се могу извести у TXT, CSV и PDF формату
+            ` : `
+📚 MENADŽER SMENA - KOMPLETNO UPUTSTVO
+
+👑 ADMINISTRATOR (admin / admin123):
+• 📅 KALENDAR - Pregled svih smena, dodavanje, brisanje
+• 👥 ZAPOSLENI - Dodavanje, izmena, brisanje zaposlenih
+• 🏥 ODELJENJA - Kreiranje i upravljanje odeljenjima
+• 📋 RASPORED - Masovno kreiranje smena za period
+• 🔄 ZAMENE - Dodavanje i uklanjanje radnika iz smena
+• 📊 STATISTIKA ODELJENJA - Detaljan pregled za celo odeljenje
+• 📋 ŠABLONI - Kreiranje grupa za brzo dodavanje smena
+
+👤 ZAPOSLENI (prijava sa svojim imenom):
+• 📅 KALENDAR - Pregled sopstvenih smena
+• 📊 MOJA STATISTIKA - Pregled sati i zarade
+• 📄 MOJ IZVEŠTAJ - Detaljan izveštaj o radu
+
+📌 SVI KORISNICI:
+• 🔍 PRETRAGA - Pretraga smena po datumu, kategoriji, zaposlenom
+• 🔔 OBAVEŠTENJA - Podešavanje podsećanja za smene
+
+💡 SAVETI:
+• Kliknite na dan u kalendaru za pregled smena
+• Koristite "View Mode" za pregled samo svojih smena
+• Šabloni vam štede vreme pri kreiranju rasporeda
+• Izveštaji se mogu izvesti u TXT, CSV i PDF formatu
+            `;
+            document.getElementById('helpContent').textContent = content;
+        }
+
+        // ============================================
+        // 💬 TOAST
+        // ============================================
+        let toastTimeout = null;
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // ============================================
+        // 🔔 MODAL
+        // ============================================
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+            if (id === 'categoriesModal') renderCategories();
+            if (id === 'addTemplateModal') renderTemplateEmployees();
+            if (id === 'applyTemplateModal') {
+                renderApplyTemplates();
+                document.getElementById('applyCategory').innerHTML = Object.keys(categories).map(c =>
+                    `<option value="${c}">${c}</option>`).join('');
+            }
+            if (id === 'addEmployeeModal') {
+                // Podesi custom role
+                document.getElementById('empRole').addEventListener('change', function () {
+                    document.getElementById('customRoleDiv').style.display = this.value === 'custom' ? 'block' :
+                        'none';
+                });
+            }
+            if (id === 'assignShiftModal') {
+                filterAssignEmployees();
+                document.getElementById('assignCategory').innerHTML = Object.keys(categories).map(c =>
+                    `<option value="${c}">${c}</option>`).join('');
+            }
+            if (id === 'addShiftModal') {
+                document.getElementById('shiftCategory').innerHTML = Object.keys(categories).map(c =>
+                    `<option value="${c}">${c}</option>`).join('');
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        window.onclick = function (e) {
+            if (e.target.classList.contains('modal')) e.target.classList.remove('show');
+        };
+
+        // ============================================
+        // 🚀 POKRENI
+        // ============================================
+        renderAll();
+
+        console.log('🚑 Menadžer Smena - Odeljenje v2.0');
+        console.log('👑 Admin: admin / admin123');
+        console.log('📱 Optimizovano za mobilne uređaje');
+        console.log('✅ Sve funkcije su kompletne!');
+    </script>
+</body>
+
+</html>

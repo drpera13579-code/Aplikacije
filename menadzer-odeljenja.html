@@ -104,6 +104,7 @@
             line-height: 1.6;
         }
 
+        /* HAMBURGER */
         .hamburger {
             position: fixed;
             top: 10px;
@@ -129,6 +130,7 @@
             left: 230px;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 230px;
             background: linear-gradient(180deg, #1a237e, #0d47a1);
@@ -250,6 +252,7 @@
             cursor: pointer;
         }
 
+        /* MAIN */
         .main-content {
             flex: 1;
             margin-left: 230px;
@@ -266,6 +269,7 @@
             margin-left: 0;
         }
 
+        /* HEADER */
         .header {
             background: linear-gradient(135deg, #1a237e, #0d47a1);
             color: white;
@@ -285,6 +289,7 @@
             margin-top: 2px;
         }
 
+        /* KARTICE */
         .card {
             background: white;
             padding: 10px;
@@ -302,6 +307,7 @@
             gap: 4px;
         }
 
+        /* VIEW MODE */
         .view-mode {
             display: flex;
             gap: 6px;
@@ -331,6 +337,7 @@
             color: #333;
         }
 
+        /* DUGMAD */
         .btn {
             background: #1a237e;
             color: white;
@@ -514,6 +521,7 @@
             flex-shrink: 0;
         }
 
+        /* KALENDAR */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -594,6 +602,7 @@
             color: #333;
         }
 
+        /* TABELA - HORIZONTALNI SKROL */
         .table-wrap {
             overflow: auto;
             flex: 1;
@@ -634,29 +643,29 @@
             flex-wrap: wrap;
         }
 
-        /* CHECKBOX GRUPA - VIŠESTRUKI IZBOR (RADI) */
+        /* ČEK-BOKSEVI - VIŠESTRUKI IZBOR (FIX) */
         .checkbox-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 4px;
             max-height: 120px;
             overflow-y: auto;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            padding: 6px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
             background: #fafafa;
         }
 
         .checkbox-group label {
             display: inline-flex !important;
             align-items: center !important;
-            gap: 6px !important;
+            gap: 5px !important;
             font-weight: normal !important;
-            font-size: 10px !important;
-            padding: 4px 12px !important;
+            font-size: 9px !important;
+            padding: 4px 10px !important;
             background: white !important;
             border-radius: 20px !important;
-            border: 2px solid #ddd !important;
+            border: 1.5px solid #ddd !important;
             cursor: pointer !important;
             margin: 2px !important;
             transition: all 0.2s !important;
@@ -675,8 +684,8 @@
         }
 
         .checkbox-group input[type="checkbox"] {
-            width: 17px !important;
-            height: 17px !important;
+            width: 16px !important;
+            height: 16px !important;
             margin: 0 !important;
             cursor: pointer !important;
             flex-shrink: 0 !important;
@@ -688,12 +697,12 @@
             accent-color: white !important;
         }
 
-        /* SWITCH ON/OFF - RADI */
+        /* SWITCH ON/OFF */
         .switch {
             position: relative;
             display: inline-block;
-            width: 50px;
-            height: 26px;
+            width: 44px;
+            height: 24px;
             flex-shrink: 0;
         }
 
@@ -712,14 +721,14 @@
             bottom: 0;
             background: #ccc;
             transition: .3s;
-            border-radius: 26px;
+            border-radius: 24px;
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 20px;
-            width: 20px;
+            height: 18px;
+            width: 18px;
             left: 3px;
             bottom: 3px;
             background: white;
@@ -732,10 +741,10 @@
         }
 
         input:checked+.slider:before {
-            transform: translateX(24px);
+            transform: translateX(20px);
         }
 
-        /* KATEGORIJE */
+        /* KATEGORIJE - GRID SA NATPISIMA */
         .category-grid {
             display: grid;
             grid-template-columns: 90px 50px 50px 35px 60px 60px 60px 40px;
@@ -785,6 +794,7 @@
             white-space: nowrap;
         }
 
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -842,6 +852,7 @@
             min-width: 70px;
         }
 
+        /* TOAST */
         .toast {
             position: fixed;
             bottom: 15px;
@@ -874,50 +885,6 @@
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
             }
-        }
-
-        /* FONT SIZE - PODEŠAVANJE */
-        .font-control {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 4px 0;
-        }
-
-        .font-control label {
-            font-size: 10px;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .font-control input[type="range"] {
-            width: 120px;
-            margin: 0;
-        }
-
-        .font-control span {
-            font-size: 11px;
-            font-weight: bold;
-            color: #1a237e;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .help-content {
-            font-size: 12px;
-            line-height: 1.8;
-            white-space: pre-wrap;
-        }
-
-        .help-content strong {
-            color: #1a237e;
-        }
-
-        .help-content .section {
-            color: #0d47a1;
-            font-weight: bold;
-            margin-top: 8px;
-            font-size: 13px;
         }
 
         /* RESPONSIVE */
@@ -1002,10 +969,6 @@
                 grid-template-columns: 70px 40px 40px 30px 50px 50px 50px 35px;
                 font-size: 7px;
             }
-
-            .help-content {
-                font-size: 10px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1075,10 +1038,6 @@
             .category-row input {
                 font-size: 7px;
             }
-
-            .help-content {
-                font-size: 9px;
-            }
         }
 
         ::-webkit-scrollbar {
@@ -1098,6 +1057,23 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: #0d47a1;
+        }
+
+        /* UPUTSTVO */
+        .help-content {
+            font-size: 10px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .help-content strong {
+            color: #1a237e;
+        }
+
+        .help-content .section {
+            color: #0d47a1;
+            font-weight: bold;
+            margin-top: 6px;
         }
     </style>
 </head>
@@ -1151,7 +1127,7 @@
         <div style="flex:1;"></div>
         <div
             style="padding:8px; text-align:center; font-size:8px; color:rgba(255,255,255,0.3); border-top:1px solid rgba(255,255,255,0.05);">
-            v5.0</div>
+            v4.0</div>
     </div>
 
     <!-- MAIN -->
@@ -1163,12 +1139,13 @@
             <p id="userDisplay2" style="font-size:9px; opacity:0.7;"></p>
         </div>
 
+        <!-- VIEW MODE -->
         <div class="view-mode">
             <button class="view-btn active" onclick="setViewMode('mine')">👤 Moje smene</button>
             <button class="view-btn inactive" onclick="setViewMode('all')">👥 Sve smene</button>
         </div>
 
-        <!-- KALENDAR -->
+        <!-- ========== KALENDAR ========== -->
         <div class="tab-pane active" id="tabCalendar">
             <div class="card">
                 <h2>📅 Kalendar</h2>
@@ -1207,7 +1184,7 @@
             </div>
         </div>
 
-        <!-- PRETRAGA -->
+        <!-- ========== PRETRAGA ========== -->
         <div class="tab-pane" id="tabSearch" style="display:none;">
             <div class="card">
                 <h2>🔍 Pretraga</h2>
@@ -1220,7 +1197,7 @@
             </div>
         </div>
 
-        <!-- RASPORED -->
+        <!-- ========== RASPORED ========== -->
         <div class="tab-pane" id="tabSchedule" style="display:none;">
             <div class="card">
                 <h2>📋 Napravi raspored</h2>
@@ -1249,7 +1226,7 @@
             </div>
         </div>
 
-        <!-- ZAPOSLENI -->
+        <!-- ========== ZAPOSLENI ========== -->
         <div class="tab-pane" id="tabEmployees" style="display:none;">
             <div class="card">
                 <h2>👥 Zaposleni</h2>
@@ -1281,7 +1258,7 @@
             </div>
         </div>
 
-        <!-- ODELJENJA -->
+        <!-- ========== ODELJENJA ========== -->
         <div class="tab-pane" id="tabDepartments" style="display:none;">
             <div class="card">
                 <h2>🏥 Odeljenja</h2>
@@ -1305,7 +1282,7 @@
             </div>
         </div>
 
-        <!-- ZAMENE -->
+        <!-- ========== ZAMENE ========== -->
         <div class="tab-pane" id="tabReplacements" style="display:none;">
             <div class="card">
                 <h2>🔄 Zamene</h2>
@@ -1339,7 +1316,7 @@
             </div>
         </div>
 
-        <!-- MOJA STATISTIKA -->
+        <!-- ========== MOJA STATISTIKA ========== -->
         <div class="tab-pane" id="tabStats" style="display:none;">
             <div class="card">
                 <h2>📊 Moja statistika</h2>
@@ -1357,7 +1334,7 @@
             </div>
         </div>
 
-        <!-- IZVEŠTAJI -->
+        <!-- ========== IZVEŠTAJI ========== -->
         <div class="tab-pane" id="tabReport" style="display:none;">
             <div class="card">
                 <h2>📄 Izveštaji</h2>
@@ -1384,7 +1361,7 @@
             </div>
         </div>
 
-        <!-- STATISTIKA ODELJENJA -->
+        <!-- ========== STATISTIKA ODELJENJA ========== -->
         <div class="tab-pane" id="tabDeptStats" style="display:none;">
             <div class="card">
                 <h2>📊 Statistika odeljenja</h2>
@@ -1402,7 +1379,7 @@
             </div>
         </div>
 
-        <!-- ŠABLONI -->
+        <!-- ========== ŠABLONI ========== -->
         <div class="tab-pane" id="tabTemplates" style="display:none;">
             <div class="card">
                 <h2>📋 Šabloni smena</h2>
@@ -1416,17 +1393,17 @@
             </div>
         </div>
 
-        <!-- OBAVEŠTENJA -->
+        <!-- ========== OBAVEŠTENJA ========== -->
         <div class="tab-pane" id="tabNotifications" style="display:none;">
             <div class="card">
                 <h2>🔔 Obaveštenja</h2>
-                <div class="form-row" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <div class="form-row" style="display:flex;align-items:center;gap:10px;">
                     <label style="margin:0;font-weight:bold;">Omogući:</label>
                     <label class="switch">
                         <input type="checkbox" id="notifEnabled" checked onchange="toggleNotifSwitch()">
                         <span class="slider"></span>
                     </label>
-                    <span id="notifStatus" style="font-size:10px;font-weight:bold;color:#2e7d32;">UKLJUČENO</span>
+                    <span id="notifStatus" style="font-size:9px;color:#2e7d32;">UKLJUČENO</span>
                 </div>
                 <div class="form-row"><label>Podsetnik (min):</label><input type="number" id="reminderMinutes"
                         value="30" style="width:70px;"></div>
@@ -1465,14 +1442,14 @@
             </div>
         </div>
 
-        <!-- PODEŠAVANJA -->
+        <!-- ========== PODEŠAVANJA ========== -->
         <div class="tab-pane" id="tabSettings" style="display:none;">
             <div class="card">
                 <h2>⚙️ Podešavanja</h2>
                 <button class="btn btn-orange" onclick="openModal('categoriesModal')">📊 Kategorije</button>
                 <button class="btn btn-purple" onclick="openModal('filterSettingsModal')">🔍 Filteri</button>
                 <div style="margin-top:8px;">
-                    <h4 style="font-size:10px;">🔐 Promena lozinke</h4>
+                    <h4 style="font-size:10px;">🔑 Promena lozinke</h4>
                     <div class="form-row"><label>Nova:</label><input type="password" id="newPass" style="width:120px;">
                     </div>
                     <div class="form-row"><label>Potvrdi:</label><input type="password" id="confirmPass"
@@ -1486,23 +1463,13 @@
                     <button class="btn btn-blue" onclick="saveDefaultRate()">💾 Sačuvaj</button>
                 </div>
                 <div style="margin-top:8px;">
-                    <h4 style="font-size:10px;">🔤 Veličina slova</h4>
-                    <div class="font-control">
-                        <label>A</label>
-                        <input type="range" id="fontSizeControl" min="10" max="20" step="1" value="12"
-                            oninput="changeFontSize(this.value)">
-                        <span id="fontSizeDisplay">12</span>
-                        <label>A</label>
-                    </div>
-                </div>
-                <div style="margin-top:8px;">
                     <h4 style="font-size:10px;">🔄 Reset podataka</h4>
                     <button class="btn btn-red" onclick="resetAllData()">🗑️ Resetuj sve</button>
                 </div>
             </div>
         </div>
 
-        <!-- UPUTSTVO -->
+        <!-- ========== UPUTSTVO ========== -->
         <div class="tab-pane" id="tabHelp" style="display:none;">
             <div class="card">
                 <h2>❓ Uputstvo</h2>
@@ -1512,7 +1479,8 @@
 
     </div>
 
-    <!-- MODALI -->
+    <!-- ==================== MODALI ==================== -->
+
     <div class="modal" id="addShiftModal">
         <div class="modal-content">
             <h2>➕ Dodaj smenu</h2>
@@ -1602,8 +1570,14 @@
         <div class="modal-content">
             <h2>📊 Kategorije smena</h2>
             <div class="category-grid">
-                <span>📌 Naziv</span><span>🕐 Sati</span><span>📈 Koef.</span>
-                <span>💰 Cena</span><span>🎨 Boja</span><span>⏰ Od</span><span>⏰ Do</span><span>🗑️</span>
+                <span>📌 Naziv</span>
+                <span>🕐 Sati</span>
+                <span>📈 Koef.</span>
+                <span>💰 Cena</span>
+                <span>🎨 Boja</span>
+                <span>⏰ Od</span>
+                <span>⏰ Do</span>
+                <span>🗑️</span>
             </div>
             <div id="categoriesList"></div>
             <div class="form-row" style="margin-top:6px;"><label>Nova:</label><input type="text" id="newCategoryName"
@@ -1667,7 +1641,7 @@
 
     <script>
         // ============================================
-        // 📦 PODACI
+        // 📦 PODACI (LocalStorage) - KOMPLETNO
         // ============================================
         let currentUser = 'admin';
         let currentDept = 'Hitna pomoć';
@@ -1710,7 +1684,7 @@
         // ============================================
         function loadData() {
             try {
-                const saved = localStorage.getItem('menadzer_smena_odeljenje_v6');
+                const saved = localStorage.getItem('menadzer_smena_odeljenje_v5');
                 if (saved) {
                     const data = JSON.parse(saved);
                     if (data.categories) categories = data.categories;
@@ -1733,7 +1707,7 @@
 
         function saveData() {
             try {
-                localStorage.setItem('menadzer_smena_odeljenje_v6', JSON.stringify({
+                localStorage.setItem('menadzer_smena_odeljenje_v5', JSON.stringify({
                     categories, employees, departments, shifts, templates, templateEmployees,
                     customFilters, notificationHistory, currentUser, currentDept
                 }));
@@ -2628,15 +2602,12 @@
                 cb.value = e.username;
                 cb.className = 'replace-checkbox';
                 cb.addEventListener('change', function () {
-                    if (this.checked) {
-                        label.style.background = '#1a237e';
-                        label.style.color = 'white';
-                        label.style.borderColor = '#1a237e';
-                    } else {
-                        label.style.background = 'white';
-                        label.style.color = '#333';
-                        label.style.borderColor = '#ddd';
-                    }
+                    if (this.checked) label.style.background = '#1a237e';
+                    else label.style.background = 'white';
+                    if (this.checked) label.style.color = 'white';
+                    else label.style.color = '#333';
+                    if (this.checked) label.style.borderColor = '#1a237e';
+                    else label.style.borderColor = '#ddd';
                 });
                 label.appendChild(cb);
                 label.appendChild(document.createTextNode(' ' + e.name));
@@ -2836,6 +2807,7 @@
                 cb.value = e.username;
                 label.appendChild(cb);
                 label.appendChild(document.createTextNode(' ' + e.name));
+                // Dodaj event za vizuelni efekat
                 cb.addEventListener('change', function () {
                     if (this.checked) label.classList.add('checked');
                     else label.classList.remove('checked');
@@ -2843,6 +2815,7 @@
                 container.appendChild(label);
             });
         }
+
 
         function renderTemplateEmployees() {
             const filters = ['all', ...new Set(employees.map(e => e.role).filter(r => r))];
@@ -3054,12 +3027,6 @@
             }
         }
 
-        function toggleNotifOptions() {
-            const filter = document.getElementById('notifShiftFilter').value;
-            document.getElementById('notifShiftSelect').style.display = filter === 'selected' ? 'block' : 'none';
-            document.getElementById('notifDateSelect').style.display = filter === 'specific' ? 'block' : 'none';
-        }
-
         function renderNotificationSettings() {
             document.getElementById('notifEnabled').checked = true;
             document.getElementById('reminderMinutes').value = 30;
@@ -3069,12 +3036,7 @@
             container.innerHTML = '';
             Object.keys(categories).forEach(cat => {
                 const label = document.createElement('label');
-                const cb = document.createElement('input');
-                cb.type = 'checkbox';
-                cb.value = cat;
-                cb.checked = true;
-                label.appendChild(cb);
-                label.appendChild(document.createTextNode(' ' + cat));
+                label.innerHTML = `<input type="checkbox" value="${cat}" checked> ${cat}`;
                 container.appendChild(label);
             });
 
@@ -3082,7 +3044,6 @@
             document.getElementById('notifHistory').textContent = history.length === 0 ? 'Nema istorije.' : history.map(h => '[' + h.date + '] ' + h.message).join('\n');
 
             toggleNotifOptions();
-            toggleNotifSwitch();
         }
 
         function saveNotificationSettings() {
@@ -3143,17 +3104,10 @@
             showToast('✅ Default satnica sačuvana!');
         }
 
-        function changeFontSize(size) {
-            document.getElementById('fontSizeDisplay').textContent = size;
-            document.querySelectorAll('.help-content, .details, .card, .sidebar-btn, .view-btn, .btn, label, input, select, textarea, .form-row, .month-label, .day-cell, .legend-item, .stat-item, .item-card, .modal-content, .toast').forEach(el => {
-                el.style.fontSize = size + 'px';
-            });
-        }
-
         function resetAllData() {
             if (!confirm('🗑️ DA LI STE SIGURNI? Ovo će obrisati SVE podatke!')) return;
             if (!confirm('Poslednja potvrda - obrisati sve?')) return;
-            localStorage.removeItem('menadzer_smena_odeljenje_v6');
+            localStorage.removeItem('menadzer_smena_odeljenje_v5');
             location.reload();
         }
 
@@ -3249,15 +3203,7 @@
             list.forEach(e => {
                 if (e.username === 'admin') return;
                 const label = document.createElement('label');
-                const cb = document.createElement('input');
-                cb.type = 'checkbox';
-                cb.value = e.username;
-                label.appendChild(cb);
-                label.appendChild(document.createTextNode(' ' + e.name));
-                cb.addEventListener('change', function () {
-                    if (this.checked) label.classList.add('checked');
-                    else label.classList.remove('checked');
-                });
+                label.innerHTML = `<input type="checkbox" value="${e.username}"> ${e.name}`;
                 container.appendChild(label);
             });
         }
@@ -3271,7 +3217,7 @@
         }
 
         // ============================================
-        // 🌐 JEZIK - CEO APP
+        // 🌐 JEZIK
         // ============================================
         function changeLanguage() {
             language = (language === 'latin') ? 'cyrillic' : 'latin';
@@ -3283,7 +3229,8 @@
 
         function translateAll() {
             const isCyr = language === 'cyrillic';
-            const menuMap = {
+            // Prevod menija
+            const menuItems = {
                 '📅 Kalendar': isCyr ? '📅 Календар' : '📅 Kalendar',
                 '🔍 Pretraga': isCyr ? '🔍 Претрага' : '🔍 Pretraga',
                 '📋 Raspored': isCyr ? '📋 Распоред' : '📋 Raspored',
@@ -3305,12 +3252,12 @@
 
             document.querySelectorAll('.sidebar-btn').forEach(btn => {
                 const text = btn.textContent.trim();
-                if (menuMap[text]) btn.textContent = menuMap[text];
+                if (menuItems[text]) btn.textContent = menuItems[text];
             });
 
             document.querySelectorAll('.view-btn').forEach(btn => {
                 const text = btn.textContent.trim();
-                if (menuMap[text]) btn.textContent = menuMap[text];
+                if (menuItems[text]) btn.textContent = menuItems[text];
             });
         }
 
@@ -3320,132 +3267,148 @@
         function updateHelp() {
             const isCyr = language === 'cyrillic';
             const content = isCyr ? `
-📚 МЕНАЏЕР СМЕНА - ДЕТАЉНО УПУТСТВО
+        📚 МЕНАЏЕР СМЕНА - ДЕТАЉНО УПУТСТВО
 
-👑 АДМИНИСТРАТОР (admin / admin123):
+        👑 АДМИНИСТРАТОР (admin / admin123):
 
-📅 КАЛЕНДАР
-• Приказује све смене по данима
-• Кликните на било који дан за детаље
-• Дугмад: Додај, Додели, Обриши
+        📅 КАЛЕНДАР
+        • Приказује све смене по данима
+        • Кликните на било који дан за детаље
+        • Дугмад: Додај, Додели, Обриши
 
-👥 ЗАПОСЛЕНИ
-• Додавање: Кликните "➕ Додај", унесите податке
-• Масовни унос: Кликните "📋 Масовни унос"
-• Измена: Кликните ✏️ поред запосленог
-• Брисање: Кликните ❌ поред запосленог
+        👥 ЗАПОСЛЕНИ
+        • Додавање: Кликните "➕ Додај", унесите податке
+        • Масовни унос: Кликните "📋 Масовни унос", унесите више запослених одједном
+        • Измена: Кликните ✏️ поред запосленог
+        • Брисање: Кликните ❌ поред запосленог
 
-🏥 ОДЕЉЕЊА
-• Додајте ново одељење уносом назива и лозинке
-• Обришите одељење кликом на 🗑️
+        🏥 ОДЕЉЕЊА
+        • Додајте ново одељење уносом назива и лозинке
+        • Обришите одељење кликом на 🗑️
 
-📋 РАСПОРЕД
-• Изаберите месец, годину и опсег дана
-• Изаберите врсту смене и раднике
-• Кликните "📋 Направи распоред"
+        📋 РАСПОРЕД
+        • Изаберите месец и годину
+        • Поставите опсег дана (од-до)
+        • Изаберите врсту смене
+        • Одаберите раднике (чекирајте) и кликните "📋 Направи распоред"
 
-🔄 ЗАМЕНЕ
-• Изаберите датум и смену
-• Кликните "🔍 Прикажи" за тренутне смене
-• Одаберите раднике за додавање или уклањање
+        🔄 ЗАМЕНЕ
+        • Изаберите датум и смену
+        • Кликните "🔍 Прикажи" за тренутне смене
+        • Одаберите раднике за додавање или уклањање
 
-📊 МОЈА СТАТИСТИКА
-• Изаберите период (од-до)
-• Кликните "📊 Генериши" за преглед
-• Извоз у TXT, CSV, PDF
+        📊 МОЈА СТАТИСТИКА
+        • Изаберите период (од-до)
+        • Кликните "📊 Генериши" за преглед
+        • Извоз у TXT, CSV, PDF
 
-📄 ИЗВЕШТАЈИ
-• Изаберите тип: Лични / Одељења / Комплетан
-• Кликните "📄 Генериши" и изаберите формат
+        📄 ИЗВЕШТАЈИ
+        • Изаберите тип: Лични / Одељења / Комплетан
+        • Изаберите одељење и запосленог (опционо)
+        • Кликните "📄 Генериши" и изаберите формат
 
-📊 СТАТИСТИКА ОДЕЉЕЊА
-• Приказује статистику за цело одељење
+        📊 СТАТИСТИКА ОДЕЉЕЊА
+        • Приказује статистику за цело одељење
+        • По запосленима и категоријама
 
-📋 ШАБЛОНИ
-• Креирајте групе радника за брзо додавање
-• Одаберите раднике и сачувајте шаблон
+        📋 ШАБЛОНИ
+        • Креирајте групе радника за брзо додавање
+        • Одаберите раднике и сачувајте шаблон
+        • Примените шаблон на датум
 
-🔔 ОБАВЕШТЕЊА
-• Укључите/искључите обавештења
-• Подесите време подсећања
-• Изаберите звук
+        🔔 ОБАВЕШТЕЊА
+        • Укључите/искључите обавештења
+        • Подесите време подсећања
+        • Изаберите звук
 
-⚙️ ПОДЕШАВАЊА
-• Креирајте категорије са временом
-• Додајте филтере за запослене
-• Промените лозинку
-• Подесите величину слова
+        ⚙️ ПОДЕШАВАЊА
+        • Креирајте категорије са временом
+        • Додајте филтере за запослене
+        • Промените лозинку
 
-💡 ПРИМЕР ЗА КОРИШЋЕЊЕ:
-1. Као администратор, прво додајте одељења
-2. Затим додајте запослене
-3. Направите распоред за месец
-4. Пратите статистику и извештаје
-5. Користите шаблоне за брже креирање
-            ` : `
-📚 MENADŽER SMENA - DETALJNO UPUTSTVO
+        👤 ЗАПОСЛЕНИ (пријава са својим именом):
+        • Преглед сопствених смена
+        • Моја статистика
+        • Лични извештај
 
-👑 ADMINISTRATOR (admin / admin123):
+        💡 ПРИМЕР ЗА КОРИШЋЕЊЕ:
+        1. Као администратор, прво додајте одељења
+        2. Затим додајте запослене
+        3. Направите распоред за месец
+        4. Пратите статистику и извештаје
+        5. Користите шаблоне за брже креирање
+                    ` : `
+        📚 MENADŽER SMENA - DETALJNO UPUTSTVO
 
-📅 KALENDAR
-• Prikazuje sve smene po danima
-• Kliknite na bilo koji dan za detalje
-• Dugmad: Dodaj, Dodeli, Obriši
+        👑 ADMINISTRATOR (admin / admin123):
 
-👥 ZAPOSLENI
-• Dodavanje: Kliknite "➕ Dodaj", unesite podatke
-• Masovni unos: Kliknite "📋 Masovni unos"
-• Izmena: Kliknite ✏️ pored zaposlenog
-• Brisanje: Kliknite ❌ pored zaposlenog
+        📅 KALENDAR
+        • Prikazuje sve smene po danima
+        • Kliknite na bilo koji dan za detalje
+        • Dugmad: Dodaj, Dodeli, Obriši
 
-🏥 ODELJENJA
-• Dodajte novo odeljenje unosom naziva i lozinke
-• Obrišite odeljenje klikom na 🗑️
+        👥 ZAPOSLENI
+        • Dodavanje: Kliknite "➕ Dodaj", unesite podatke
+        • Masovni unos: Kliknite "📋 Masovni unos", unesite više zaposlenih odjednom
+        • Izmena: Kliknite ✏️ pored zaposlenog
+        • Brisanje: Kliknite ❌ pored zaposlenog
 
-📋 RASPORED
-• Izaberite mesec, godinu i opseg dana
-• Izaberite vrstu smene i radnike
-• Kliknite "📋 Napravi raspored"
+        🏥 ODELJENJA
+        • Dodajte novo odeljenje unosom naziva i lozinke
+        • Obrišite odeljenje klikom na 🗑️
 
-🔄 ZAMENE
-• Izaberite datum i smenu
-• Kliknite "🔍 Prikaži" za trenutne smene
-• Odaberite radnike za dodavanje ili uklanjanje
+        📋 RASPORED
+        • Izaberite mesec i godinu
+        • Postavite opseg dana (od-do)
+        • Izaberite vrstu smene
+        • Odaberite radnike (čekirajte) i kliknite "📋 Napravi raspored"
 
-📊 MOJA STATISTIKA
-• Izaberite period (od-do)
-• Kliknite "📊 Generiši" za pregled
-• Izvoz u TXT, CSV, PDF
+        🔄 ZAMENE
+        • Izaberite datum i smenu
+        • Kliknite "🔍 Prikaži" za trenutne smene
+        • Odaberite radnike za dodavanje ili uklanjanje
 
-📄 IZVEŠTAJI
-• Izaberite tip: Lični / Odeljenja / Kompletan
-• Kliknite "📄 Generiši" i izaberite format
+        📊 MOJA STATISTIKA
+        • Izaberite period (od-do)
+        • Kliknite "📊 Generiši" za pregled
+        • Izvoz u TXT, CSV, PDF
 
-📊 STATISTIKA ODELJENJA
-• Prikazuje statistiku za celo odeljenje
+        📄 IZVEŠTAJI
+        • Izaberite tip: Lični / Odeljenja / Kompletan
+        • Izaberite odeljenje i zaposlenog (opciono)
+        • Kliknite "📄 Generiši" i izaberite format
 
-📋 ŠABLONI
-• Kreirajte grupe radnika za brzo dodavanje
-• Odaberite radnike i sačuvajte šablon
+        📊 STATISTIKA ODELJENJA
+        • Prikazuje statistiku za celo odeljenje
+        • Po zaposlenima i kategorijama
 
-🔔 OBAVEŠTENJA
-• Uključite/isključite obaveštenja
-• Podesite vreme podsećanja
-• Izaberite zvuk
+        📋 ŠABLONI
+        • Kreirajte grupe radnika za brzo dodavanje
+        • Odaberite radnike i sačuvajte šablon
+        • Primenite šablon na datum
 
-⚙️ PODEŠAVANJA
-• Kreirajte kategorije sa vremenom
-• Dodajte filtere za zaposlene
-• Promenite lozinku
-• Podesite veličinu slova
+        🔔 OBAVEŠTENJA
+        • Uključite/isključite obaveštenja
+        • Podesite vreme podsećanja
+        • Izaberite zvuk
 
-💡 PRIMER ZA KORIŠĆENJE:
-1. Kao administrator, prvo dodajte odeljenja
-2. Zatim dodajte zaposlene
-3. Napravite raspored za mesec
-4. Pratite statistiku i izveštaje
-5. Koristite šablone za brže kreiranje
-            `;
+        ⚙️ PODEŠAVANJA
+        • Kreirajte kategorije sa vremenom
+        • Dodajte filtere za zaposlene
+        • Promenite lozinku
+
+        👤 ZAPOSLENI (prijava sa svojim imenom):
+        • Pregled sopstvenih smena
+        • Moja statistika
+        • Lični izveštaj
+
+        💡 PRIMER ZA KORIŠĆENJE:
+        1. Kao administrator, prvo dodajte odeljenja
+        2. Zatim dodajte zaposlene
+        3. Napravite raspored za mesec
+        4. Pratite statistiku i izveštaje
+        5. Koristite šablone za brže kreiranje
+                    `;
             document.getElementById('helpContent').textContent = content;
         }
 
@@ -3490,7 +3453,6 @@
             if (id === 'assignShiftModal') { filterAssignEmployees(); document.getElementById('assignCategory').innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join(''); }
             if (id === 'addShiftModal') { document.getElementById('shiftCategory').innerHTML = Object.keys(categories).map(c => `<option value="${c}">${c}</option>`).join(''); document.getElementById('shiftUser').innerHTML = employees.map(e => `<option value="${e.username}">${e.name}</option>`).join(''); }
             if (id === 'addEmployeeModal') { openAddEmployeeModal(); }
-            if (id === 'notifications') { renderNotificationSettings(); }
         }
 
         function closeModal(id) {
@@ -3530,9 +3492,6 @@
 
             filterAssignEmployees();
             filterTemplateEmployees();
-            renderNotificationSettings();
-            translateAll();
-            updateHelp();
         }
 
         // ============================================
@@ -3540,7 +3499,7 @@
         // ============================================
         renderAll();
 
-        console.log('🚑 Menadžer Smena - Odeljenja v6.0');
+        console.log('🚑 Menadžer Smena - Odeljenja v5.0');
         console.log('👑 Admin: admin / admin123');
         console.log('✅ SVE FUNKCIJE SU KOMPLETNE!');
     </script>

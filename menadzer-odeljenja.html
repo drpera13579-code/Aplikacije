@@ -3431,11 +3431,13 @@
                 '🔔 Obaveštenja': '🔔 Обавештења',
                 '⚙️ Podešavanja': '⚙️ Подешавања',
                 '❓ Uputstvo': '❓ Упутство',
-                '🌐 Jezik': '🌐 Језик',
                 '🚪 Odjava': '🚪 Одјава',
                 '👤 Moje smene': '👤 Моје смене',
                 '👥 Sve smene': '👥 Све смене',
                 '🚑 Hitna pomoć': '🚑 Хитна помоћ',
+                'Menadžer': 'Менаџер',
+                'admin': 'админ',
+                '👤 admin': '👤 админ',
                 '📄 TXT': '📄 TXT',
                 '📊 CSV': '📊 CSV',
                 '📄 PDF': '📄 PDF',
@@ -3454,14 +3456,17 @@
                 '🔐 Promena lozinke': '🔐 Промена лозинке',
                 '💰 Default satnica': '💰 Default сатница',
                 '🔤 Veličina slova': '🔤 Величина слова',
-                '🔄 Reset podataka': '🔄 Ресет података'
+                '🔄 Reset podataka': '🔄 Ресет података',
+                '📌 Odaberite datum za prikaz smena': '📌 Одаберите датум за приказ смена',
+                '📌 Odaberite datum za prikaz pregleda': '📌 Одаберите датум за приказ прегледа',
+                'Nema podataka': 'Нема података'
             };
 
-            // Prevod LEVE STRANE
+            // PREVOD LEVE STRANE - SVI DUGMADI
             document.querySelectorAll('.sidebar-btn').forEach(btn => {
                 let text = btn.textContent.trim();
-                // Preskoči ako je prazno ili ako je dugme za jezik (sakrili smo ga)
-                if (!text || btn.classList.contains('orange')) return;
+                // Preskoči ako je prazno
+                if (!text) return;
                 Object.keys(t).forEach(key => {
                     if (text.includes(key)) {
                         text = text.replace(key, t[key]);
@@ -3470,28 +3475,69 @@
                 if (text !== btn.textContent.trim()) btn.textContent = text;
             });
 
-            // Prevod VIEW MODE
+            // PREVOD VIEW MODE
             document.querySelectorAll('.view-btn').forEach(btn => {
                 const text = btn.textContent.trim();
                 if (t[text]) btn.textContent = t[text];
             });
 
-            // Prevod SVIH DUGMADI
+            // PREVOD SVIH DUGMADI
             document.querySelectorAll('.btn').forEach(btn => {
                 const text = btn.textContent.trim();
                 if (t[text]) btn.textContent = t[text];
             });
 
-            // Prevod HEADER
+            // PREVOD HEADER - NASLOV
             const header = document.getElementById('headerTitle');
-            if (header && t[header.textContent.trim()]) {
-                header.textContent = t[header.textContent.trim()];
+            if (header) {
+                let text = header.textContent.trim();
+                if (text === '🚑 Hitna pomoć') {
+                    header.textContent = '🚑 Хитна помоћ';
+                } else if (t[text]) {
+                    header.textContent = t[text];
+                }
             }
 
-            // Prevod SAMO "Odjava" (NE i Jezik)
+            // PREVOD "Odjava" (crveno dugme)
             document.querySelectorAll('.sidebar-btn.red').forEach(btn => {
                 btn.textContent = '🚪 Одјава';
             });
+
+            // PREVOD NASLOVA U SIDEBAR-U
+            const sidebarTitle = document.querySelector('.sidebar-title');
+            if (sidebarTitle) {
+                const text = sidebarTitle.textContent.trim();
+                if (text === '🚑 Menadžer') {
+                    sidebarTitle.textContent = '🚑 Менаџер';
+                }
+            }
+
+            // PREVOD "admin" u sidebar-u
+            const userDisplay = document.getElementById('userDisplay');
+            if (userDisplay) {
+                const text = userDisplay.textContent.trim();
+                if (text === '👤 admin') {
+                    userDisplay.textContent = '👤 админ';
+                }
+            }
+
+            // PREVOD "admin" u header-u
+            const userDisplay2 = document.getElementById('userDisplay2');
+            if (userDisplay2) {
+                const text = userDisplay2.textContent.trim();
+                if (text === '👤 admin') {
+                    userDisplay2.textContent = '👤 админ';
+                }
+            }
+
+            // PREVOD "🏥 Hitna pomoć" u sidebar-u
+            const deptDisplay = document.getElementById('deptDisplay');
+            if (deptDisplay) {
+                const text = deptDisplay.textContent.trim();
+                if (text === '🏥 Hitna pomoć') {
+                    deptDisplay.textContent = '🏥 Хитна помоћ';
+                }
+            }
         }
 
         // ============================================

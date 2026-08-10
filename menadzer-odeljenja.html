@@ -3417,8 +3417,6 @@
         }
 
         function translateAll() {
-            const isCyr = true; // UVEK ĆIRILICA
-
             const t = {
                 '📅 Kalendar': '📅 Календар',
                 '🔍 Pretraga': '🔍 Претрага',
@@ -3448,12 +3446,22 @@
                 '➕ Dodaj': '➕ Додај',
                 '🗑️ Obriši': '🗑️ Обриши',
                 '💾 Sačuvaj': '💾 Сачувај',
-                '❌ Otkaži': '❌ Откажи'
+                '❌ Otkaži': '❌ Откажи',
+                '📋 Aktivni podsetnici': '📋 Активни подсетници',
+                '📋 Istorija': '📋 Историја',
+                '🗑️ Obriši istoriju': '🗑️ Обриши историју',
+                '💾 Sačuvaj podešavanja': '💾 Сачувај подешавања',
+                '🔐 Promena lozinke': '🔐 Промена лозинке',
+                '💰 Default satnica': '💰 Default сатница',
+                '🔤 Veličina slova': '🔤 Величина слова',
+                '🔄 Reset podataka': '🔄 Ресет података'
             };
 
-            // PREVOD LEVE STRANE
+            // Prevod LEVE STRANE
             document.querySelectorAll('.sidebar-btn').forEach(btn => {
                 let text = btn.textContent.trim();
+                // Preskoči ako je prazno ili ako je dugme za jezik (sakrili smo ga)
+                if (!text || btn.classList.contains('orange')) return;
                 Object.keys(t).forEach(key => {
                     if (text.includes(key)) {
                         text = text.replace(key, t[key]);
@@ -3462,31 +3470,27 @@
                 if (text !== btn.textContent.trim()) btn.textContent = text;
             });
 
-            // PREVOD VIEW MODE DUGMADI
+            // Prevod VIEW MODE
             document.querySelectorAll('.view-btn').forEach(btn => {
                 const text = btn.textContent.trim();
                 if (t[text]) btn.textContent = t[text];
             });
 
-            // PREVOD OSTALIH DUGMADI
+            // Prevod SVIH DUGMADI
             document.querySelectorAll('.btn').forEach(btn => {
                 const text = btn.textContent.trim();
                 if (t[text]) btn.textContent = t[text];
             });
 
-            // PREVOD HEADER-A
+            // Prevod HEADER
             const header = document.getElementById('headerTitle');
-            if (header) {
-                const text = header.textContent.trim();
-                if (t[text]) header.textContent = t[text];
+            if (header && t[header.textContent.trim()]) {
+                header.textContent = t[header.textContent.trim()];
             }
 
-            // PREVOD "ODJAVA" I "JEZIK"
+            // Prevod SAMO "Odjava" (NE i Jezik)
             document.querySelectorAll('.sidebar-btn.red').forEach(btn => {
                 btn.textContent = '🚪 Одјава';
-            });
-            document.querySelectorAll('.sidebar-btn.orange').forEach(btn => {
-                btn.textContent = '🌐 Језик';
             });
         }
 

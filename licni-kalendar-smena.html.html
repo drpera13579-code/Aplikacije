@@ -1107,104 +1107,92 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         }
 
         /* LOGIN */
-        .login-box {
-            background: var(--card-bg);
-            padding: 50px 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid var(--border);
-        }
-
-        .login-box h1 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .login-box .subtitle {
-            text-align: center;
-            color: var(--text);
-            opacity: 0.6;
-            margin-bottom: 30px;
-        }
-
-        .login-box label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: var(--text);
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid var(--input-border);
-            border-radius: 10px;
-            font-size: 16px;
-            margin-bottom: 16px;
-            background: var(--input-bg);
-            color: var(--text);
-        }
-
-        .login-box input:focus {
-            border-color: #1a237e;
-            outline: none;
-        }
-
-        .login-box .btn-login {
-            width: 100%;
-            padding: 14px;
-            font-size: 18px;
-            border: none;
-            border-radius: 10px;
-            background: #1a237e;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .login-box .btn-login:hover {
-            background: #0d47a1;
-        }
-
-        .login-box .error {
-            color: #f44336;
-            text-align: center;
-            margin-top: 12px;
-            font-weight: 500;
-            display: none;
-        }
-
-        .login-box .error.show {
-            display: block;
-        }
-
         #loginScreen {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
             z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
             transition: all 0.3s ease;
+        }
+
+        #loginScreen .logo {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        #loginScreen h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        #loginScreen .subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        #loginScreen input {
+            width: 90%;
+            max-width: 320px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 8px;
+            background: white;
+        }
+
+        #loginScreen input:focus {
+            outline: 2px solid #FF9800;
+        }
+
+        #loginScreen .login-btn {
+            background: white;
+            color: #1a237e;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #loginScreen .login-btn:hover {
+            transform: scale(1.05);
+        }
+
+        #loginError {
+            color: #ff6b6b;
+            margin-top: 8px;
+            display: none;
+            background: rgba(255, 0, 0, 0.2);
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        #loginScreen .footer-text {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 10px;
+            margin-top: 12px;
+            text-align: center;
+            line-height: 1.6;
         }
 
         #loginScreen.hidden {
             display: none !important;
-            pointer-events: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            z-index: -1 !important;
-            position: fixed !important;
-            top: -9999px !important;
-            left: -9999px !important;
         }
 
 
@@ -1720,20 +1708,15 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
 
     <!-- LOGIN SCREEN -->
     <div id="loginScreen">
-        <div class="login-box">
-            <h1 id="loginTitle">📅 Lični raspored</h1>
-            <p class="subtitle" id="loginSubtitle">Prijavite se za nastavak</p>
-            <form id="loginForm" onsubmit="login(event)">
-                <label id="loginUserLabel">👤 Korisničko ime</label>
-                <input type="text" id="loginUsername" placeholder="Unesite korisničko ime" required>
-                <label id="loginPassLabel">🔑 Lozinka</label>
-                <input type="password" id="loginPassword" placeholder="Unesite lozinku" " required>
-                <button type=" submit" class="btn-login" id="loginBtn">🔑 Prijavi se</button>
-                <div class="error" id="loginError">❌ Pogrešno korisničko ime ili lozinka!</div>
-            </form>
-            <p style="text-align:center;margin-top:14px;font-size:12px;opacity:0.5;" id="loginDefault">Default: admin /
-                admin123</p>
-        </div>
+        <div class="logo">🚑</div>
+        <h1 id="loginTitle">Lični raspored</h1>
+        <p class="subtitle" id="loginSubtitle">Upravljanje smenama</p>
+        <input type="text" id="loginUsername" placeholder="Korisničko ime" autocomplete="off">
+        <input type="password" id="loginPassword" placeholder="Lozinka" autocomplete="off">
+        <button class="login-btn" onclick="loginUser()" id="loginBtn">🔓 Prijavi se</button>
+        <div id="loginError">❌ Pogrešno korisničko ime ili lozinka!</div>
+        <!-- <div class="footer-text">👑 <strong>Admin:</strong> admin / admin123<br>📌 Zaposleni: koriste svoje ime i
+            lozinku</div> -->
     </div>
 
     <!-- SIDEBAR OVERLAY -->
@@ -1741,7 +1724,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
 
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-title" id="sidebarTitle">📅 Lični</div>
+        <div class="sidebar-title" id="sidebarTitle">🚑 Menadžer</div>
         <div class="sidebar-user" id="userDisplay">👤 Lični korisnik</div>
 
         <div class="sidebar-scroll">
@@ -1777,7 +1760,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         <div class="header">
             <div class="header-left">
                 <button class="hamburger" onclick="toggleSidebar()" id="hamburgerBtn">☰</button>
-                <h1 id="headerTitle">📅 Lični raspored</h1>
+                <h1 id="headerTitle">🚑 Menadžer smena</h1>
             </div>
             <div class="header-actions" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
                 <span class="date" id="todayDate"></span>
@@ -1852,7 +1835,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 <h2 id="catTitle">⚙️ Podešavanja</h2>
 
                 <!-- KATEGORIJE -->
-                <h3 style="font-size:16px;margin-top:10px;">📋 Kategorije smena</h3>
+                <h3 style="font-size:16px;margin-top:10px;" id="categoriesTitle">📋 Kategorije smena</h3>
                 <p style="opacity:0.7;margin-bottom:10px;font-size:13px;" id="catDesc">Dodaj, izmeni ili obriši
                     kategorije smena.</p>
                 <button class="btn btn-green" onclick="openModal('addCategoryModal')" style="margin-bottom:12px;"
@@ -1877,7 +1860,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
 
                 <!-- KORISNICI - SAMO ZA ADMINA -->
                 <div id="adminOnlySection"
-                    style="display:none;margin-top:20px;border-top:2px solid var(--border);padding-top:16px;">
+                    style="margin-top:20px;border-top:2px solid var(--border);padding-top:16px;display:none;">
                     <h3 style="font-size:16px;">👥 Korisnici</h3>
                     <p style="opacity:0.7;margin-bottom:10px;font-size:13px;">Dodaj ili obriši korisnike. Korisnici mogu
                         da vide samo svoje smene.</p>
@@ -2106,25 +2089,6 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         </div>
     </div>
 
-    <!-- IZMENA KORISNIKA -->
-    <div class="modal" id="editUserModal">
-        <div class="modal-content">
-            <h2 id="modalEditUserTitle">✏️ Izmeni korisnika</h2>
-            <input type="hidden" id="editUserOldName">
-            <label id="modalEditUserUsername">Korisničko ime:</label>
-            <input type="text" id="editUserUsername" placeholder="Novo korisničko ime">
-            <label id="modalEditUserPassword">Nova lozinka (ostavi prazno ako ne želiš da menjaš):</label>
-            <input type="password" id="editUserPassword" placeholder="Nova lozinka">
-            <label id="modalEditUserConfirm">Potvrdi novu lozinku:</label>
-            <input type="password" id="editUserConfirm" placeholder="Potvrdi lozinku">
-            <div class="modal-btns">
-                <button class="btn btn-green" onclick="saveUserEdit()" id="modalEditUserSave">💾 Sačuvaj</button>
-                <button class="btn btn-red" onclick="closeModal('editUserModal')" id="modalEditUserCancel">❌
-                    Otkaži</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         // ============================================================
         // PREVODI
@@ -2308,12 +2272,8 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 msgPasswordMismatchUser: 'Lozinke se ne poklapaju!',
                 msgUserDeleteConfirm: 'Da li ste sigurni da želite da obrišete korisnika "{name}"?',
                 reminderAddNew: '⏰ Dodaj novi podsetnik',
-                modalEditUserTitle: '✏️ Izmeni korisnika',
-                modalEditUserUsername: 'Korisničko ime:',
-                modalEditUserPassword: 'Nova lozinka (ostavi prazno ako ne želiš da menjaš):',
-                modalEditUserConfirm: 'Potvrdi novu lozinku:',
-                modalEditUserSave: '💾 Sačuvaj',
-                modalEditUserCancel: '❌ Otkaži',
+                catDesc: 'Dodaj, izmeni ili obriši kategorije smena.',
+                categoriesTitle: '📋 Kategorije smena',
             },
             'sr-cyrillic': {
                 loginTitle: '📅 Лични распоред', loginSubtitle: 'Пријавите се за наставак',
@@ -2469,12 +2429,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 msgPasswordMismatchUser: 'Лозинке се не поклапају!',
                 msgUserDeleteConfirm: 'Да ли сте сигурни да желите да обришете корисника "{name}"?',
                 reminderAddNew: '⏰ Додај нови подсетник',
-                modalEditUserTitle: '✏️ Измени корисника',
-                modalEditUserUsername: 'Корисничко име:',
-                modalEditUserPassword: 'Нова лозинка (остави празно ако не желиш да мењаш):',
-                modalEditUserConfirm: 'Потврди нову лозинку:',
-                modalEditUserSave: '💾 Сачувај',
-                modalEditUserCancel: '❌ Откажи',
+                categoriesTitle: '📋 Категорије смена',
             },
             'en': {
                 loginTitle: '📅 Personal Schedule', loginSubtitle: 'Please login to continue',
@@ -2658,12 +2613,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 msgPasswordMismatchUser: 'Passwords do not match!',
                 msgUserDeleteConfirm: 'Are you sure you want to delete user "{name}"?',
                 reminderAddNew: '⏰ Add new reminder',
-                modalEditUserTitle: '✏️ Edit user',
-                modalEditUserUsername: 'Username:',
-                modalEditUserPassword: 'New password (leave empty to keep current):',
-                modalEditUserConfirm: 'Confirm new password:',
-                modalEditUserSave: '💾 Save',
-                modalEditUserCancel: '❌ Cancel',
+                categoriesTitle: '📋 Shift Categories',
             }
         };
 
@@ -2676,61 +2626,119 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
 
         function applyTranslations() {
             const items = {
-                loginTitle: 'loginTitle', loginSubtitle: 'loginSubtitle',
-                loginUserLabel: 'loginUserLabel', loginPassLabel: 'loginPassLabel',
-                loginBtn: 'loginBtn', loginDefault: 'loginDefault',
-                sidebarTitle: 'sidebarTitle', userDisplay: 'userDisplay',
-                btnChangeName: 'btnChangeName', btnChangePass: 'btnChangePass',
-                tabCalendar: 'tabCalendar', tabStats: 'tabStats',
-                tabReport: 'tabReport', tabCategories: 'tabCategories',
-                tabNotifications: 'tabNotifications', tabHelp: 'tabHelp',
-                btnLogout: 'btnLogout', headerTitle: 'headerTitle',
-                viewMine: 'viewMine', viewAll: 'viewAll',
-                btnToday: 'btnToday', btnAddShift: 'btnAddShift',
-                btnDeleteShift: 'btnDeleteShift', btnClearDay: 'btnClearDay',
-                btnReminder: 'btnReminder', btnMassAdd: 'btnMassAdd',
-                statsTitle: 'statsTitle', statsShow: 'statsShow', statsByDay: 'statsByDay',
-                reportTitle: 'reportTitle', reportGenerate: 'reportGenerate',
-                reportTxt: 'reportTxt', reportCsv: 'reportCsv',
-                reportHtml: 'reportHtml', reportShare: 'reportShare',
-                catTitle: 'catTitle', catDesc: 'catDesc', catAddBtn: 'catAddBtn',
-                catColColor: 'catColColor', catColName: 'catColName',
-                catColRate: 'catColRate', catColCoeff: 'catColCoeff',
-                catColHours: 'catColHours', catColStart: 'catColStart',
-                catColEnd: 'catColEnd', catColActions: 'catColActions',
-                notifTitle: 'notifTitle', notifEnableLabel: 'notifEnableLabel',
-                notifSoundLabel: 'notifSoundLabel', notifSave: 'notifSave',
-                notifActiveTitle: 'notifActiveTitle', notifHistoryTitle: 'notifHistoryTitle',
-                helpTitle: 'helpTitle', reminderDateLabel: 'reminderDateLabel',
-                reminderShiftLabel: 'reminderShiftLabel', reminderTimeLabel: 'reminderTimeLabel',
-                reminderOrLabel: 'reminderOrLabel', reminderBeforeLabel: 'reminderBeforeLabel',
-                reminderMessageLabel: 'reminderMessageLabel', reminderAddBtn: 'reminderAddBtn',
-                modalAddShiftTitle: 'modalAddShiftTitle', modalShiftCategory: 'modalShiftCategory',
-                modalShiftDate: 'modalShiftDate', modalShiftStart: 'modalShiftStart',
-                modalShiftEnd: 'modalShiftEnd', modalShiftHours: 'modalShiftHours',
-                modalShiftNote: 'modalShiftNote', modalShiftSave: 'modalShiftSave',
-                modalShiftCancel: 'modalShiftCancel', modalMassTitle: 'modalMassTitle',
-                modalMassFormat: 'modalMassFormat', modalMassExample: 'modalMassExample',
-                modalMassSave: 'modalMassSave', modalMassCancel: 'modalMassCancel',
-                modalAddCatTitle: 'modalAddCatTitle', modalAddCatName: 'modalAddCatName',
-                modalAddCatColor: 'modalAddCatColor', modalAddCatRate: 'modalAddCatRate',
-                modalAddCatCoeff: 'modalAddCatCoeff', modalAddCatHours: 'modalAddCatHours',
-                modalAddCatStart: 'modalAddCatStart', modalAddCatEnd: 'modalAddCatEnd',
-                modalAddCatSave: 'modalAddCatSave', modalAddCatCancel: 'modalAddCatCancel',
-                modalEditCatTitle: 'modalEditCatTitle', modalEditCatName: 'modalEditCatName',
-                modalEditCatColor: 'modalEditCatColor', modalEditCatRate: 'modalEditCatRate',
-                modalEditCatCoeff: 'modalEditCatCoeff', modalEditCatHours: 'modalEditCatHours',
-                modalEditCatStart: 'modalEditCatStart', modalEditCatEnd: 'modalEditCatEnd',
-                modalEditCatSave: 'modalEditCatSave', modalEditCatCancel: 'modalEditCatCancel',
-                modalAddUserTitle: 'modalAddUserTitle', modalAddUserUsername: 'modalAddUserUsername',
-                modalAddUserPassword: 'modalAddUserPassword', modalAddUserConfirm: 'modalAddUserConfirm',
-                modalAddUserSave: 'modalAddUserSave', modalAddUserCancel: 'modalAddUserCancel',
-                modalChangeNameTitle: 'modalChangeNameTitle', modalChangeNameInput: 'modalChangeNameInput',
-                modalChangeNameSave: 'modalChangeNameSave', modalChangeNameCancel: 'modalChangeNameCancel',
-                modalChangePassTitle: 'modalChangePassTitle', modalChangePassOld: 'modalChangePassOld',
-                modalChangePassNew: 'modalChangePassNew', modalChangePassConfirm: 'modalChangePassConfirm',
-                modalChangePassSave: 'modalChangePassSave', modalChangePassCancel: 'modalChangePassCancel',
+                loginTitle: 'loginTitle',
+                loginSubtitle: 'loginSubtitle',
+                loginUserLabel: 'loginUserLabel',
+                loginPassLabel: 'loginPassLabel',
+                loginBtn: 'loginBtn',
+                loginDefault: 'loginDefault',
+                sidebarTitle: 'sidebarTitle',
+                userDisplay: 'userDisplay',
+                btnChangeName: 'btnChangeName',
+                btnChangePass: 'btnChangePass',
+                tabCalendar: 'tabCalendar',
+                tabStats: 'tabStats',
+                tabReport: 'tabReport',
+                tabCategories: 'tabCategories',
+                tabNotifications: 'tabNotifications',
+                tabHelp: 'tabHelp',
+                btnLogout: 'btnLogout',
+                headerTitle: 'headerTitle',
+                viewMine: 'viewMine',
+                viewAll: 'viewAll',
+                btnToday: 'btnToday',
+                btnAddShift: 'btnAddShift',
+                btnDeleteShift: 'btnDeleteShift',
+                btnClearDay: 'btnClearDay',
+                btnReminder: 'btnReminder',
+                btnMassAdd: 'btnMassAdd',
+                statsTitle: 'statsTitle',
+                statsShow: 'statsShow',
+                statsByDay: 'statsByDay',
+                reportTitle: 'reportTitle',
+                reportGenerate: 'reportGenerate',
+                reportTxt: 'reportTxt',
+                reportCsv: 'reportCsv',
+                reportHtml: 'reportHtml',
+                reportShare: 'reportShare',
+                catTitle: 'catTitle',
+                catDesc: 'catDesc',
+                catAddBtn: 'catAddBtn',
+                categoriesTitle: 'categoriesTitle',
+                catColColor: 'catColColor',
+                catColName: 'catColName',
+                catColRate: 'catColRate',
+                catColCoeff: 'catColCoeff',
+                catColHours: 'catColHours',
+                catColStart: 'catColStart',
+                catColEnd: 'catColEnd',
+                catColActions: 'catColActions',
+                notifTitle: 'notifTitle',
+                notifEnableLabel: 'notifEnableLabel',
+                notifSoundLabel: 'notifSoundLabel',
+                notifSave: 'notifSave',
+                notifActiveTitle: 'notifActiveTitle',
+                notifHistoryTitle: 'notifHistoryTitle',
+                helpTitle: 'helpTitle',
+                reminderDateLabel: 'reminderDateLabel',
+                reminderShiftLabel: 'reminderShiftLabel',
+                reminderTimeLabel: 'reminderTimeLabel',
+                reminderOrLabel: 'reminderOrLabel',
+                reminderBeforeLabel: 'reminderBeforeLabel',
+                reminderMessageLabel: 'reminderMessageLabel',
+                reminderAddBtn: 'reminderAddBtn',
+                modalAddShiftTitle: 'modalAddShiftTitle',
+                modalShiftCategory: 'modalShiftCategory',
+                modalShiftDate: 'modalShiftDate',
+                modalShiftStart: 'modalShiftStart',
+                modalShiftEnd: 'modalShiftEnd',
+                modalShiftHours: 'modalShiftHours',
+                modalShiftNote: 'modalShiftNote',
+                modalShiftSave: 'modalShiftSave',
+                modalShiftCancel: 'modalShiftCancel',
+                modalMassTitle: 'modalMassTitle',
+                modalMassFormat: 'modalMassFormat',
+                modalMassExample: 'modalMassExample',
+                modalMassSave: 'modalMassSave',
+                modalMassCancel: 'modalMassCancel',
+                modalAddCatTitle: 'modalAddCatTitle',
+                modalAddCatName: 'modalAddCatName',
+                modalAddCatColor: 'modalAddCatColor',
+                modalAddCatRate: 'modalAddCatRate',
+                modalAddCatCoeff: 'modalAddCatCoeff',
+                modalAddCatHours: 'modalAddCatHours',
+                modalAddCatStart: 'modalAddCatStart',
+                modalAddCatEnd: 'modalAddCatEnd',
+                modalAddCatSave: 'modalAddCatSave',
+                modalAddCatCancel: 'modalAddCatCancel',
+                modalEditCatTitle: 'modalEditCatTitle',
+                modalEditCatName: 'modalEditCatName',
+                modalEditCatColor: 'modalEditCatColor',
+                modalEditCatRate: 'modalEditCatRate',
+                modalEditCatCoeff: 'modalEditCatCoeff',
+                modalEditCatHours: 'modalEditCatHours',
+                modalEditCatStart: 'modalEditCatStart',
+                modalEditCatEnd: 'modalEditCatEnd',
+                modalEditCatSave: 'modalEditCatSave',
+                modalEditCatCancel: 'modalEditCatCancel',
+                modalAddUserTitle: 'modalAddUserTitle',
+                modalAddUserUsername: 'modalAddUserUsername',
+                modalAddUserPassword: 'modalAddUserPassword',
+                modalAddUserConfirm: 'modalAddUserConfirm',
+                modalAddUserSave: 'modalAddUserSave',
+                modalAddUserCancel: 'modalAddUserCancel',
+                modalChangeNameTitle: 'modalChangeNameTitle',
+                modalChangeNameInput: 'modalChangeNameInput',
+                modalChangeNameSave: 'modalChangeNameSave',
+                modalChangeNameCancel: 'modalChangeNameCancel',
+                modalChangePassTitle: 'modalChangePassTitle',
+                modalChangePassOld: 'modalChangePassOld',
+                modalChangePassNew: 'modalChangePassNew',
+                modalChangePassConfirm: 'modalChangePassConfirm',
+                modalChangePassSave: 'modalChangePassSave',
+                modalChangePassCancel: 'modalChangePassCancel'
             };
+
             Object.keys(items).forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -2744,35 +2752,53 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                     }
                 }
             });
-            document.getElementById('statsFrom').innerHTML = getText('statsFrom') + ' <input type="date" id="statsStart">';
-            document.getElementById('statsTo').innerHTML = getText('statsTo') + ' <input type="date" id="statsEnd">';
-            document.getElementById('reportFrom').innerHTML = getText('reportFrom') + ' <input type="date" id="reportStart">';
-            document.getElementById('reportTo').innerHTML = getText('reportTo') + ' <input type="date" id="reportEnd">';
 
-            if (theme === 'dark') document.getElementById('themeLabel').textContent = getText('themeLight');
-            else document.getElementById('themeLabel').textContent = getText('themeDark');
+            // Osveži datume
+            const statsFrom = document.getElementById('statsFrom');
+            const statsTo = document.getElementById('statsTo');
+            const reportFrom = document.getElementById('reportFrom');
+            const reportTo = document.getElementById('reportTo');
+
+            if (statsFrom) statsFrom.innerHTML = getText('statsFrom') + ' <input type="date" id="statsStart">';
+            if (statsTo) statsTo.innerHTML = getText('statsTo') + ' <input type="date" id="statsEnd">';
+            if (reportFrom) reportFrom.innerHTML = getText('reportFrom') + ' <input type="date" id="reportStart">';
+            if (reportTo) reportTo.innerHTML = getText('reportTo') + ' <input type="date" id="reportEnd">';
+
+            // Tema
+            const themeLabel = document.getElementById('themeLabel');
+            if (themeLabel) {
+                if (theme === 'dark') themeLabel.textContent = getText('themeLight');
+                else themeLabel.textContent = getText('themeDark');
+            }
 
             // Prevod za "Dodaj novi podsetnik"
             const reminderLabel = document.getElementById('reminderAddNewLabel');
             if (reminderLabel) reminderLabel.textContent = getText('reminderAddNew');
 
-            // Prevod za edit user modal
-            const editUserModalIds = ['modalEditUserTitle', 'modalEditUserUsername', 'modalEditUserPassword', 'modalEditUserConfirm', 'modalEditUserSave', 'modalEditUserCancel'];
-            editUserModalIds.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = getText(id);
-            });
+            // Prevod za "Kategorije smena"
+            const categoriesTitle = document.getElementById('categoriesTitle');
+            if (categoriesTitle) {
+                categoriesTitle.textContent = getText('categoriesTitle');
+            }
 
-            renderCalendar();
-            renderLegend();
-            renderCategoryTable();
-            renderUserList();
-            updateHelp();
+            // Osveži sve
+            if (typeof renderCalendar === 'function') renderCalendar();
+            if (typeof renderLegend === 'function') renderLegend();
+            if (typeof renderCategoryTable === 'function') renderCategoryTable();
+            if (typeof renderUserList === 'function') renderUserList();
+            if (typeof updateHelp === 'function') updateHelp();
+            if (typeof populateCategorySelect === 'function') populateCategorySelect();
+            if (typeof updateDateDisplay === 'function') updateDateDisplay();
 
-            // ===== OVO DODAJ - OSVEŽAVA PADAJUĆI MENI ZA KATEGORIJE =====
-            populateCategorySelect();
-            // Osveži datum u headeru
-            updateDateDisplay();
+            // Osveži prikaz korisnika u headeru
+            const userDisplay = document.getElementById('userDisplay');
+            if (userDisplay) {
+                userDisplay.textContent = getText('userDisplay', { user: currentUser });
+            }
+            const headerTitle = document.getElementById('headerTitle');
+            if (headerTitle) {
+                headerTitle.textContent = getText('headerTitle', { user: currentUser });
+            }
         }
 
         function changeLanguage(lang) {
@@ -2790,18 +2816,33 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
 
         function login(e) {
             e.preventDefault();
+
+            // ===== PRVO UČITAJ KORISNIKE IZ LOCALSTORAGE =====
+            loadData();
+            // ===== KRAJ =====
+
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
             const errorEl = document.getElementById('loginError');
+
             if (users[username] && users[username] === password) {
-                isLoggedIn = true; currentUser = username;
+                isLoggedIn = true;
+                currentUser = username;
                 errorEl.classList.remove('show');
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('appContent').classList.remove('hidden');
                 localStorage.setItem('shiftApp_loggedIn', 'true');
                 localStorage.setItem('shiftApp_user', currentUser);
+
+                // ===== OSVEŽI PRIKAZ =====
+                document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+                document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
+                // ===== KRAJ =====
+
                 initApp();
-            } else { errorEl.classList.add('show'); }
+            } else {
+                errorEl.classList.add('show');
+            }
         }
 
         function logout() {
@@ -2816,16 +2857,27 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         }
 
         function checkAutoLogin() {
+            // ===== PRVO UČITAJ KORISNIKE =====
+            loadData();
+            // ===== KRAJ =====
+
             const saved = localStorage.getItem('shiftApp_loggedIn');
             const savedUser = localStorage.getItem('shiftApp_user');
             const savedLang = localStorage.getItem('shiftApp_lang');
-            if (savedLang) { currentLang = savedLang; document.getElementById('langSelect').value = savedLang; }
+
+            if (savedLang) {
+                currentLang = savedLang;
+                document.getElementById('langSelect').value = savedLang;
+            }
+
             if (saved === 'true' && savedUser && users[savedUser]) {
-                isLoggedIn = true; currentUser = savedUser;
+                isLoggedIn = true;
+                currentUser = savedUser;
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('appContent').classList.remove('hidden');
                 document.getElementById('loginUsername').value = savedUser;
-                initApp(); return true;
+                initApp();
+                return true;
             }
             return false;
         }
@@ -2922,42 +2974,61 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         function initApp() {
             if (initialized) return;
             initialized = true;
+
+            // ===== PRVO POSTAVI TRENUTNOG KORISNIKA =====
+            const savedUser = localStorage.getItem('shiftApp_user');
+            if (savedUser && users[savedUser]) {
+                currentUser = savedUser;
+            } else {
+                currentUser = 'admin';
+            }
+            // ===== KRAJ =====
+
             loadData();
+
             const today = new Date();
             currentMonth = today.getMonth();
             currentYear = today.getFullYear();
+
             document.getElementById('todayDate').textContent = today.toLocaleDateString('sr-RS', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
             document.getElementById('userDisplay').textContent = getText('userDisplay', { user: currentUser });
             document.getElementById('headerTitle').textContent = getText('headerTitle', { user: currentUser });
             document.getElementById('shiftDate').value = today.toISOString().slice(0, 10);
             document.getElementById('reminderDate').value = today.toISOString().slice(0, 10);
+
             const first = new Date(today.getFullYear(), today.getMonth(), 1);
             document.getElementById('statsStart').value = first.toISOString().slice(0, 10);
             document.getElementById('statsEnd').value = today.toISOString().slice(0, 10);
             document.getElementById('reportStart').value = first.toISOString().slice(0, 10);
             document.getElementById('reportEnd').value = today.toISOString().slice(0, 10);
+
             applyTheme(theme);
             applyTranslations();
             renderCalendar();
             renderLegend();
             populateCategorySelect();
             renderCategoryTable();
+
+            // ===== OVO JE KLJUČNO - RENDERUJ KORISNIKE =====
             renderUserList();
+            // ===== KRAJ =====
+
             renderReminders();
             updateHelp();
             updateNotifHistory();
             populateReminderShifts(today.toISOString().slice(0, 10));
+
             document.getElementById('fontSizeSlider').value = 14;
             document.getElementById('fontSizeLabel').textContent = '14';
             adjustFontSize(14);
-            document.getElementById('reminderDate').addEventListener('change', function () { populateReminderShifts(this.value); });
+
+            document.getElementById('reminderDate').addEventListener('change', function () {
+                populateReminderShifts(this.value);
+            });
+
             showTab('calendar');
         }
 
-        if (!checkAutoLogin()) {
-            document.getElementById('loginScreen').classList.remove('hidden');
-            document.getElementById('appContent').classList.add('hidden');
-        }
 
         // ============================================================
         // TEMA
@@ -3214,6 +3285,59 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             openModal('editCategoryModal');
         }
 
+        function openEditUser(username) {
+            document.getElementById('editUserOldName').value = username;
+            document.getElementById('editUserUsername').value = username;
+            document.getElementById('editUserPassword').value = '';
+            document.getElementById('editUserConfirm').value = '';
+            openModal('editUserModal');
+        }
+
+        function saveUserEdit() {
+            const oldName = document.getElementById('editUserOldName').value;
+            const newName = document.getElementById('editUserUsername').value.trim();
+            const newPassword = document.getElementById('editUserPassword').value;
+            const confirmPassword = document.getElementById('editUserConfirm').value;
+
+            if (!newName) {
+                alert('Unesite korisničko ime!');
+                return;
+            }
+
+            if (newName !== oldName && users[newName]) {
+                alert('Korisnik sa tim imenom već postoji!');
+                return;
+            }
+
+            let password = users[oldName];
+
+            if (newPassword) {
+                if (newPassword !== confirmPassword) {
+                    alert('Lozinke se ne poklapaju!');
+                    return;
+                }
+                if (newPassword.length < 3) {
+                    alert('Lozinka mora imati bar 3 karaktera!');
+                    return;
+                }
+                password = newPassword;
+            }
+
+            delete users[oldName];
+            users[newName] = password;
+
+            if (newName !== oldName) {
+                shifts.forEach(s => {
+                    if (s.user === oldName) s.user = newName;
+                });
+            }
+
+            closeModal('editUserModal');
+            saveData();
+            renderUserList();
+            renderCalendar();
+            alert('✅ Korisnik je ažuriran!');
+        }
         function saveCategoryEdit() {
             const oldName = document.getElementById('editCatOldName').value;
             const newName = document.getElementById('editCatName').value.trim();
@@ -3256,568 +3380,607 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         }
 
         // ============================================================
-        // KORISNICI - DODAVANJE I BRISANJE
+        // KORISNICI - DODAVANJE, BRISANJE I IZMENA
         // ============================================================
+
         function renderUserList() {
             const container = document.getElementById('userList');
             if (!container) return;
             container.innerHTML = '';
 
-            // SAMO ADMIN VIDI KORISNIKE
+            // ===== PRVO POSTAVI PRAVOG KORISNIKA =====
+            const savedUser = localStorage.getItem('shiftApp_user');
+            if (savedUser && users[savedUser]) {
+                currentUser = savedUser;
+            }
+
+            const section = document.getElementById('adminOnlySection');
+            if (!section) return;
+
+            // ===== OVO JE KLJUČNO - SAMO ADMIN VIDI KORISNIKE =====
             if (currentUser !== 'admin') {
-                document.getElementById('adminOnlySection').style.display = 'none';
+                section.style.display = 'none';
+                section.style.visibility = 'hidden';
+                section.style.pointerEvents = 'none';
+                section.style.height = '0';
+                section.style.margin = '0';
+                section.style.padding = '0';
+                section.style.overflow = 'hidden';
+                section.style.border = 'none';
+                section.style.opacity = '0';
                 return;
             }
-            document.getElementById('adminOnlySection').style.display = 'block';
+
+            // Admin - prikaži sve
+            section.style.display = 'block';
+            section.style.visibility = 'visible';
+            section.style.pointerEvents = 'auto';
+            section.style.height = 'auto';
+            section.style.margin = '20px 0 0 0';
+            section.style.padding = '16px 0 0 0';
+            section.style.overflow = 'visible';
+            section.style.borderTop = '2px solid var(--border)';
+            section.style.opacity = '1';
 
             Object.keys(users).forEach(username => {
                 const div = document.createElement('div');
                 div.className = 'user-list-item';
+
+                let actions = '';
+                if (username !== 'admin') {
+                    actions = `
+                        <button class="btn btn-blue" onclick="openEditUser('${username}')" style="padding:2px 10px;font-size:11px;">✏️</button>
+                        <button class="btn btn-red" onclick="deleteUser('${username}')" style="padding:2px 10px;font-size:11px;">🗑️</button>
+                    `;
+                }
+
                 div.innerHTML = `
-            <div class="user-info">
-                <strong>👤 ${username}</strong>
-                <small>${username === 'admin' ? '🔑 Administrator' : '👤 Korisnik'}</small>
-            </div>
-            <div class="user-actions">
-                ${username !== 'admin' ? `
-                    <button class="btn btn-blue" onclick="openEditUser('${username}')" style="padding:2px 10px;font-size:11px;">✏️</button>
-                    <button class="btn btn-red" onclick="deleteUser('${username}')" style="padding:2px 10px;font-size:11px;">🗑️</button>
-                ` : ''}
-            </div>
-        `;
+                    <div class="user-info">
+                        <strong>👤 ${username}</strong>
+                        <small>${username === 'admin' ? '🔑 Administrator' : '👤 Korisnik'}</small>
+                    </div>
+                    <div class="user-actions">
+                        ${actions}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
 
-                function addUser() {
-                    const username = document.getElementById('newUsername').value.trim();
-                    const password = document.getElementById('newUserPassword').value;
-                    const confirm = document.getElementById('newUserConfirm').value;
+        // ===== DODAJ OVE FUNKCIJE ZA KORISNIKE =====
 
-                    if (!username || !password) { alert(getText('msgFillFields')); return; }
-                    if (users[username]) { alert(getText('msgUserExists')); return; }
-                    if (password !== confirm) { alert(getText('msgPasswordMismatchUser')); return; }
-                    if (password.length < 3) { alert(getText('msgPasswordShort')); return; }
+        function addUser() {
+            const username = document.getElementById('newUsername').value.trim();
+            const password = document.getElementById('newUserPassword').value;
+            const confirm = document.getElementById('newUserConfirm').value;
 
-                    users[username] = password;
-                    closeModal('addUserModal');
-                    saveData();
-                    renderUserList();
-                    document.getElementById('newUsername').value = '';
-                    document.getElementById('newUserPassword').value = '';
-                    document.getElementById('newUserConfirm').value = '';
-                    alert(getText('msgUserAdded', { name: username }));
+            if (!username || !password) { alert(getText('msgFillFields')); return; }
+            if (users[username]) { alert(getText('msgUserExists')); return; }
+            if (password !== confirm) { alert(getText('msgPasswordMismatchUser')); return; }
+            if (password.length < 3) { alert(getText('msgPasswordShort')); return; }
+
+            users[username] = password;
+            closeModal('addUserModal');
+            saveData();
+            renderUserList();
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newUserPassword').value = '';
+            document.getElementById('newUserConfirm').value = '';
+            alert(getText('msgUserAdded', { name: username }));
+        }
+
+        function deleteUser(username) {
+            if (username === 'admin') { alert('Ne možete obrisati admina!'); return; }
+            if (!confirm(getText('msgUserDeleteConfirm', { name: username }))) return;
+
+            shifts = shifts.filter(s => s.user !== username);
+            delete users[username];
+            saveData();
+            renderUserList();
+            renderCalendar();
+            alert(getText('msgUserDeleted'));
+        }
+
+        function openEditUser(username) {
+            document.getElementById('editUserOldName').value = username;
+            document.getElementById('editUserUsername').value = username;
+            document.getElementById('editUserPassword').value = '';
+            document.getElementById('editUserConfirm').value = '';
+            openModal('editUserModal');
+        }
+
+        function saveUserEdit() {
+            const oldName = document.getElementById('editUserOldName').value;
+            const newName = document.getElementById('editUserUsername').value.trim();
+            const newPassword = document.getElementById('editUserPassword').value;
+            const confirmPassword = document.getElementById('editUserConfirm').value;
+
+            if (!newName) {
+                alert('Unesite korisničko ime!');
+                return;
+            }
+
+            if (newName !== oldName && users[newName]) {
+                alert('Korisnik sa tim imenom već postoji!');
+                return;
+            }
+
+            let password = users[oldName];
+
+            if (newPassword) {
+                if (newPassword !== confirmPassword) {
+                    alert('Lozinke se ne poklapaju!');
+                    return;
                 }
-
-                function deleteUser(username) {
-                    if (username === 'admin') { alert('Ne možete obrisati admina!'); return; }
-                    if (!confirm(getText('msgUserDeleteConfirm', { name: username }))) return;
-
-                    // Obriši sve smene tog korisnika
-                    shifts = shifts.filter(s => s.user !== username);
-                    delete users[username];
-                    saveData();
-                    renderUserList();
-                    renderCalendar();
-                    alert(getText('msgUserDeleted'));
+                if (newPassword.length < 3) {
+                    alert('Lozinka mora imati bar 3 karaktera!');
+                    return;
                 }
+                password = newPassword;
+            }
 
-                // ============================================================
-                // IZMENA KORISNIKA (samo admin)
-                // ============================================================
+            delete users[oldName];
+            users[newName] = password;
 
-                function openEditUser(username) {
-                    document.getElementById('editUserOldName').value = username;
-                    document.getElementById('editUserUsername').value = username;
-                    document.getElementById('editUserPassword').value = '';
-                    document.getElementById('editUserConfirm').value = '';
-                    openModal('editUserModal');
-                }
+            if (newName !== oldName) {
+                shifts.forEach(s => {
+                    if (s.user === oldName) s.user = newName;
+                });
+            }
 
-                function saveUserEdit() {
-                    const oldName = document.getElementById('editUserOldName').value;
-                    const newName = document.getElementById('editUserUsername').value.trim();
-                    const newPassword = document.getElementById('editUserPassword').value;
-                    const confirmPassword = document.getElementById('editUserConfirm').value;
+            closeModal('editUserModal');
+            saveData();
+            renderUserList();
+            renderCalendar();
+            alert('✅ Korisnik je ažuriran!');
+        }
 
-                    if (!newName) {
-                        alert('Unesite korisničko ime!');
-                        return;
-                    }
+        // Osveži prikaz korisnika
+        function updateUserDisplay() {
+            const savedUser = localStorage.getItem('shiftApp_user');
+            if (savedUser && users[savedUser]) {
+                currentUser = savedUser;
+            }
 
-                    // Proveri da li novo ime već postoji (osim ako je isto)
-                    if (newName !== oldName && users[newName]) {
-                        alert('Korisnik sa tim imenom već postoji!');
-                        return;
-                    }
+            document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+            document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
 
-                    // Sačuvaj staru lozinku ako nije uneta nova
-                    let password = users[oldName];
+            // Renderuj korisničku listu (sakriva ili prikazuje)
+            renderUserList();
+        }
 
-                    // Ako je uneta nova lozinka
-                    if (newPassword) {
-                        if (newPassword !== confirmPassword) {
-                            alert('Lozinke se ne poklapaju!');
-                            return;
-                        }
-                        if (newPassword.length < 3) {
-                            alert('Lozinka mora imati bar 3 karaktera!');
-                            return;
-                        }
-                        password = newPassword;
-                    }
+        // Pozovi odmah
+        setTimeout(updateUserDisplay, 100);
+        setTimeout(updateUserDisplay, 500);
 
-                    // Obriši starog korisnika i dodaj novog
-                    delete users[oldName];
-                    users[newName] = password;
 
-                    // Ažuriraj sve smene (ako je promenjeno ime)
-                    if (newName !== oldName) {
-                        shifts.forEach(s => {
-                            if (s.user === oldName) s.user = newName;
-                        });
-                    }
+        // ============================================================
+        // SMENE
+        // ============================================================
+        function saveShift() {
+            const category = document.getElementById('shiftCategory').value;
+            const date = document.getElementById('shiftDate').value;
+            const start = document.getElementById('shiftStart').value;
+            const end = document.getElementById('shiftEnd').value;
+            const hours = parseFloat(document.getElementById('shiftHours').value) || 8;
+            const note = document.getElementById('shiftNote').value.trim();
+            if (!category || !date) { alert(getText('msgFillFields')); return; }
+            shifts.push({ user: currentUser, category, date, start, end, hours, note });
+            closeModal('addShiftModal');
+            saveData();
+            renderCalendar();
+            if (selectedDate) selectDate(selectedDate);
+            alert(getText('msgShiftAdded'));
+        }
 
-                    closeModal('editUserModal');
-                    saveData();
-                    renderUserList();
-                    renderCalendar();
-                    alert('✅ Korisnik je ažuriran!');
-                }
+        function deleteShift() {
+            if (!selectedDate) { alert(getText('msgSelectDate')); return; }
+            const dayShifts = getShiftsForDate(selectedDate);
+            if (dayShifts.length === 0) { alert(getText('msgNoShiftsForDate')); return; }
+            let msg = dayShifts.map((s, i) => {
+                return (i + 1) + '. ' + getCategoryDisplayName(s.category) + ' - ' + s.user + ' (' + s.start + '-' + s.end + ')';
+            }).join('\n');
+            const choice = prompt(getText('msgSelectShift', { date: selectedDate, list: msg, count: dayShifts.length }));
+            if (choice && parseInt(choice) > 0 && parseInt(choice) <= dayShifts.length) {
+                const idx = parseInt(choice) - 1;
+                shifts = shifts.filter(s => !(s.date === dayShifts[idx].date && s.user === dayShifts[idx].user && s.category === dayShifts[idx].category && s.start === dayShifts[idx].start));
+                saveData();
+                renderCalendar();
+                if (selectedDate) selectDate(selectedDate);
+                alert(getText('msgShiftDeleted'));
+            }
+        }
 
-                // Dodaj prevode za edit user modal
-                // U translations dodaj:
-                // modalEditUserTitle:'✏️ Izmeni korisnika',
-                // modalEditUserUsername:'Korisničko ime:',
-                // modalEditUserPassword:'Nova lozinka (ostavi prazno ako ne želiš da menjaš):',
-                // modalEditUserConfirm:'Potvrdi novu lozinku:',
-                // modalEditUserSave:'💾 Sačuvaj',
-                // modalEditUserCancel:'❌ Otkaži',
+        function clearDayShifts() {
+            if (!selectedDate) { alert(getText('msgSelectDate')); return; }
+            const dayShifts = getShiftsForDate(selectedDate);
+            if (dayShifts.length === 0) { alert(getText('msgNoShiftsForDate')); return; }
+            if (!confirm(getText('msgConfirmDelete', { date: selectedDate }))) return;
+            shifts = shifts.filter(s => !(s.date === selectedDate && s.user === currentUser));
+            saveData();
+            renderCalendar();
+            if (selectedDate) selectDate(selectedDate);
+            alert(getText('msgDayCleared'));
+        }
 
-                // ============================================================
-                // SMENE
-                // ============================================================
-                function saveShift() {
-                    const category = document.getElementById('shiftCategory').value;
-                    const date = document.getElementById('shiftDate').value;
-                    const start = document.getElementById('shiftStart').value;
-                    const end = document.getElementById('shiftEnd').value;
-                    const hours = parseFloat(document.getElementById('shiftHours').value) || 8;
-                    const note = document.getElementById('shiftNote').value.trim();
-                    if (!category || !date) { alert(getText('msgFillFields')); return; }
-                    shifts.push({ user: currentUser, category, date, start, end, hours, note });
-                    closeModal('addShiftModal');
-                    saveData();
-                    renderCalendar();
-                    if (selectedDate) selectDate(selectedDate);
-                    alert(getText('msgShiftAdded'));
-                }
+        // ============================================================
+        // MASOVNI UNOS
+        // ============================================================
+        function massAddShifts() {
+            const input = document.getElementById('massShiftInput').value.trim();
+            if (!input) { alert(getText('msgFillFields')); return; }
+            const lines = input.split('\n').filter(line => line.trim());
+            let added = 0, errors = 0;
+            lines.forEach(line => {
+                const parts = line.split('|').map(p => p.trim());
+                if (parts.length < 6) { errors++; return; }
+                const [date, category, start, end, hoursStr, user] = parts;
+                const hours = parseFloat(hoursStr);
+                if (!date || !category || !start || !end || isNaN(hours) || !user) { errors++; return; }
+                if (!categories[category]) { errors++; return; }
+                shifts.push({ user, category, date, start, end, hours, note: '' });
+                added++;
+            });
+            saveData();
+            renderCalendar();
+            if (selectedDate) selectDate(selectedDate);
+            closeModal('massAddModal');
+            document.getElementById('massShiftInput').value = '';
+            alert(getText('msgMassAdded', { added: added, errors: errors }));
+        }
 
-                function deleteShift() {
-                    if (!selectedDate) { alert(getText('msgSelectDate')); return; }
-                    const dayShifts = getShiftsForDate(selectedDate);
-                    if (dayShifts.length === 0) { alert(getText('msgNoShiftsForDate')); return; }
-                    let msg = dayShifts.map((s, i) => {
-                        return (i + 1) + '. ' + getCategoryDisplayName(s.category) + ' - ' + s.user + ' (' + s.start + '-' + s.end + ')';
-                    }).join('\n');
-                    const choice = prompt(getText('msgSelectShift', { date: selectedDate, list: msg, count: dayShifts.length }));
-                    if (choice && parseInt(choice) > 0 && parseInt(choice) <= dayShifts.length) {
-                        const idx = parseInt(choice) - 1;
-                        shifts = shifts.filter(s => !(s.date === dayShifts[idx].date && s.user === dayShifts[idx].user && s.category === dayShifts[idx].category && s.start === dayShifts[idx].start));
-                        saveData();
-                        renderCalendar();
-                        if (selectedDate) selectDate(selectedDate);
-                        alert(getText('msgShiftDeleted'));
-                    }
-                }
+        // ============================================================
+        // PODSETNICI
+        // ============================================================
+        function openReminderFromDate() {
+            if (selectedDate) {
+                document.getElementById('reminderDate').value = selectedDate;
+                populateReminderShifts(selectedDate);
+            }
+            showTab('notifications');
+            setTimeout(() => {
+                document.querySelector('.reminder-form').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
 
-                function clearDayShifts() {
-                    if (!selectedDate) { alert(getText('msgSelectDate')); return; }
-                    const dayShifts = getShiftsForDate(selectedDate);
-                    if (dayShifts.length === 0) { alert(getText('msgNoShiftsForDate')); return; }
-                    if (!confirm(getText('msgConfirmDelete', { date: selectedDate }))) return;
-                    shifts = shifts.filter(s => !(s.date === selectedDate && s.user === currentUser));
-                    saveData();
-                    renderCalendar();
-                    if (selectedDate) selectDate(selectedDate);
-                    alert(getText('msgDayCleared'));
-                }
+        function populateReminderShifts(date) {
+            const sel = document.getElementById('reminderShiftSelect');
+            sel.innerHTML = '<option value="all">' + getText('reminderShiftLabel') + ' (sve)</option>';
+            const dayShifts = getShiftsForDate(date);
+            dayShifts.forEach((s, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = getCategoryDisplayName(s.category) + ' (' + s.start + '-' + s.end + ')';
+                sel.appendChild(opt);
+            });
+        }
 
-                // ============================================================
-                // MASOVNI UNOS
-                // ============================================================
-                function massAddShifts() {
-                    const input = document.getElementById('massShiftInput').value.trim();
-                    if (!input) { alert(getText('msgFillFields')); return; }
-                    const lines = input.split('\n').filter(line => line.trim());
-                    let added = 0, errors = 0;
-                    lines.forEach(line => {
-                        const parts = line.split('|').map(p => p.trim());
-                        if (parts.length < 6) { errors++; return; }
-                        const [date, category, start, end, hoursStr, user] = parts;
-                        const hours = parseFloat(hoursStr);
-                        if (!date || !category || !start || !end || isNaN(hours) || !user) { errors++; return; }
-                        if (!categories[category]) { errors++; return; }
-                        shifts.push({ user, category, date, start, end, hours, note: '' });
-                        added++;
-                    });
-                    saveData();
-                    renderCalendar();
-                    if (selectedDate) selectDate(selectedDate);
-                    closeModal('massAddModal');
-                    document.getElementById('massShiftInput').value = '';
-                    alert(getText('msgMassAdded', { added: added, errors: errors }));
-                }
+        function addReminder() {
+            const date = document.getElementById('reminderDate').value;
+            const time = document.getElementById('reminderTime').value;
+            const minutesBefore = parseInt(document.getElementById('reminderMinutesBefore').value) || 30;
+            const message = document.getElementById('reminderMessage').value.trim() || 'Imaš smenu! Ne zaboravi!';
+            const shiftIndex = document.getElementById('reminderShiftSelect').value;
+            if (!date) { alert(getText('msgNoDate')); return; }
+            let reminderTime = time, reminderType = 'time', shiftCategory = null;
+            if (shiftIndex !== 'all') {
+                const dayShifts = getShiftsForDate(date);
+                const idx = parseInt(shiftIndex);
+                if (dayShifts[idx]) shiftCategory = dayShifts[idx].category;
+            }
+            if (time) {
+                reminderType = 'time';
+            } else if (minutesBefore > 0) {
+                reminderType = 'before';
+                const dayShifts = getShiftsForDate(date);
+                if (dayShifts.length > 0) {
+                    const firstShift = dayShifts[0];
+                    const shiftTime = firstShift.start;
+                    const parts = shiftTime.split(':');
+                    let totalMinutes = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+                    totalMinutes -= minutesBefore;
+                    if (totalMinutes < 0) totalMinutes += 1440;
+                    const h = Math.floor(totalMinutes / 60);
+                    const m = totalMinutes % 60;
+                    reminderTime = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+                } else { reminderTime = '08:00'; }
+            } else { reminderTime = '08:00'; }
+            const reminder = {
+                id: Date.now(),
+                date, time: reminderTime, type: reminderType,
+                minutesBefore, message, shiftCategory,
+                created: new Date().toISOString()
+            };
+            reminders.push(reminder);
+            saveData();
+            renderReminders();
+            renderCalendar();
+            alert(getText('msgReminderAdded', { date: date, time: reminderTime }));
+            document.getElementById('reminderTime').value = '08:00';
+            document.getElementById('reminderMinutesBefore').value = '30';
+            document.getElementById('reminderMessage').value = 'Imaš smenu! Ne zaboravi!';
+        }
 
-                // ============================================================
-                // PODSETNICI
-                // ============================================================
-                function openReminderFromDate() {
-                    if (selectedDate) {
-                        document.getElementById('reminderDate').value = selectedDate;
-                        populateReminderShifts(selectedDate);
-                    }
-                    showTab('notifications');
-                    setTimeout(() => {
-                        document.querySelector('.reminder-form').scrollIntoView({ behavior: 'smooth' });
-                    }, 300);
-                }
-
-                function populateReminderShifts(date) {
-                    const sel = document.getElementById('reminderShiftSelect');
-                    sel.innerHTML = '<option value="all">' + getText('reminderShiftLabel') + ' (sve)</option>';
-                    const dayShifts = getShiftsForDate(date);
-                    dayShifts.forEach((s, i) => {
-                        const opt = document.createElement('option');
-                        opt.value = i;
-                        opt.textContent = getCategoryDisplayName(s.category) + ' (' + s.start + '-' + s.end + ')';
-                        sel.appendChild(opt);
-                    });
-                }
-
-                function addReminder() {
-                    const date = document.getElementById('reminderDate').value;
-                    const time = document.getElementById('reminderTime').value;
-                    const minutesBefore = parseInt(document.getElementById('reminderMinutesBefore').value) || 30;
-                    const message = document.getElementById('reminderMessage').value.trim() || 'Imaš smenu! Ne zaboravi!';
-                    const shiftIndex = document.getElementById('reminderShiftSelect').value;
-                    if (!date) { alert(getText('msgNoDate')); return; }
-                    let reminderTime = time, reminderType = 'time', shiftCategory = null;
-                    if (shiftIndex !== 'all') {
-                        const dayShifts = getShiftsForDate(date);
-                        const idx = parseInt(shiftIndex);
-                        if (dayShifts[idx]) shiftCategory = dayShifts[idx].category;
-                    }
-                    if (time) {
-                        reminderType = 'time';
-                    } else if (minutesBefore > 0) {
-                        reminderType = 'before';
-                        const dayShifts = getShiftsForDate(date);
-                        if (dayShifts.length > 0) {
-                            const firstShift = dayShifts[0];
-                            const shiftTime = firstShift.start;
-                            const parts = shiftTime.split(':');
-                            let totalMinutes = parseInt(parts[0]) * 60 + parseInt(parts[1]);
-                            totalMinutes -= minutesBefore;
-                            if (totalMinutes < 0) totalMinutes += 1440;
-                            const h = Math.floor(totalMinutes / 60);
-                            const m = totalMinutes % 60;
-                            reminderTime = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
-                        } else { reminderTime = '08:00'; }
-                    } else { reminderTime = '08:00'; }
-                    const reminder = {
-                        id: Date.now(),
-                        date, time: reminderTime, type: reminderType,
-                        minutesBefore, message, shiftCategory,
-                        created: new Date().toISOString()
-                    };
-                    reminders.push(reminder);
-                    saveData();
-                    renderReminders();
-                    renderCalendar();
-                    alert(getText('msgReminderAdded', { date: date, time: reminderTime }));
-                    document.getElementById('reminderTime').value = '08:00';
-                    document.getElementById('reminderMinutesBefore').value = '30';
-                    document.getElementById('reminderMessage').value = 'Imaš smenu! Ne zaboravi!';
-                }
-
-                function renderReminders() {
-                    const container = document.getElementById('reminderList');
-                    container.innerHTML = '';
-                    if (reminders.length === 0) {
-                        container.innerHTML = '<p style="opacity:0.5;font-size:13px;">' + getText('notifNoReminders') + '</p>';
-                        return;
-                    }
-                    [...reminders].sort((a, b) => a.date.localeCompare(b.date)).forEach(rem => {
-                        const div = document.createElement('div');
-                        div.className = 'reminder-item';
-                        let shiftText = getText('reminderShiftLabel') + ' (sve)';
-                        if (rem.shiftCategory) shiftText = getCategoryDisplayName(rem.shiftCategory);
-                        div.innerHTML = `
+        function renderReminders() {
+            const container = document.getElementById('reminderList');
+            container.innerHTML = '';
+            if (reminders.length === 0) {
+                container.innerHTML = '<p style="opacity:0.5;font-size:13px;">' + getText('notifNoReminders') + '</p>';
+                return;
+            }
+            [...reminders].sort((a, b) => a.date.localeCompare(b.date)).forEach(rem => {
+                const div = document.createElement('div');
+                div.className = 'reminder-item';
+                let shiftText = getText('reminderShiftLabel') + ' (sve)';
+                if (rem.shiftCategory) shiftText = getCategoryDisplayName(rem.shiftCategory);
+                div.innerHTML = `
             <div class="reminder-info">
                 <strong>📅 ${rem.date} ⏰ ${rem.time}</strong>
                 <small>${rem.message} | ${shiftText} ${rem.type === 'before' ? ' (' + rem.minutesBefore + ' min pre)' : ''}</small>
             </div>
             <button class="btn btn-red" onclick="deleteReminder(${rem.id})" style="padding:2px 10px;font-size:11px;">🗑️</button>
         `;
-                        container.appendChild(div);
-                    });
-                }
+                container.appendChild(div);
+            });
+        }
 
-                function deleteReminder(id) {
-                    if (!confirm(getText('msgConfirmReminderDelete'))) return;
-                    reminders = reminders.filter(r => r.id !== id);
-                    saveData();
-                    renderReminders();
-                    renderCalendar();
-                    alert(getText('msgReminderDeleted'));
-                }
+        function deleteReminder(id) {
+            if (!confirm(getText('msgConfirmReminderDelete'))) return;
+            reminders = reminders.filter(r => r.id !== id);
+            saveData();
+            renderReminders();
+            renderCalendar();
+            alert(getText('msgReminderDeleted'));
+        }
 
-                // ============================================================
-                // STATISTIKA
-                // ============================================================
-                function showStats() {
-                    const start = document.getElementById('statsStart').value;
-                    const end = document.getElementById('statsEnd').value;
-                    const res = document.getElementById('statsResult');
-                    const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
-                    if (userShifts.length === 0) { res.innerHTML = getText('statsNoData'); return; }
-                    const groups = {}; let totalHours = 0, totalPay = 0, totalShifts = userShifts.length;
-                    userShifts.forEach(s => {
-                        const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
-                        if (!groups[s.category]) groups[s.category] = { count: 0, hours: 0, pay: 0 };
-                        const h = s.hours || cat.hours || 8;
-                        const pay = h * cat.rate * cat.coeff;
-                        groups[s.category].count++;
-                        groups[s.category].hours += h;
-                        groups[s.category].pay += pay;
-                        totalHours += h;
-                        totalPay += pay;
-                    });
-                    let html = '<div class="stats-summary">';
-                    html += `<div class="stat-card"><div class="stat-number">${totalShifts}</div><div class="stat-label">${getText('statsTotalShifts')}</div></div>`;
-                    html += `<div class="stat-card"><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="stat-label">${getText('statsTotalHours')}</div></div>`;
-                    html += `<div class="stat-card"><div class="stat-number">${totalPay.toFixed(0)} RSD</div><div class="stat-label">${getText('statsTotalPay')}</div></div>`;
-                    if (totalShifts > 0) html += `<div class="stat-card"><div class="stat-number">${(totalHours / totalShifts).toFixed(1)}h</div><div class="stat-label">${getText('statsAverage')}</div></div>`;
-                    html += '</div><div class="stats-chart">';
-                    Object.entries(groups).forEach(([cat, data]) => {
-                        const c = categories[cat] || { rate: 500, coeff: 1.0, color: '#757575' };
-                        const maxHours = Math.max(...Object.values(groups).map(d => d.hours), 1);
-                        const percent = Math.round((data.hours / maxHours) * 100);
-                        html += `<div class="chart-row"><div class="chart-label">${getCategoryDisplayName(cat)}</div>
+        // ============================================================
+        // STATISTIKA
+        // ============================================================
+        function showStats() {
+            const start = document.getElementById('statsStart').value;
+            const end = document.getElementById('statsEnd').value;
+            const res = document.getElementById('statsResult');
+            const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
+            if (userShifts.length === 0) { res.innerHTML = getText('statsNoData'); return; }
+            const groups = {}; let totalHours = 0, totalPay = 0, totalShifts = userShifts.length;
+            userShifts.forEach(s => {
+                const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
+                if (!groups[s.category]) groups[s.category] = { count: 0, hours: 0, pay: 0 };
+                const h = s.hours || cat.hours || 8;
+                const pay = h * cat.rate * cat.coeff;
+                groups[s.category].count++;
+                groups[s.category].hours += h;
+                groups[s.category].pay += pay;
+                totalHours += h;
+                totalPay += pay;
+            });
+            let html = '<div class="stats-summary">';
+            html += `<div class="stat-card"><div class="stat-number">${totalShifts}</div><div class="stat-label">${getText('statsTotalShifts')}</div></div>`;
+            html += `<div class="stat-card"><div class="stat-number">${totalHours.toFixed(1)}h</div><div class="stat-label">${getText('statsTotalHours')}</div></div>`;
+            html += `<div class="stat-card"><div class="stat-number">${totalPay.toFixed(0)} RSD</div><div class="stat-label">${getText('statsTotalPay')}</div></div>`;
+            if (totalShifts > 0) html += `<div class="stat-card"><div class="stat-number">${(totalHours / totalShifts).toFixed(1)}h</div><div class="stat-label">${getText('statsAverage')}</div></div>`;
+            html += '</div><div class="stats-chart">';
+            Object.entries(groups).forEach(([cat, data]) => {
+                const c = categories[cat] || { rate: 500, coeff: 1.0, color: '#757575' };
+                const maxHours = Math.max(...Object.values(groups).map(d => d.hours), 1);
+                const percent = Math.round((data.hours / maxHours) * 100);
+                html += `<div class="chart-row"><div class="chart-label">${getCategoryDisplayName(cat)}</div>
             <div class="chart-bar" style="width:${Math.max(percent, 5)}%;background:${c.color};">${data.hours.toFixed(1)}h (${data.count})</div></div>`;
-                    });
-                    html += '</div><div style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;"><h3 style="font-size:15px;">' + getText('statsDetails') + '</h3>';
-                    html += '<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:12px;">';
-                    html += `<tr style="background:var(--table-header);color:var(--table-header-text);">
+            });
+            html += '</div><div style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;"><h3 style="font-size:15px;">' + getText('statsDetails') + '</h3>';
+            html += '<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:12px;">';
+            html += `<tr style="background:var(--table-header);color:var(--table-header-text);">
         <th style="padding:6px 8px;text-align:left;">${getText('statsCategory')}</th>
         <th style="padding:6px 8px;text-align:center;">${getText('statsCount')}</th>
         <th style="padding:6px 8px;text-align:center;">${getText('statsHours')}</th>
         <th style="padding:6px 8px;text-align:center;">${getText('statsCoeff')}</th>
         <th style="padding:6px 8px;text-align:center;">${getText('statsPay')}</th></tr>`;
-                    let row = 0;
-                    Object.entries(groups).forEach(([cat, data]) => {
-                        const c = categories[cat] || { rate: 500, coeff: 1.0 };
-                        const bg = row % 2 === 0 ? 'var(--table-row)' : 'var(--table-row-alt)';
-                        html += `<tr style="background:${bg};"><td style="padding:5px 8px;">${getCategoryDisplayName(cat)}</td>
+            let row = 0;
+            Object.entries(groups).forEach(([cat, data]) => {
+                const c = categories[cat] || { rate: 500, coeff: 1.0 };
+                const bg = row % 2 === 0 ? 'var(--table-row)' : 'var(--table-row-alt)';
+                html += `<tr style="background:${bg};"><td style="padding:5px 8px;">${getCategoryDisplayName(cat)}</td>
             <td style="padding:5px 8px;text-align:center;">${data.count}</td>
             <td style="padding:5px 8px;text-align:center;">${data.hours.toFixed(1)}h</td>
             <td style="padding:5px 8px;text-align:center;">${c.coeff}x</td>
             <td style="padding:5px 8px;text-align:center;">${data.pay.toFixed(0)} RSD</td></tr>`;
-                        row++;
-                    });
-                    html += `<tr style="font-weight:700;border-top:2px solid var(--border);">
+                row++;
+            });
+            html += `<tr style="font-weight:700;border-top:2px solid var(--border);">
         <td style="padding:6px 8px;">${getText('statsTotal')}</td>
         <td style="padding:6px 8px;text-align:center;">${totalShifts}</td>
         <td style="padding:6px 8px;text-align:center;">${totalHours.toFixed(1)}h</td>
         <td style="padding:6px 8px;text-align:center;">-</td>
         <td style="padding:6px 8px;text-align:center;">${totalPay.toFixed(0)} RSD</td></tr>`;
-                    html += '</table></div>';
-                    res.innerHTML = html;
-                }
+            html += '</table></div>';
+            res.innerHTML = html;
+        }
 
-                function showStatsByDay() {
-                    const start = document.getElementById('statsStart').value;
-                    const end = document.getElementById('statsEnd').value;
-                    const res = document.getElementById('statsResult');
-                    const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
-                    if (userShifts.length === 0) { res.innerHTML = getText('statsNoData'); return; }
-                    const dayMap = {};
-                    userShifts.forEach(s => { if (!dayMap[s.date]) dayMap[s.date] = []; dayMap[s.date].push(s); });
-                    let html = '<h3 style="font-size:16px;">' + getText('statsByDayTitle') + '</h3>';
-                    const sortedDates = Object.keys(dayMap).sort();
-                    let grandShifts = 0, grandHours = 0, grandPay = 0;
-                    sortedDates.forEach(date => {
-                        const dayShifts = dayMap[date];
-                        let dayHours = 0, dayPay = 0;
-                        html += `<div style="background:var(--day-bg);border-radius:6px;padding:8px 12px;margin-bottom:6px;border:1px solid var(--border);">`;
-                        html += `<strong>📅 ${date}</strong> (${dayShifts.length} smena)<br>`;
-                        dayShifts.forEach(s => {
-                            const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
-                            const h = s.hours || cat.hours || 8;
-                            const pay = h * cat.rate * cat.coeff;
-                            dayHours += h; dayPay += pay;
-                            html += `   🔹 ${getCategoryDisplayName(s.category)} (${s.start}-${s.end}) → ${h}h, ${pay.toFixed(0)} RSD<br>`;
-                        });
-                        html += `<span style="font-weight:600;">${getText('statsDayTotal', { hours: dayHours.toFixed(1), pay: dayPay.toFixed(0) })}</span>`;
-                        html += '</div>';
-                        grandShifts += dayShifts.length;
-                        grandHours += dayHours;
-                        grandPay += dayPay;
-                    });
-                    html += `<div style="background:var(--sidebar-bg);color:var(--sidebar-text);padding:10px 14px;border-radius:6px;margin-top:6px;">`;
-                    html += getText('statsGrandTotal', { shifts: grandShifts, hours: grandHours.toFixed(1), pay: grandPay.toFixed(0) });
-                    html += '</div>';
-                    res.innerHTML = html;
-                }
+        function showStatsByDay() {
+            const start = document.getElementById('statsStart').value;
+            const end = document.getElementById('statsEnd').value;
+            const res = document.getElementById('statsResult');
+            const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
+            if (userShifts.length === 0) { res.innerHTML = getText('statsNoData'); return; }
+            const dayMap = {};
+            userShifts.forEach(s => { if (!dayMap[s.date]) dayMap[s.date] = []; dayMap[s.date].push(s); });
+            let html = '<h3 style="font-size:16px;">' + getText('statsByDayTitle') + '</h3>';
+            const sortedDates = Object.keys(dayMap).sort();
+            let grandShifts = 0, grandHours = 0, grandPay = 0;
+            sortedDates.forEach(date => {
+                const dayShifts = dayMap[date];
+                let dayHours = 0, dayPay = 0;
+                html += `<div style="background:var(--day-bg);border-radius:6px;padding:8px 12px;margin-bottom:6px;border:1px solid var(--border);">`;
+                html += `<strong>📅 ${date}</strong> (${dayShifts.length} smena)<br>`;
+                dayShifts.forEach(s => {
+                    const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
+                    const h = s.hours || cat.hours || 8;
+                    const pay = h * cat.rate * cat.coeff;
+                    dayHours += h; dayPay += pay;
+                    html += `   🔹 ${getCategoryDisplayName(s.category)} (${s.start}-${s.end}) → ${h}h, ${pay.toFixed(0)} RSD<br>`;
+                });
+                html += `<span style="font-weight:600;">${getText('statsDayTotal', { hours: dayHours.toFixed(1), pay: dayPay.toFixed(0) })}</span>`;
+                html += '</div>';
+                grandShifts += dayShifts.length;
+                grandHours += dayHours;
+                grandPay += dayPay;
+            });
+            html += `<div style="background:var(--sidebar-bg);color:var(--sidebar-text);padding:10px 14px;border-radius:6px;margin-top:6px;">`;
+            html += getText('statsGrandTotal', { shifts: grandShifts, hours: grandHours.toFixed(1), pay: grandPay.toFixed(0) });
+            html += '</div>';
+            res.innerHTML = html;
+        }
 
-                // ============================================================
-                // IZVEŠTAJ
-                // ============================================================
-                function generateReport() {
-                    const start = document.getElementById('reportStart').value;
-                    const end = document.getElementById('reportEnd').value;
-                    const res = document.getElementById('reportResult');
-                    const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
-                    if (userShifts.length === 0) { res.textContent = getText('reportNoData'); return; }
-                    const groups = {}; let totalHours = 0, totalPay = 0, totalShifts = userShifts.length;
-                    userShifts.forEach(s => {
-                        const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
-                        if (!groups[s.category]) groups[s.category] = { count: 0, hours: 0, pay: 0 };
-                        const h = s.hours || cat.hours || 8;
-                        const pay = h * cat.rate * cat.coeff;
-                        groups[s.category].count++;
-                        groups[s.category].hours += h;
-                        groups[s.category].pay += pay;
-                        totalHours += h; totalPay += pay;
-                    });
-                    let text = getText('reportTitleText') + '\n' + '═'.repeat(50) + '\n👤 ' + currentUser + '\n📅 ' + getText('reportFrom') + ' ' + start + ' — ' + getText('reportTo') + ' ' + end + '\n📋 ' + getText('statsTotalShifts') + ': ' + totalShifts + '\n' + '═'.repeat(50) + '\n';
-                    Object.entries(groups).forEach(([cat, data]) => {
-                        const c = categories[cat] || { rate: 500, coeff: 1.0 };
-                        text += '\n🔹 ' + getCategoryDisplayName(cat) + ' (koef ' + c.coeff + 'x, ' + c.rate + ' RSD/h):\n';
-                        text += '   📌 ' + getText('statsCount') + ': ' + data.count + '\n   ⏱️ ' + getText('statsHours') + ': ' + data.hours.toFixed(1) + 'h\n   💰 ' + getText('statsPay') + ': ' + data.pay.toFixed(0) + ' RSD\n';
-                    });
-                    text += '\n' + '═'.repeat(50) + '\n' + getText('reportTotal') + '\n   ⏱️ ' + getText('reportHours') + ' ' + totalHours.toFixed(1) + 'h\n   💰 ' + getText('reportPay') + ' ' + totalPay.toFixed(0) + ' RSD\n';
-                    text += (totalHours >= 160) ? '   ' + getText('reportOver160') : '   ' + getText('reportUnder160') + ' (' + totalHours.toFixed(1) + 'h)';
-                    if (totalShifts > 0) text += '\n   📊 ' + getText('reportAverage') + ' ' + (totalHours / totalShifts).toFixed(1) + 'h';
-                    res.textContent = text;
-                }
+        // ============================================================
+        // IZVEŠTAJ
+        // ============================================================
+        function generateReport() {
+            const start = document.getElementById('reportStart').value;
+            const end = document.getElementById('reportEnd').value;
+            const res = document.getElementById('reportResult');
+            const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
+            if (userShifts.length === 0) { res.textContent = getText('reportNoData'); return; }
+            const groups = {}; let totalHours = 0, totalPay = 0, totalShifts = userShifts.length;
+            userShifts.forEach(s => {
+                const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
+                if (!groups[s.category]) groups[s.category] = { count: 0, hours: 0, pay: 0 };
+                const h = s.hours || cat.hours || 8;
+                const pay = h * cat.rate * cat.coeff;
+                groups[s.category].count++;
+                groups[s.category].hours += h;
+                groups[s.category].pay += pay;
+                totalHours += h; totalPay += pay;
+            });
+            let text = getText('reportTitleText') + '\n' + '═'.repeat(50) + '\n👤 ' + currentUser + '\n📅 ' + getText('reportFrom') + ' ' + start + ' — ' + getText('reportTo') + ' ' + end + '\n📋 ' + getText('statsTotalShifts') + ': ' + totalShifts + '\n' + '═'.repeat(50) + '\n';
+            Object.entries(groups).forEach(([cat, data]) => {
+                const c = categories[cat] || { rate: 500, coeff: 1.0 };
+                text += '\n🔹 ' + getCategoryDisplayName(cat) + ' (koef ' + c.coeff + 'x, ' + c.rate + ' RSD/h):\n';
+                text += '   📌 ' + getText('statsCount') + ': ' + data.count + '\n   ⏱️ ' + getText('statsHours') + ': ' + data.hours.toFixed(1) + 'h\n   💰 ' + getText('statsPay') + ': ' + data.pay.toFixed(0) + ' RSD\n';
+            });
+            text += '\n' + '═'.repeat(50) + '\n' + getText('reportTotal') + '\n   ⏱️ ' + getText('reportHours') + ' ' + totalHours.toFixed(1) + 'h\n   💰 ' + getText('reportPay') + ' ' + totalPay.toFixed(0) + ' RSD\n';
+            text += (totalHours >= 160) ? '   ' + getText('reportOver160') : '   ' + getText('reportUnder160') + ' (' + totalHours.toFixed(1) + 'h)';
+            if (totalShifts > 0) text += '\n   📊 ' + getText('reportAverage') + ' ' + (totalHours / totalShifts).toFixed(1) + 'h';
+            res.textContent = text;
+        }
 
-                function exportReport(type) {
-                    const text = document.getElementById('reportResult').textContent;
-                    if (!text || text.includes(getText('reportNoData'))) { alert(getText('msgGenerateReport')); return; }
-                    if (type === 'txt') downloadFile(text, 'izvestaj.txt', 'text/plain');
-                    else if (type === 'csv') downloadFile(text, 'izvestaj.csv', 'text/csv');
-                    else if (type === 'html') {
-                        const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Izveštaj</title><style>body{font-family:Arial;padding:30px;}</style></head><body><h1>📄 Izveštaj o radu</h1><pre>' + text + '</pre></body></html>';
-                        downloadFile(html, 'izvestaj.html', 'text/html');
-                    }
-                }
-                function downloadFile(content, filename, mime) {
-                    const blob = new Blob([content], { type: mime + ';charset=utf-8' });
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = filename;
-                    link.click();
-                }
-                function shareReport() {
-                    const text = document.getElementById('reportResult').textContent;
-                    if (!text || text.includes(getText('reportNoData'))) { alert(getText('msgGenerateReport')); return; }
-                    navigator.clipboard.writeText(text).then(() => alert(getText('msgCopied')));
-                }
+        function exportReport(type) {
+            const text = document.getElementById('reportResult').textContent;
+            if (!text || text.includes(getText('reportNoData'))) { alert(getText('msgGenerateReport')); return; }
+            if (type === 'txt') downloadFile(text, 'izvestaj.txt', 'text/plain');
+            else if (type === 'csv') downloadFile(text, 'izvestaj.csv', 'text/csv');
+            else if (type === 'html') {
+                const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Izveštaj</title><style>body{font-family:Arial;padding:30px;}</style></head><body><h1>📄 Izveštaj o radu</h1><pre>' + text + '</pre></body></html>';
+                downloadFile(html, 'izvestaj.html', 'text/html');
+            }
+        }
+        function downloadFile(content, filename, mime) {
+            const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        }
+        function shareReport() {
+            const text = document.getElementById('reportResult').textContent;
+            if (!text || text.includes(getText('reportNoData'))) { alert(getText('msgGenerateReport')); return; }
+            navigator.clipboard.writeText(text).then(() => alert(getText('msgCopied')));
+        }
 
-                // ============================================================
-                // OBAVEŠTENJA
-                // ============================================================
-                function saveNotificationSettings() {
-                    const enabled = document.getElementById('notifEnabled').checked;
-                    const sound = document.getElementById('notifSound').value;
-                    const msg = 'Podešavanja: 🔔' + (enabled ? 'ON' : 'OFF') + ' | zvuk ' + sound;
-                    notifHistory.unshift('[' + new Date().toLocaleString() + '] ' + msg);
-                    if (notifHistory.length > 50) notifHistory.pop();
-                    saveData();
-                    updateNotifHistory();
-                    alert(getText('msgSettingsSaved'));
-                }
-                function updateNotifHistory() {
-                    document.getElementById('notifHistory').textContent = notifHistory.join('\n') || getText('notifNoHistory');
-                }
+        // ============================================================
+        // OBAVEŠTENJA
+        // ============================================================
+        function saveNotificationSettings() {
+            const enabled = document.getElementById('notifEnabled').checked;
+            const sound = document.getElementById('notifSound').value;
+            const msg = 'Podešavanja: 🔔' + (enabled ? 'ON' : 'OFF') + ' | zvuk ' + sound;
+            notifHistory.unshift('[' + new Date().toLocaleString() + '] ' + msg);
+            if (notifHistory.length > 50) notifHistory.pop();
+            saveData();
+            updateNotifHistory();
+            alert(getText('msgSettingsSaved'));
+        }
+        function updateNotifHistory() {
+            document.getElementById('notifHistory').textContent = notifHistory.join('\n') || getText('notifNoHistory');
+        }
 
-                // ============================================================
-                // KORISNIK
-                // ============================================================
-                function changeName() {
-                    const nn = document.getElementById('newNameInput').value.trim();
-                    if (!nn) { alert('Unesite novo ime!'); return; }
+        // ============================================================
+        // KORISNIK
+        // ============================================================
+        function changeName() {
+            const nn = document.getElementById('newNameInput').value.trim();
+            if (!nn) { alert('Unesite novo ime!'); return; }
 
-                    // Proveri da li novo ime već postoji
-                    if (users[nn] && nn !== currentUser) {
-                        alert('Korisnik sa tim imenom već postoji!');
-                        return;
-                    }
+            // Proveri da li novo ime već postoji
+            if (users[nn] && nn !== currentUser) {
+                alert('Korisnik sa tim imenom već postoji!');
+                return;
+            }
 
-                    const old = currentUser;
-                    const password = users[old];
+            const old = currentUser;
+            const password = users[old];
 
-                    // Obriši staro ime i dodaj novo
-                    delete users[old];
-                    users[nn] = password;
-                    currentUser = nn;
+            // Obriši staro ime i dodaj novo
+            delete users[old];
+            users[nn] = password;
+            currentUser = nn;
 
-                    // Ažuriraj sve smene
-                    shifts.forEach(s => { if (s.user === old) s.user = nn; });
+            // Ažuriraj sve smene
+            shifts.forEach(s => { if (s.user === old) s.user = nn; });
 
-                    // Ažuriraj prikaz
-                    document.getElementById('userDisplay').textContent = getText('userDisplay', { user: currentUser });
-                    document.getElementById('headerTitle').textContent = getText('headerTitle', { user: currentUser });
+            // Ažuriraj prikaz
+            document.getElementById('userDisplay').textContent = getText('userDisplay', { user: currentUser });
+            document.getElementById('headerTitle').textContent = getText('headerTitle', { user: currentUser });
 
-                    // Sačuvaj u localStorage
-                    localStorage.setItem('shiftApp_user', currentUser);
-                    saveData();
+            // Sačuvaj u localStorage
+            localStorage.setItem('shiftApp_user', currentUser);
+            saveData();
 
-                    closeModal('changeNameModal');
-                    document.getElementById('newNameInput').value = '';
-                    renderCalendar();
-                    if (selectedDate) selectDate(selectedDate);
-                    alert('✅ Ime promenjeno u: ' + nn);
-                }
+            closeModal('changeNameModal');
+            document.getElementById('newNameInput').value = '';
+            renderCalendar();
+            if (selectedDate) selectDate(selectedDate);
+            alert('✅ Ime promenjeno u: ' + nn);
+        }
 
-                function changePassword() {
-                    const old = document.getElementById('oldPassword').value;
-                    const np = document.getElementById('newPassword').value;
-                    const conf = document.getElementById('confirmPassword').value;
+        function changePassword() {
+            const old = document.getElementById('oldPassword').value;
+            const np = document.getElementById('newPassword').value;
+            const conf = document.getElementById('confirmPassword').value;
 
-                    if (!old || !np) { alert('Popunite sva polja!'); return; }
-                    if (np !== conf) { alert('Lozinke se ne poklapaju!'); return; }
-                    if (np.length < 3) { alert('Lozinka mora imati bar 3 karaktera!'); return; }
+            if (!old || !np) { alert('Popunite sva polja!'); return; }
+            if (np !== conf) { alert('Lozinke se ne poklapaju!'); return; }
+            if (np.length < 3) { alert('Lozinka mora imati bar 3 karaktera!'); return; }
 
-                    // Proveri staru lozinku
-                    if (users[currentUser] !== old) {
-                        alert('❌ Stara lozinka nije ispravna!');
-                        return;
-                    }
+            // Proveri staru lozinku
+            if (users[currentUser] !== old) {
+                alert('❌ Stara lozinka nije ispravna!');
+                return;
+            }
 
-                    // Promeni lozinku
-                    users[currentUser] = np;
-                    saveData();
-                    closeModal('changePasswordModal');
-                    document.getElementById('oldPassword').value = '';
-                    document.getElementById('newPassword').value = '';
-                    document.getElementById('confirmPassword').value = '';
-                    alert('✅ Lozinka je uspešno promenjena!');
-                }
+            // Promeni lozinku
+            users[currentUser] = np;
+            saveData();
+            closeModal('changePasswordModal');
+            document.getElementById('oldPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            alert('✅ Lozinka je uspešno promenjena!');
+        }
 
-                // ============================================================
-                // MODAL
-                // ============================================================
-                function openModal(id) { document.getElementById(id).classList.add('show'); }
-                function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-                window.onclick = function (e) { if (e.target.classList.contains('modal')) e.target.classList.remove('show'); };
+        // ============================================================
+        // MODAL
+        // ============================================================
+        function openModal(id) { document.getElementById(id).classList.add('show'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+        window.onclick = function (e) { if (e.target.classList.contains('modal')) e.target.classList.remove('show'); };
 
-                // ============================================================
-                // UPUTSTVO
-                // ============================================================
-                function updateHelp() {
-                    const isCyrillic = (currentLang === 'sr-cyrillic');
-                    const isEnglish = (currentLang === 'en');
-                    let content = isEnglish ? `
+        // ============================================================
+        // UPUTSTVO
+        // ============================================================
+        function updateHelp() {
+            const isCyrillic = (currentLang === 'sr-cyrillic');
+            const isEnglish = (currentLang === 'en');
+            let content = isEnglish ? `
         ╔══════════════════════════════════════════════════════════════════════════╗
         ║                    📅 PERSONAL SCHEDULE - DETAILED HELP                ║
         ╚══════════════════════════════════════════════════════════════════════════╝
@@ -4404,350 +4567,727 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         • Dodajte sopstvene kategorije
         • Aplikacija automatski čuva podatke
             `);
-                    document.getElementById('helpContent').textContent = content;
+            document.getElementById('helpContent').textContent = content;
+        }
+
+        // ============================================================
+        // AUTOMATSKO OSVEŽAVANJE KADA SE PROMENI VELIČINA EKRANA
+        // ============================================================
+
+        // Osveži prikaz kada se promeni veličina prozora (na mobilnom)
+        let resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                // Ponovo renderuj kalendar da se prilagodi
+                if (typeof renderCalendar === 'function') {
+                    renderCalendar();
                 }
+                // Osveži padajući meni
+                if (typeof populateCategorySelect === 'function') {
+                    populateCategorySelect();
+                }
+            }, 300);
+        });
 
-                // ============================================================
-                // AUTOMATSKO OSVEŽAVANJE KADA SE PROMENI VELIČINA EKRANA
-                // ============================================================
+        // Osveži prikaz kada se rotira ekran (na mobilnom)
+        window.addEventListener('orientationchange', function () {
+            setTimeout(function () {
+                if (typeof renderCalendar === 'function') {
+                    renderCalendar();
+                }
+                if (typeof populateCategorySelect === 'function') {
+                    populateCategorySelect();
+                }
+            }, 500);
+        });
 
-                // Osveži prikaz kada se promeni veličina prozora (na mobilnom)
-                let resizeTimer;
-                window.addEventListener('resize', function () {
-                    clearTimeout(resizeTimer);
-                    resizeTimer = setTimeout(function () {
-                        // Ponovo renderuj kalendar da se prilagodi
-                        if (typeof renderCalendar === 'function') {
-                            renderCalendar();
-                        }
-                        // Osveži padajući meni
-                        if (typeof populateCategorySelect === 'function') {
-                            populateCategorySelect();
-                        }
-                    }, 300);
+        // ============================================================
+        // POPRAVKA - OSVEŽI KATEGORIJE NAKON LOGINA
+        // ============================================================
+
+        // Ili dodaj ovo da se pozove posle logina
+        const originalLogin = login;
+        login = function (e) {
+            originalLogin(e);
+            // Nakon logina, osveži padajući meni
+            setTimeout(function () {
+                if (typeof populateCategorySelect === 'function') {
+                    populateCategorySelect();
+                }
+            }, 100);
+        };
+        // ============================================================
+        // POPRAVKA - OSVEŽI KALENDAR NAKON DODAVANJA SMENE
+        // ============================================================
+
+        // Osveži prikaz nakon dodavanja smene
+        const originalSaveShift = saveShift;
+        saveShift = function () {
+            originalSaveShift();
+            // Osveži kalendar i dugmad
+            setTimeout(function () {
+                renderCalendar();
+                if (selectedDate) selectDate(selectedDate);
+            }, 100);
+        };
+
+        // Osveži prikaz nakon brisanja smene
+        const originalDeleteShift = deleteShift;
+        deleteShift = function () {
+            originalDeleteShift();
+            setTimeout(function () {
+                renderCalendar();
+                if (selectedDate) selectDate(selectedDate);
+            }, 100);
+        };
+
+        // ============================================================
+        // POPRAVKA - PREVOD DATUMA U HEADERU
+        // ============================================================
+
+        // Funkcija koja osvežava datum u headeru
+        function updateDateDisplay() {
+            const today = new Date();
+            let locale = 'sr-RS';
+
+            // Ako je engleski jezik, koristi en-US
+            if (currentLang === 'en') {
+                locale = 'en-US';
+            } else if (currentLang === 'sr-cyrillic') {
+                locale = 'sr-RS';
+            } else {
+                locale = 'sr-RS';
+            }
+
+            const dateStr = today.toLocaleDateString(locale, {
+                weekday: 'long',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
+            document.getElementById('todayDate').textContent = dateStr;
+        }
+
+        // Dodaj u applyTranslations da osveži datum
+        const originalApplyTranslations = applyTranslations;
+        applyTranslations = function () {
+            originalApplyTranslations();
+            updateDateDisplay(); // Osveži datum
+        };
+
+        // Dodaj u initApp da postavi datum
+        const originalInitApp = initApp;
+        initApp = function () {
+            originalInitApp();
+            updateDateDisplay();
+        };
+
+        // ============================================================
+        // POPRAVKA ZA DATUM - SAMO OVO DODAJ (BEZ PREKLAPANJA)
+        // ============================================================
+
+        // Samo ova jedna funkcija - ništa više
+        function fixDateDisplay() {
+            const el = document.getElementById('todayDate');
+            if (!el) return;
+
+            const today = new Date();
+            let dateStr = today.toLocaleDateString('sr-RS', {
+                weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
+            });
+
+            // Zameni ćirilicu sa latinicom
+            const mape = {
+                'понедељак': 'Ponedeljak', 'уторак': 'Utorak', 'среда': 'Sreda',
+                'четвртак': 'Četvrtak', 'петак': 'Petak', 'субота': 'Subota', 'недеља': 'Nedelja'
+            };
+            Object.keys(mape).forEach(cir => {
+                dateStr = dateStr.replace(new RegExp(cir, 'gi'), mape[cir]);
+            });
+
+            el.textContent = dateStr;
+        }
+
+        // Pozovi jednom posle 1 sekunde
+        setTimeout(fixDateDisplay, 1000);
+
+        // ============================================================
+        // SAMO POPRAVKA ZA LATINICU - NIŠTA DRUGO
+        // ============================================================
+
+        function fixLatinDate() {
+            const el = document.getElementById('todayDate');
+            if (!el) return;
+            if (currentLang !== 'sr-latin') return; // SAMO ZA LATINICU
+
+            const today = new Date();
+            let dateStr = today.toLocaleDateString('sr-RS', {
+                weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
+            });
+
+            // Zameni ćirilične nazive dana sa latiničnim
+            const mape = {
+                'понедељак': 'Ponedeljak',
+                'уторак': 'Utorak',
+                'среда': 'Sreda',
+                'четвртак': 'Četvrtak',
+                'петак': 'Petak',
+                'субота': 'Subota',
+                'недеља': 'Nedelja'
+            };
+
+            Object.keys(mape).forEach(cir => {
+                dateStr = dateStr.replace(new RegExp(cir, 'gi'), mape[cir]);
+            });
+
+            el.textContent = dateStr;
+        }
+
+        // Pozovi posle promene jezika (samo za latinicu)
+        const originalChangeLang = changeLanguage;
+        if (typeof changeLanguage === 'function') {
+            changeLanguage = function (lang) {
+                originalChangeLang(lang);
+                if (lang === 'sr-latin') {
+                    setTimeout(fixLatinDate, 100);
+                }
+            };
+        }
+
+        // Pozovi i na početku ako je latinica
+        if (currentLang === 'sr-latin') {
+            setTimeout(fixLatinDate, 500);
+        }
+
+        // ============================================================
+        // PWA - INSTALACIJA NA TELEFON
+        // ============================================================
+
+        // Proveri da li je instalirano
+        window.addEventListener('beforeinstallprompt', function (e) {
+            e.preventDefault();
+            // Sačuvaj event za kasnije
+            window.deferredPrompt = e;
+            // Prikaži dugme za instalaciju (opciono)
+            console.log('Aplikacija može biti instalirana');
+        });
+
+        // ============================================================
+        // PRAVE NOTIFIKACIJE
+        // ============================================================
+
+        // Traži dozvolu za notifikacije
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission();
+            }
+        }
+
+        // Pošalji notifikaciju
+        function sendNotification(title, body) {
+            const enabled = document.getElementById('notifEnabled');
+            if (!enabled || !enabled.checked) return;
+
+            if ('Notification' in window && Notification.permission === 'granted') {
+                const sound = document.getElementById('notifSound').value;
+                const notification = new Notification(title, {
+                    body: body,
+                    icon: '📅',
+                    silent: sound === 'silent',
+                    vibrate: sound === 'vibrate' ? [200, 100, 200] : undefined
                 });
 
-                // Osveži prikaz kada se rotira ekran (na mobilnom)
-                window.addEventListener('orientationchange', function () {
-                    setTimeout(function () {
-                        if (typeof renderCalendar === 'function') {
-                            renderCalendar();
-                        }
-                        if (typeof populateCategorySelect === 'function') {
-                            populateCategorySelect();
-                        }
-                    }, 500);
+                if (sound === 'melody') {
+                    try {
+                        const audio = new Audio('data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoAAACBhYqFhYWGhoaGh4eHh4iIiImJiYmKioqKi4uLjIyMjI2NjY2Ojo6Pj4+PkJCQkJGRkZGSkpKS');
+                        audio.play();
+                    } catch (e) { }
+                }
+            }
+        }
+
+        // Proveri podsetnike svakih 30 sekundi
+        function checkReminders() {
+            const now = new Date();
+            const today = now.toISOString().slice(0, 10);
+            const currentTime = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+
+            reminders.forEach(rem => {
+                if (rem.date === today && rem.time === currentTime) {
+                    const shiftText = rem.shiftCategory ? getCategoryDisplayName(rem.shiftCategory) : 'Sve smene';
+                    sendNotification('⏰ Podsetnik!', rem.message + ' (' + shiftText + ')');
+
+                    // Obriši iskorišćeni podsetnik
+                    reminders = reminders.filter(r => r.id !== rem.id);
+                    saveData();
+                    renderReminders();
+                }
+            });
+        }
+
+        // Pokreni proveru notifikacija
+        if (document.getElementById('notifEnabled') && document.getElementById('notifEnabled').checked) {
+            requestNotificationPermission();
+            setInterval(checkReminders, 30000);
+        }
+
+        // ============================================================
+        // EXCEL IZVOZ
+        // ============================================================
+
+        function exportToExcel() {
+            const start = document.getElementById('reportStart').value;
+            const end = document.getElementById('reportEnd').value;
+            const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
+
+            if (userShifts.length === 0) {
+                alert('Nema podataka za izvoz!');
+                return;
+            }
+
+            // Pripremi podatke za Excel
+            let csv = 'Datum,Kategorija,Početak,Kraj,Sati,Zarada,Koeficijent\n';
+            userShifts.forEach(s => {
+                const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
+                const h = s.hours || cat.hours || 8;
+                const pay = h * cat.rate * cat.coeff;
+                csv += s.date + ',' + getCategoryDisplayName(s.category) + ',' + s.start + ',' + s.end + ',' + h + ',' + pay.toFixed(0) + ',' + cat.coeff + '\n';
+            });
+
+            // Dodaj ukupno
+            const totalHours = userShifts.reduce((sum, s) => {
+                const cat = categories[s.category] || { hours: 8 };
+                return sum + (s.hours || cat.hours || 8);
+            }, 0);
+            const totalPay = userShifts.reduce((sum, s) => {
+                const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
+                const h = s.hours || cat.hours || 8;
+                return sum + (h * cat.rate * cat.coeff);
+            }, 0);
+            csv += '\nUKUPNO,,,,,' + totalHours.toFixed(1) + ',' + totalPay.toFixed(0) + '\n';
+
+            // Kreiraj i preuzmi fajl
+            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'izvestaj_' + start + '_' + end + '.csv';
+            link.click();
+        }
+
+        // Dodaj dugme za Excel izvoz u Report tab (POSLE učitavanja)
+        document.addEventListener('DOMContentLoaded', function () {
+            const reportBtns = document.querySelector('#reportTab .btn-group');
+            if (reportBtns) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-teal';
+                btn.innerHTML = '📊 Excel';
+                btn.onclick = exportToExcel;
+                reportBtns.appendChild(btn);
+            }
+        });
+
+        // ============================================================
+        // POPRAVKA - NOTIFIKACIJE NAKON DODAVANJA PODSETNIKA
+        // ============================================================
+
+        // Dodaj u addReminder da započne proveru
+        const originalAddReminder = addReminder;
+        if (typeof addReminder === 'function') {
+            addReminder = function () {
+                originalAddReminder();
+                setTimeout(checkReminders, 1000);
+            };
+        }
+
+        // ============================================================
+        // POPRAVKA - OSVEŽI PRIKAZ KORISNIKA
+        // ============================================================
+
+        function refreshUserDisplay() {
+            const savedUser = localStorage.getItem('shiftApp_user');
+            if (savedUser && users[savedUser]) {
+                currentUser = savedUser;
+            }
+            document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+            document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
+            renderUserList();
+        }
+
+        // Pozovi odmah
+        refreshUserDisplay();
+
+        // Pozovi posle 1 sekunde
+        setTimeout(refreshUserDisplay, 500);
+        setTimeout(refreshUserDisplay, 1000);
+
+        // ============================================================
+        // POPRAVKA - PRISILNO SAKRIJ KORISNIKE OD OBIČNIH KORISNIKA
+        // ============================================================
+
+        function forceHideUsers() {
+            const savedUser = localStorage.getItem('shiftApp_user');
+            if (savedUser && users[savedUser]) {
+                currentUser = savedUser;
+            }
+
+            // Header
+            document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+            document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
+
+            // Sakrij ili prikaži korisnike
+            const section = document.getElementById('adminOnlySection');
+            if (section) {
+                if (currentUser === 'admin') {
+                    section.style.display = 'block';
+                    section.style.visibility = 'visible';
+                    section.style.pointerEvents = 'auto';
+                    section.style.height = 'auto';
+                    section.style.margin = '20px 0 0 0';
+                    section.style.padding = '16px 0 0 0';
+                    section.style.overflow = 'visible';
+                    section.style.borderTop = '2px solid var(--border)';
+                    section.style.opacity = '1';
+                } else {
+                    section.style.display = 'none';
+                    section.style.visibility = 'hidden';
+                    section.style.pointerEvents = 'none';
+                    section.style.height = '0';
+                    section.style.margin = '0';
+                    section.style.padding = '0';
+                    section.style.overflow = 'hidden';
+                    section.style.border = 'none';
+                    section.style.opacity = '0';
+                }
+            }
+
+            // Osveži listu
+            renderUserList();
+        }
+
+        // Pozovi odmah
+        forceHideUsers();
+
+        // Pozovi posle 1 sekunde
+        setTimeout(forceHideUsers, 500);
+        setTimeout(forceHideUsers, 1000);
+
+        // Pozovi kada se otvori tab Podešavanja
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('#tabCategories')) {
+                setTimeout(forceHideUsers, 200);
+            }
+        });
+
+        // ============================================================
+        // DODATNA ZAŠTITA - SPRECAVA OBIČNE KORISNIKE DA VIDE KORISNIKE
+        // ============================================================
+
+        function protectAdminSection() {
+            const savedUser = localStorage.getItem('shiftApp_user');
+            if (savedUser && users[savedUser]) {
+                currentUser = savedUser;
+            }
+
+            const section = document.getElementById('adminOnlySection');
+            if (!section) return;
+
+            // Sakrij ako nije admin
+            if (currentUser !== 'admin') {
+                section.style.display = 'none';
+                section.style.visibility = 'hidden';
+                section.style.pointerEvents = 'none';
+                section.style.height = '0';
+                section.style.margin = '0';
+                section.style.padding = '0';
+                section.style.overflow = 'hidden';
+                section.style.border = 'none';
+                section.style.opacity = '0';
+            } else {
+                section.style.display = 'block';
+                section.style.visibility = 'visible';
+                section.style.pointerEvents = 'auto';
+                section.style.height = 'auto';
+                section.style.margin = '20px 0 0 0';
+                section.style.padding = '16px 0 0 0';
+                section.style.overflow = 'visible';
+                section.style.borderTop = '2px solid var(--border)';
+                section.style.opacity = '1';
+            }
+        }
+
+        // Pozovi odmah i posle svake promene korisnika
+        protectAdminSection();
+
+        // Dodaj u initApp
+        const originalInitApp2 = initApp;
+        if (typeof initApp === 'function') {
+            initApp = function () {
+                originalInitApp2();
+                setTimeout(protectAdminSection, 100);
+                setTimeout(protectAdminSection, 500);
+            };
+        }
+
+        // Dodaj u login
+        const originalLogin2 = login;
+        if (typeof login === 'function') {
+            login = function (e) {
+                originalLogin2(e);
+                setTimeout(protectAdminSection, 200);
+                setTimeout(protectAdminSection, 600);
+            };
+        }
+
+        // Dodaj u logout
+        const originalLogout2 = logout;
+        if (typeof logout === 'function') {
+            logout = function () {
+                originalLogout2();
+                // Resetuj prikaz - sakrij admin deo
+                const section = document.getElementById('adminOnlySection');
+                if (section) {
+                    section.style.display = 'none';
+                    section.style.visibility = 'hidden';
+                    section.style.pointerEvents = 'none';
+                    section.style.height = '0';
+                    section.style.margin = '0';
+                    section.style.padding = '0';
+                    section.style.overflow = 'hidden';
+                    section.style.border = 'none';
+                    section.style.opacity = '0';
+                }
+            };
+        }
+
+        // ============================================================
+        // POPRAVKA ZA LOGIN - AKO NE RADI
+        // ============================================================
+
+        // Osiguraj da default korisnici postoje
+        if (!users || Object.keys(users).length === 0) {
+            users = {
+                'admin': 'admin123',
+                'user': 'user123',
+                'marko': 'marko123',
+                'jana': 'jana123'
+            };
+        }
+
+        // Osiguraj da je login funkcija ispravna
+        window.login = function (e) {
+            if (e) e.preventDefault();
+
+            // Učitaj podatke
+            try {
+                const userData = localStorage.getItem('shiftApp_users');
+                if (userData) users = JSON.parse(userData);
+            } catch (e) { }
+
+            // Ako nema korisnika, dodaj default
+            if (!users || Object.keys(users).length === 0) {
+                users = {
+                    'admin': 'admin123',
+                    'user': 'user123',
+                    'marko': 'marko123',
+                    'jana': 'jana123'
+                };
+            }
+
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (users[username] && users[username] === password) {
+                isLoggedIn = true;
+                currentUser = username;
+                if (errorEl) errorEl.classList.remove('show');
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('appContent').classList.remove('hidden');
+                localStorage.setItem('shiftApp_loggedIn', 'true');
+                localStorage.setItem('shiftApp_user', currentUser);
+
+                document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+                document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
+
+                // Ponovo inicijalizuj aplikaciju
+                if (typeof initApp === 'function') {
+                    initApp();
+                } else {
+                    // Ako initApp ne postoji, ručno pokreni
+                    loadData();
+                    renderCalendar();
+                    renderLegend();
+                    populateCategorySelect();
+                    renderCategoryTable();
+                    renderUserList();
+                    updateHelp();
+                }
+            } else {
+                if (errorEl) errorEl.classList.add('show');
+                alert('❌ Pogrešno korisničko ime ili lozinka!');
+            }
+        };
+
+        // Ponovo poveži login formu
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('loginForm');
+            if (form) {
+                form.onsubmit = window.login;
+            }
+        });
+
+        // Ako je već prijavljen, nastavi
+        const savedUser = localStorage.getItem('shiftApp_user');
+        const savedLogged = localStorage.getItem('shiftApp_loggedIn');
+        if (savedLogged === 'true' && savedUser && users && users[savedUser]) {
+            isLoggedIn = true;
+            currentUser = savedUser;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appContent').classList.remove('hidden');
+            document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+            document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
+            if (typeof initApp === 'function') {
+                initApp();
+            }
+        }
+
+        // ============================================================
+        // LOGIN FUNKCIJA - NOVA
+        // ============================================================
+
+        function loginUser() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (!username || !password) {
+                errorEl.textContent = '⚠️ Unesite korisničko ime i lozinku!';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            // Učitaj korisnike
+            const userData = localStorage.getItem('shiftApp_users');
+            if (userData) {
+                try {
+                    const parsedUsers = JSON.parse(userData);
+                    Object.assign(users, parsedUsers);
+                } catch (e) { }
+            }
+
+            // Proveri admina
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = 'admin';
+                isLoggedIn = true;
+                errorEl.style.display = 'none';
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('appContent').classList.remove('hidden');
+                localStorage.setItem('shiftApp_loggedIn', 'true');
+                localStorage.setItem('shiftApp_user', currentUser);
+                document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+                document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
+                if (typeof initApp === 'function') {
+                    initApp();
+                } else {
+                    renderAll();
+                }
+                showToast('👋 Dobrodošli, admin!');
+                return;
+            }
+
+            // Proveri obične korisnike
+            if (users[username] && users[username] === password) {
+                currentUser = username;
+                isLoggedIn = true;
+                errorEl.style.display = 'none';
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('appContent').classList.remove('hidden');
+                localStorage.setItem('shiftApp_loggedIn', 'true');
+                localStorage.setItem('shiftApp_user', currentUser);
+                document.getElementById('userDisplay').textContent = '👤 ' + currentUser;
+                document.getElementById('headerTitle').textContent = '📅 ' + currentUser;
+                if (typeof initApp === 'function') {
+                    initApp();
+                } else {
+                    renderAll();
+                }
+                showToast('👋 Dobrodošli, ' + username + '!');
+                return;
+            }
+
+            // Greška
+            errorEl.textContent = '❌ Pogrešno korisničko ime ili lozinka!';
+            errorEl.style.display = 'block';
+        }
+
+        // Poveži login na Enter
+        document.addEventListener('DOMContentLoaded', function () {
+            const passInput = document.getElementById('loginPassword');
+            if (passInput) {
+                passInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') loginUser();
                 });
-
-                // ============================================================
-                // POPRAVKA - OSVEŽI KATEGORIJE NAKON LOGINA
-                // ============================================================
-
-                // Dodaj u initApp() na kraj:
-                // populateCategorySelect();
-
-                // Ili dodaj ovo da se pozove posle logina
-                const originalLogin = login;
-                login = function (e) {
-                    originalLogin(e);
-                    // Nakon logina, osveži padajući meni
-                    setTimeout(function () {
-                        if (typeof populateCategorySelect === 'function') {
-                            populateCategorySelect();
-                        }
-                    }, 100);
-                };
-                // ============================================================
-                // POPRAVKA - OSVEŽI KALENDAR NAKON DODAVANJA SMENE
-                // ============================================================
-
-                // Osveži prikaz nakon dodavanja smene
-                const originalSaveShift = saveShift;
-                saveShift = function () {
-                    originalSaveShift();
-                    // Osveži kalendar i dugmad
-                    setTimeout(function () {
-                        renderCalendar();
-                        if (selectedDate) selectDate(selectedDate);
-                    }, 100);
-                };
-
-                // Osveži prikaz nakon brisanja smene
-                const originalDeleteShift = deleteShift;
-                deleteShift = function () {
-                    originalDeleteShift();
-                    setTimeout(function () {
-                        renderCalendar();
-                        if (selectedDate) selectDate(selectedDate);
-                    }, 100);
-                };
-
-                // ============================================================
-                // POPRAVKA - PREVOD DATUMA U HEADERU
-                // ============================================================
-
-                // Funkcija koja osvežava datum u headeru
-                function updateDateDisplay() {
-                    const today = new Date();
-                    let locale = 'sr-RS';
-
-                    // Ako je engleski jezik, koristi en-US
-                    if (currentLang === 'en') {
-                        locale = 'en-US';
-                    } else if (currentLang === 'sr-cyrillic') {
-                        locale = 'sr-RS';
-                    } else {
-                        locale = 'sr-RS';
-                    }
-
-                    const dateStr = today.toLocaleDateString(locale, {
-                        weekday: 'long',
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric'
-                    });
-
-                    document.getElementById('todayDate').textContent = dateStr;
-                }
-
-                // Dodaj u applyTranslations da osveži datum
-                const originalApplyTranslations = applyTranslations;
-                applyTranslations = function () {
-                    originalApplyTranslations();
-                    updateDateDisplay(); // Osveži datum
-                };
-
-                // Dodaj u initApp da postavi datum
-                const originalInitApp = initApp;
-                initApp = function () {
-                    originalInitApp();
-                    updateDateDisplay();
-                };
-
-                // ============================================================
-                // POPRAVKA ZA DATUM - SAMO OVO DODAJ (BEZ PREKLAPANJA)
-                // ============================================================
-
-                // Samo ova jedna funkcija - ništa više
-                function fixDateDisplay() {
-                    const el = document.getElementById('todayDate');
-                    if (!el) return;
-
-                    const today = new Date();
-                    let dateStr = today.toLocaleDateString('sr-RS', {
-                        weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
-                    });
-
-                    // Zameni ćirilicu sa latinicom
-                    const mape = {
-                        'понедељак': 'Ponedeljak', 'уторак': 'Utorak', 'среда': 'Sreda',
-                        'четвртак': 'Četvrtak', 'петак': 'Petak', 'субота': 'Subota', 'недеља': 'Nedelja'
-                    };
-                    Object.keys(mape).forEach(cir => {
-                        dateStr = dateStr.replace(new RegExp(cir, 'gi'), mape[cir]);
-                    });
-
-                    el.textContent = dateStr;
-                }
-
-                // Pozovi jednom posle 1 sekunde
-                setTimeout(fixDateDisplay, 1000);
-
-                // ============================================================
-                // SAMO POPRAVKA ZA LATINICU - NIŠTA DRUGO
-                // ============================================================
-
-                function fixLatinDate() {
-                    const el = document.getElementById('todayDate');
-                    if (!el) return;
-                    if (currentLang !== 'sr-latin') return; // SAMO ZA LATINICU
-
-                    const today = new Date();
-                    let dateStr = today.toLocaleDateString('sr-RS', {
-                        weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric'
-                    });
-
-                    // Zameni ćirilične nazive dana sa latiničnim
-                    const mape = {
-                        'понедељак': 'Ponedeljak',
-                        'уторак': 'Utorak',
-                        'среда': 'Sreda',
-                        'четвртак': 'Četvrtak',
-                        'петак': 'Petak',
-                        'субота': 'Subota',
-                        'недеља': 'Nedelja'
-                    };
-
-                    Object.keys(mape).forEach(cir => {
-                        dateStr = dateStr.replace(new RegExp(cir, 'gi'), mape[cir]);
-                    });
-
-                    el.textContent = dateStr;
-                }
-
-                // Pozovi posle promene jezika (samo za latinicu)
-                const originalChangeLang = changeLanguage;
-                if (typeof changeLanguage === 'function') {
-                    changeLanguage = function (lang) {
-                        originalChangeLang(lang);
-                        if (lang === 'sr-latin') {
-                            setTimeout(fixLatinDate, 100);
-                        }
-                    };
-                }
-
-                // Pozovi i na početku ako je latinica
-                if (currentLang === 'sr-latin') {
-                    setTimeout(fixLatinDate, 500);
-                }
-
-                // ============================================================
-                // PWA - INSTALACIJA NA TELEFON
-                // ============================================================
-
-                // Proveri da li je instalirano
-                window.addEventListener('beforeinstallprompt', function (e) {
-                    e.preventDefault();
-                    // Sačuvaj event za kasnije
-                    window.deferredPrompt = e;
-                    // Prikaži dugme za instalaciju (opciono)
-                    console.log('Aplikacija može biti instalirana');
+            }
+            const userInput = document.getElementById('loginUsername');
+            if (userInput) {
+                userInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') loginUser();
                 });
+            }
+        });
 
-                // ============================================================
-                // PRAVE NOTIFIKACIJE
-                // ============================================================
+        // ============================================================
+        // TOAST OBAVEŠTENJA
+        // ============================================================
 
-                // Traži dozvolu za notifikacije
-                function requestNotificationPermission() {
-                    if ('Notification' in window) {
-                        Notification.requestPermission();
-                    }
-                }
+        function showToast(message) {
+            // Ako već postoji toast element, koristi ga
+            let toast = document.getElementById('toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast';
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 15px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 8px 16px;
+                    border-radius: 8px;
+                    font-size: 12px;
+                    z-index: 3000;
+                    display: none;
+                    max-width: 90%;
+                    text-align: center;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                    transition: all 0.3s ease;
+                `;
+                document.body.appendChild(toast);
+            }
 
-                // Pošalji notifikaciju
-                function sendNotification(title, body) {
-                    const enabled = document.getElementById('notifEnabled');
-                    if (!enabled || !enabled.checked) return;
+            toast.textContent = message;
+            toast.style.display = 'block';
+            toast.style.opacity = '1';
 
-                    if ('Notification' in window && Notification.permission === 'granted') {
-                        const sound = document.getElementById('notifSound').value;
-                        const notification = new Notification(title, {
-                            body: body,
-                            icon: '📅',
-                            silent: sound === 'silent',
-                            vibrate: sound === 'vibrate' ? [200, 100, 200] : undefined
-                        });
-
-                        if (sound === 'melody') {
-                            try {
-                                const audio = new Audio('data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoAAACBhYqFhYWGhoaGh4eHh4iIiImJiYmKioqKi4uLjIyMjI2NjY2Ojo6Pj4+PkJCQkJGRkZGSkpKS');
-                                audio.play();
-                            } catch (e) { }
-                        }
-                    }
-                }
-
-                // Proveri podsetnike svakih 30 sekundi
-                function checkReminders() {
-                    const now = new Date();
-                    const today = now.toISOString().slice(0, 10);
-                    const currentTime = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-
-                    reminders.forEach(rem => {
-                        if (rem.date === today && rem.time === currentTime) {
-                            const shiftText = rem.shiftCategory ? getCategoryDisplayName(rem.shiftCategory) : 'Sve smene';
-                            sendNotification('⏰ Podsetnik!', rem.message + ' (' + shiftText + ')');
-
-                            // Obriši iskorišćeni podsetnik
-                            reminders = reminders.filter(r => r.id !== rem.id);
-                            saveData();
-                            renderReminders();
-                        }
-                    });
-                }
-
-                // Pokreni proveru notifikacija
-                if (document.getElementById('notifEnabled') && document.getElementById('notifEnabled').checked) {
-                    requestNotificationPermission();
-                    setInterval(checkReminders, 30000);
-                }
-
-                // ============================================================
-                // EXCEL IZVOZ
-                // ============================================================
-
-                function exportToExcel() {
-                    const start = document.getElementById('reportStart').value;
-                    const end = document.getElementById('reportEnd').value;
-                    const userShifts = shifts.filter(s => s.user === currentUser && s.date >= start && s.date <= end);
-
-                    if (userShifts.length === 0) {
-                        alert('Nema podataka za izvoz!');
-                        return;
-                    }
-
-                    // Pripremi podatke za Excel
-                    let csv = 'Datum,Kategorija,Početak,Kraj,Sati,Zarada,Koeficijent\n';
-                    userShifts.forEach(s => {
-                        const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
-                        const h = s.hours || cat.hours || 8;
-                        const pay = h * cat.rate * cat.coeff;
-                        csv += s.date + ',' + getCategoryDisplayName(s.category) + ',' + s.start + ',' + s.end + ',' + h + ',' + pay.toFixed(0) + ',' + cat.coeff + '\n';
-                    });
-
-                    // Dodaj ukupno
-                    const totalHours = userShifts.reduce((sum, s) => {
-                        const cat = categories[s.category] || { hours: 8 };
-                        return sum + (s.hours || cat.hours || 8);
-                    }, 0);
-                    const totalPay = userShifts.reduce((sum, s) => {
-                        const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
-                        const h = s.hours || cat.hours || 8;
-                        return sum + (h * cat.rate * cat.coeff);
-                    }, 0);
-                    csv += '\nUKUPNO,,,,,' + totalHours.toFixed(1) + ',' + totalPay.toFixed(0) + '\n';
-
-                    // Kreiraj i preuzmi fajl
-                    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = 'izvestaj_' + start + '_' + end + '.csv';
-                    link.click();
-                }
-
-                // Dodaj dugme za Excel izvoz u Report tab (POSLE učitavanja)
-                document.addEventListener('DOMContentLoaded', function () {
-                    const reportBtns = document.querySelector('#reportTab .btn-group');
-                    if (reportBtns) {
-                        const btn = document.createElement('button');
-                        btn.className = 'btn btn-teal';
-                        btn.innerHTML = '📊 Excel';
-                        btn.onclick = exportToExcel;
-                        reportBtns.appendChild(btn);
-                    }
-                });
-
-                // ============================================================
-                // POPRAVKA - NOTIFIKACIJE NAKON DODAVANJA PODSETNIKA
-                // ============================================================
-
-                // Dodaj u addReminder da započne proveru
-                const originalAddReminder = addReminder;
-                if (typeof addReminder === 'function') {
-                    addReminder = function () {
-                        originalAddReminder();
-                        setTimeout(checkReminders, 1000);
-                    };
-                }
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 300);
+            }, 3000);
+        }
 
     </script>
     <!-- PWA MANIFEST -->
     <script>
-                // Registruj Service Worker za PWA
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register('sw.js');
-                }
+        // Registruj Service Worker za PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
     </script>
 </body>
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="sr">
 
-<!-- <input type="text" id="loginUsername" placeholder="Unesite korisničko ime" value="admin" required>
-<input type="password" id="loginPassword" placeholder="Unesite lozinku" value="admin123" required> 
+<!-- <input type="text" id="loginUsername" placeholder="Unesite korisničko ime" value="" required>
+<input type="password" id="loginPassword" placeholder="Unesite lozinku" value="" required> 
 ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type="text" id="loginUsername" placeholder="Unesite korisničko ime" required>
 <input type="password" id="loginPassword" placeholder="Unesite lozinku" required>-->
 
@@ -1711,8 +1711,8 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         <div class="logo">🚑</div>
         <h1 id="loginTitle">Lični raspored</h1>
         <p class="subtitle" id="loginSubtitle">Upravljanje smenama</p>
-        <input type="text" id="loginUsername" placeholder="Korisničko ime" autocomplete="off">
-        <input type="password" id="loginPassword" placeholder="Lozinka" autocomplete="off">
+        <input type="text" id="loginUsername" placeholder="Unesite korisničko ime" autocomplete="off">
+        <input type="password" id="loginPassword" placeholder="Unesite lozinku" autocomplete="off">
         <button class="login-btn" onclick="loginUser()" id="loginBtn">🔓 Prijavi se</button>
         <div id="loginError">❌ Pogrešno korisničko ime ili lozinka!</div>
         <!-- <div class="footer-text">👑 <strong>Admin:</strong> admin / admin123<br>📌 Zaposleni: koriste svoje ime i
@@ -1861,9 +1861,9 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 <!-- KORISNICI - SAMO ZA ADMINA -->
                 <div id="adminOnlySection"
                     style="margin-top:20px;border-top:2px solid var(--border);padding-top:16px;display:none;">
-                    <h3 style="font-size:16px;">👥 Korisnici</h3>
-                    <p style="opacity:0.7;margin-bottom:10px;font-size:13px;">Dodaj ili obriši korisnike. Korisnici mogu
-                        da vide samo svoje smene.</p>
+                    <h3 style="font-size:16px;" id="usersTitle">👥 Korisnici</h3>
+                    <p style="opacity:0.7;margin-bottom:10px;font-size:13px;" id="usersDesc">Dodaj ili obriši korisnike.
+                        Korisnici mogu da vide samo svoje smene.</p>
                     <button class="btn btn-teal" onclick="openModal('addUserModal')" style="margin-bottom:12px;"
                         id="addUserBtn">➕ Dodaj korisnika</button>
                     <div id="userList"></div>
@@ -2052,6 +2052,25 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             <div class="modal-btns">
                 <button class="btn btn-green" onclick="addUser()" id="modalAddUserSave">💾 Dodaj</button>
                 <button class="btn btn-red" onclick="closeModal('addUserModal')" id="modalAddUserCancel">❌
+                    Otkaži</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Izmeni korisnika -->
+    <div class="modal" id="editUserModal">
+        <div class="modal-content">
+            <h2 id="modalEditUserTitle">✏️ Izmeni korisnika</h2>
+            <input type="hidden" id="editUserOldName">
+            <label id="modalEditUserUsername">Korisničko ime:</label>
+            <input type="text" id="editUserUsername" placeholder="Unesite novo korisničko ime">
+            <label id="modalEditUserPassword">Lozinka:</label>
+            <input type="password" id="editUserPassword" placeholder="Ostavite prazno ako ne želite da menjate">
+            <label id="modalEditUserConfirm">Potvrdi lozinku:</label>
+            <input type="password" id="editUserConfirm" placeholder="Ponovite novu lozinku">
+            <div class="modal-btns">
+                <button class="btn btn-green" onclick="saveUserEdit()" id="modalEditUserSave">💾 Sačuvaj</button>
+                <button class="btn btn-red" onclick="closeModal('editUserModal')" id="modalEditUserCancel">❌
                     Otkaži</button>
             </div>
         </div>
@@ -2266,14 +2285,58 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 msgSelectShift: 'Odaberite smenu za brisanje ({date}):\n\n{list}\n\nUnesite broj (1-{count}) ili 0 za odustajanje:',
                 msgGenerateReport: 'Prvo generišite izveštaj!',
                 msgCopied: '📋 Izveštaj kopiran u clipboard!',
+                addUserBtn: '➕ Dodaj korisnika',
+                addUserBtn: '➕ Dodaj korisnika',
+                usersTitle: '👥 Korisnici',
+                usersDesc: 'Dodaj ili obriši korisnike. Korisnici mogu da vide samo svoje smene.',
+                selectDateMsg: '📌 Odaberite datum za prikaz smena',
+                adminLabel: '🔑 Administrator',
+                userLabel: '👤 Korisnik',
+                editUserTitle: '✏️ Izmeni korisnika',
+                editUserUsername: 'Korisničko ime:',
+                editUserPassword: 'Lozinka:',
+                editUserPasswordPlaceholder: 'Ostavite prazno ako ne želite da menjate',
+                editUserConfirm: 'Potvrdi lozinku:',
+                editUserSave: '💾 Sačuvaj',
+                editUserCancel: '❌ Otkaži',
+                userAdded: '✅ Korisnik "{name}" je dodat!',
+                userDeleted: '🗑️ Korisnik obrisan!',
+                userExists: 'Korisnik već postoji!',
+                userDeleteConfirm: 'Da li ste sigurni da želite da obrišete korisnika "{name}"?',
+                userUpdated: '✅ Korisnik je ažuriran!',
+                msgUserEditSuccess: '✅ Korisnik je uspešno izmenjen!',
+                usersTitle: '👥 Korisnici',
+                usersDesc: 'Dodaj ili obriši korisnike. Korisnici mogu da vide samo svoje smene.',
+                selectDateMsg: '📌 Odaberite datum za prikaz smena',
+                adminLabel: '🔑 Administrator',
+                userLabel: '👤 Korisnik',
+                editUserTitle: '✏️ Izmeni korisnika',
+                editUserUsername: 'Korisničko ime:',
+                editUserPassword: 'Lozinka:',
+                editUserPasswordPlaceholder: 'Ostavite prazno ako ne želite da menjate',
+                editUserConfirm: 'Potvrdi lozinku:',
+                editUserSave: '💾 Sačuvaj',
+                editUserCancel: '❌ Otkaži',
                 msgUserExists: 'Korisnik već postoji!',
                 msgUserAdded: '✅ Korisnik "{name}" je dodat!',
                 msgUserDeleted: '🗑️ Korisnik obrisan!',
+                userUpdated: '✅ Korisnik je ažuriran!',
+                msgUserEditSuccess: '✅ Korisnik je uspešno izmenjen!',
                 msgPasswordMismatchUser: 'Lozinke se ne poklapaju!',
                 msgUserDeleteConfirm: 'Da li ste sigurni da želite da obrišete korisnika "{name}"?',
                 reminderAddNew: '⏰ Dodaj novi podsetnik',
                 catDesc: 'Dodaj, izmeni ili obriši kategorije smena.',
                 categoriesTitle: '📋 Kategorije smena',
+                editUserPasswordPlaceholder: 'Ostavite prazno ako ne želite da menjate',
+                editUserConfirmPlaceholder: 'Ponovite novu lozinku',
+                loginUsernamePlaceholder: 'Unesite korisničko ime',
+                loginPasswordPlaceholder: 'Unesite lozinku',
+                addUserPasswordPlaceholder: 'Unesite lozinku',
+                addUserConfirmPlaceholder: 'Ponovite lozinku',
+                editUserPasswordPlaceholder: 'Ostavite prazno ako ne želite da menjate',
+                editUserConfirmPlaceholder: 'Ponovite novu lozinku',
+                changeNamePlaceholder: 'Unesite novo ime',
+                reminderAllShifts: 'Sve smene',
             },
             'sr-cyrillic': {
                 loginTitle: '📅 Лични распоред', loginSubtitle: 'Пријавите се за наставак',
@@ -2286,6 +2349,25 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 tabReport: '📄 Извештај', tabCategories: '⚙️ Подешавања',
                 tabNotifications: '🔔 Обавештења', tabHelp: '❓ Упутство',
                 btnLogout: '🚪 Одјави се',
+                addUserBtn: '➕ Додај корисника',
+                usersTitle: '👥 Корисници',
+                usersDesc: 'Додај или обриши кориснике. Корисници могу да виде само своје смене.',
+                selectDateMsg: '📌 Одаберите датум за приказ смена',
+                adminLabel: '🔑 Администратор',
+                userLabel: '👤 Корисник',
+                editUserTitle: '✏️ Измени корисника',
+                editUserUsername: 'Корисничко име:',
+                editUserPassword: 'Лозинка:',
+                editUserPasswordPlaceholder: 'Оставите празно ако не желите да мењате',
+                editUserConfirm: 'Потврди лозинку:',
+                editUserSave: '💾 Сачувај',
+                editUserCancel: '❌ Откажи',
+                userAdded: '✅ Корисник "{name}" је додат!',
+                userDeleted: '🗑️ Корисник обрисан!',
+                userExists: 'Корисник већ постоји!',
+                userDeleteConfirm: 'Да ли сте сигурни да желите да обришете корисника "{name}"?',
+                userUpdated: '✅ Корисник је ажуриран!',
+                msgUserEditSuccess: '✅ Корисник је успешно измењен!',
                 headerTitle: '📅 {user}', themeLight: 'Светла', themeDark: 'Тамна',
                 viewMine: '👤 Само моје смене', viewAll: '👥 Све смене',
                 dayMon: 'Пон', dayTue: 'Уто', dayWed: 'Сре', dayThu: 'Чет', dayFri: 'Пет', daySat: 'Суб', daySun: 'Нед',
@@ -2430,6 +2512,16 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 msgUserDeleteConfirm: 'Да ли сте сигурни да желите да обришете корисника "{name}"?',
                 reminderAddNew: '⏰ Додај нови подсетник',
                 categoriesTitle: '📋 Категорије смена',
+                editUserPasswordPlaceholder: 'Оставите празно ако не желите да мењате',
+                editUserConfirmPlaceholder: 'Поновите нову лозинку',
+                loginUsernamePlaceholder: 'Унесите корисничко име',
+                loginPasswordPlaceholder: 'Унесите лозинку',
+                addUserPasswordPlaceholder: 'Унесите лозинку',
+                addUserConfirmPlaceholder: 'Поновите лозинку',
+                editUserPasswordPlaceholder: 'Оставите празно ако не желите да мењате',
+                editUserConfirmPlaceholder: 'Поновите нову лозинку',
+                changeNamePlaceholder: 'Унесите ново име',
+                reminderAllShifts: 'Све смене',
             },
             'en': {
                 loginTitle: '📅 Personal Schedule', loginSubtitle: 'Please login to continue',
@@ -2607,6 +2699,25 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 msgSelectShift: 'Select shift to delete ({date}):\n\n{list}\n\nEnter number (1-{count}) or 0 to cancel:',
                 msgGenerateReport: 'Please generate report first!',
                 msgCopied: '📋 Report copied to clipboard!',
+                addUserBtn: '➕ Add user',
+                usersTitle: '👥 Users',
+                usersDesc: 'Add or delete users. Users can only see their own shifts.',
+                selectDateMsg: '📌 Select a date to view shifts',
+                adminLabel: '🔑 Administrator',
+                userLabel: '👤 User',
+                editUserTitle: '✏️ Edit user',
+                editUserUsername: 'Username:',
+                editUserPassword: 'Password:',
+                editUserPasswordPlaceholder: 'Leave empty if you don\'t want to change',
+                editUserConfirm: 'Confirm password:',
+                editUserSave: '💾 Save',
+                editUserCancel: '❌ Cancel',
+                userAdded: '✅ User "{name}" added!',
+                userDeleted: '🗑️ User deleted!',
+                userExists: 'User already exists!',
+                userDeleteConfirm: 'Are you sure you want to delete user "{name}"?',
+                userUpdated: '✅ User updated!',
+                msgUserEditSuccess: '✅ User successfully updated!',
                 msgUserExists: 'User already exists!',
                 msgUserAdded: '✅ User "{name}" added!',
                 msgUserDeleted: '🗑️ User deleted!',
@@ -2614,6 +2725,16 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 msgUserDeleteConfirm: 'Are you sure you want to delete user "{name}"?',
                 reminderAddNew: '⏰ Add new reminder',
                 categoriesTitle: '📋 Shift Categories',
+                editUserPasswordPlaceholder: 'Leave empty if you don\'t want to change',
+                editUserConfirmPlaceholder: 'Repeat new password',
+                loginUsernamePlaceholder: 'Enter username',
+                loginPasswordPlaceholder: 'Enter password',
+                addUserPasswordPlaceholder: 'Enter password',
+                addUserConfirmPlaceholder: 'Repeat password',
+                editUserPasswordPlaceholder: 'Leave empty if you don\'t want to change',
+                editUserConfirmPlaceholder: 'Repeat new password',
+                changeNamePlaceholder: 'Enter new name',
+                reminderAllShifts: 'All shifts',
             }
         };
 
@@ -2736,7 +2857,23 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 modalChangePassNew: 'modalChangePassNew',
                 modalChangePassConfirm: 'modalChangePassConfirm',
                 modalChangePassSave: 'modalChangePassSave',
-                modalChangePassCancel: 'modalChangePassCancel'
+                modalChangePassCancel: 'modalChangePassCancel',
+                addUserBtn: 'addUserBtn',
+                usersTitle: 'usersTitle',
+                usersDesc: 'usersDesc',
+                modalEditUserTitle: 'editUserTitle',
+                modalEditUserUsername: 'editUserUsername',
+                modalEditUserPassword: 'editUserPassword',
+                modalEditUserConfirm: 'editUserConfirm',
+                modalEditUserSave: 'editUserSave',
+                modalEditUserCancel: 'editUserCancel',
+                loginUsernamePlaceholder: 'loginUsernamePlaceholder',
+                loginPasswordPlaceholder: 'loginPasswordPlaceholder',
+                addUserPasswordPlaceholder: 'addUserPasswordPlaceholder',
+                addUserConfirmPlaceholder: 'addUserConfirmPlaceholder',
+                editUserPasswordPlaceholder: 'editUserPasswordPlaceholder',
+                editUserConfirmPlaceholder: 'editUserConfirmPlaceholder',
+                changeNamePlaceholder: 'changeNamePlaceholder'
             };
 
             Object.keys(items).forEach(id => {
@@ -2750,6 +2887,25 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                     } else {
                         el.textContent = getText(key);
                     }
+                }
+            });
+
+            // Placeholder-i za input polja
+            const placeholderMap = {
+                'loginUsername': 'loginUsernamePlaceholder',
+                'loginPassword': 'loginPasswordPlaceholder',
+                'newUsername': 'loginUsernamePlaceholder',
+                'newUserPassword': 'addUserPasswordPlaceholder',
+                'newUserConfirm': 'addUserConfirmPlaceholder',
+                'editUserPassword': 'editUserPasswordPlaceholder',
+                'editUserConfirm': 'editUserConfirmPlaceholder',
+                'newNameInput': 'changeNamePlaceholder',
+            };
+
+            Object.keys(placeholderMap).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.placeholder = getText(placeholderMap[id]);
                 }
             });
 
@@ -2798,6 +2954,11 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             const headerTitle = document.getElementById('headerTitle');
             if (headerTitle) {
                 headerTitle.textContent = getText('headerTitle', { user: currentUser });
+            }
+            // Prevedi default tekst za detalje
+            const detailsDisplay = document.getElementById('detailsDisplay');
+            if (detailsDisplay && !selectedDate) {
+                detailsDisplay.textContent = getText('selectDateMsg');
             }
         }
 
@@ -2943,28 +3104,63 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 localStorage.setItem('shiftApp_notifHistory', JSON.stringify(notifHistory));
                 localStorage.setItem('shiftApp_reminders', JSON.stringify(reminders));
                 localStorage.setItem('shiftApp_theme', theme);
-                localStorage.setItem('shiftApp_users', JSON.stringify(users));
-            } catch (e) { }
+                localStorage.setItem('shiftApp_users', JSON.stringify(users)); // OVO JE KLJUČNO
+            } catch (e) {
+                console.log('Greška pri čuvanju:', e);
+            }
         }
 
         function loadData() {
             try {
+                // Učitaj kategorije
                 const catData = localStorage.getItem('shiftApp_categories');
-                categories = catData ? JSON.parse(catData) : JSON.parse(JSON.stringify(defaultCategories));
+                if (catData) {
+                    categories = JSON.parse(catData);
+                } else {
+                    categories = JSON.parse(JSON.stringify(defaultCategories));
+                }
+
+                // Učitaj smene
                 const shiftData = localStorage.getItem('shiftApp_shifts');
                 shifts = shiftData ? JSON.parse(shiftData) : [
                     { user: 'admin', category: 'Prva smena', date: '2026-08-10', start: '07:00', end: '15:00', hours: 8, note: '' },
                     { user: 'admin', category: 'Druga smena', date: '2026-08-11', start: '15:00', end: '23:00', hours: 8, note: '' },
                 ];
+
+                // Učitaj korisnike - OVO JE KLJUČNO
+                const userData = localStorage.getItem('shiftApp_users');
+                if (userData) {
+                    users = JSON.parse(userData);
+                } else {
+                    // SAMO AKO NEMA PODATAKA, onda koristi default
+                    users = {
+                        'admin': 'admin123',
+                        'user': 'user123',
+                        'marko': 'marko123',
+                        'jana': 'jana123'
+                    };
+                }
+
+                // Učitaj ostalo
                 const themeData = localStorage.getItem('shiftApp_theme');
                 if (themeData) theme = themeData;
+
                 const histData = localStorage.getItem('shiftApp_notifHistory');
                 notifHistory = histData ? JSON.parse(histData) : [];
+
                 const remData = localStorage.getItem('shiftApp_reminders');
                 reminders = remData ? JSON.parse(remData) : [];
-                const userData = localStorage.getItem('shiftApp_users');
-                if (userData) users = JSON.parse(userData);
-            } catch (e) { categories = JSON.parse(JSON.stringify(defaultCategories)); }
+
+            } catch (e) {
+                console.log('Greška pri učitavanju:', e);
+                categories = JSON.parse(JSON.stringify(defaultCategories));
+                users = {
+                    'admin': 'admin123',
+                    'user': 'user123',
+                    'marko': 'marko123',
+                    'jana': 'jana123'
+                };
+            }
         }
 
         // ============================================================
@@ -2975,56 +3171,67 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             if (initialized) return;
             initialized = true;
 
-            // ===== PRVO POSTAVI TRENUTNOG KORISNIKA =====
             const savedUser = localStorage.getItem('shiftApp_user');
             if (savedUser && users[savedUser]) {
                 currentUser = savedUser;
             } else {
                 currentUser = 'admin';
             }
-            // ===== KRAJ =====
 
             loadData();
 
-            const today = new Date();
-            currentMonth = today.getMonth();
-            currentYear = today.getFullYear();
+            // ===== KORISTI new Date() ZA SVE =====
+            const now = new Date();
+            const todayStr = now.toISOString().slice(0, 10);
+            const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const firstDayStr = firstDayOfMonth.toISOString().slice(0, 10);
 
-            document.getElementById('todayDate').textContent = today.toLocaleDateString('sr-RS', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
+            // ===== POSTAVI DATUME =====
+            document.getElementById('todayDate').textContent = now.toLocaleDateString('sr-RS', {
+                weekday: 'long',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
             document.getElementById('userDisplay').textContent = getText('userDisplay', { user: currentUser });
             document.getElementById('headerTitle').textContent = getText('headerTitle', { user: currentUser });
-            document.getElementById('shiftDate').value = today.toISOString().slice(0, 10);
-            document.getElementById('reminderDate').value = today.toISOString().slice(0, 10);
+            document.getElementById('shiftDate').value = todayStr;
 
-            const first = new Date(today.getFullYear(), today.getMonth(), 1);
-            document.getElementById('statsStart').value = first.toISOString().slice(0, 10);
-            document.getElementById('statsEnd').value = today.toISOString().slice(0, 10);
-            document.getElementById('reportStart').value = first.toISOString().slice(0, 10);
-            document.getElementById('reportEnd').value = today.toISOString().slice(0, 10);
+            // Podsetnik - postavi datum i napuni listu
+            document.getElementById('reminderDate').value = todayStr;
+            populateReminderShifts(todayStr);
 
+            // Event listener za promenu datuma - SAMO JEDNOM
+            document.getElementById('reminderDate').addEventListener('change', function () {
+                populateReminderShifts(this.value);
+            });
+
+            // Statistika i izveštaj
+            document.getElementById('statsStart').value = firstDayStr;
+            document.getElementById('statsEnd').value = todayStr;
+            document.getElementById('reportStart').value = firstDayStr;
+            document.getElementById('reportEnd').value = todayStr;
+
+            // Kalendar
+            currentMonth = now.getMonth();
+            currentYear = now.getFullYear();
+
+            // ===== OSTALO =====
             applyTheme(theme);
             applyTranslations();
             renderCalendar();
             renderLegend();
             populateCategorySelect();
             renderCategoryTable();
-
-            // ===== OVO JE KLJUČNO - RENDERUJ KORISNIKE =====
             renderUserList();
-            // ===== KRAJ =====
-
             renderReminders();
             updateHelp();
             updateNotifHistory();
-            populateReminderShifts(today.toISOString().slice(0, 10));
 
             document.getElementById('fontSizeSlider').value = 14;
             document.getElementById('fontSizeLabel').textContent = '14';
             adjustFontSize(14);
-
-            document.getElementById('reminderDate').addEventListener('change', function () {
-                populateReminderShifts(this.value);
-            });
 
             showTab('calendar');
         }
@@ -3145,25 +3352,39 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         function selectDate(dateStr) {
             selectedDate = dateStr;
             renderCalendar();
+
             const dayShifts = getShiftsForDate(dateStr);
             const details = document.getElementById('detailsDisplay');
-            if (dayShifts.length === 0) { details.textContent = '📌 ' + dateStr + ': ' + getText('noShifts'); return; }
-            let text = '📌 ' + dateStr + '\n' + '─'.repeat(40) + '\n';
+
+            if (dayShifts.length === 0) {
+                details.textContent = '📌 ' + dateStr + ': ' + getText('noShifts');
+                return;
+            }
+
+            let text = '📌 ' + dateStr + '\n' + '═'.repeat(40) + '\n';
             let totalHours = 0;
+            let totalPay = 0;
+
             dayShifts.forEach((s, i) => {
                 const h = s.hours || categories[s.category]?.hours || 8;
                 totalHours += h;
+                const cat = categories[s.category] || { rate: 500, coeff: 1.0 };
+                const pay = h * cat.rate * cat.coeff;
+                totalPay += pay;
+
                 const catDisplay = getCategoryDisplayName(s.category);
-                text += (i + 1) + '. 🔹 ' + catDisplay + ': ' + s.user + ' (' + s.start + ' - ' + s.end + ')' + (s.note ? ' 📝' + s.note : '') + '\n';
-                text += '   ⏱️ ' + h + 'h';
-                if (categories[s.category]) {
-                    const cat = categories[s.category];
-                    text += ' | 💰 ' + (h * cat.rate * cat.coeff).toFixed(0) + ' RSD';
-                }
+                text += (i + 1) + '. 🔹 ' + catDisplay;
+                text += ' | 👤 ' + s.user;
+                text += ' | ⏰ ' + s.start + ' - ' + s.end;
+                text += ' | ⏱️ ' + h + 'h';
+                text += ' | 💰 ' + pay.toFixed(0) + ' RSD';
+                if (s.note) text += ' | 📝 ' + s.note;
                 text += '\n';
             });
-            text += '─'.repeat(40) + '\n';
-            text += getText('totalShifts', { count: dayShifts.length, hours: totalHours.toFixed(1) });
+
+            text += '═'.repeat(40) + '\n';
+            text += '📊 UKUPNO: ' + dayShifts.length + ' smena | ⏱️ ' + totalHours.toFixed(1) + 'h | 💰 ' + totalPay.toFixed(0) + ' RSD';
+
             details.textContent = text;
         }
 
@@ -3388,7 +3609,6 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             if (!container) return;
             container.innerHTML = '';
 
-            // ===== PRVO POSTAVI PRAVOG KORISNIKA =====
             const savedUser = localStorage.getItem('shiftApp_user');
             if (savedUser && users[savedUser]) {
                 currentUser = savedUser;
@@ -3397,7 +3617,6 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             const section = document.getElementById('adminOnlySection');
             if (!section) return;
 
-            // ===== OVO JE KLJUČNO - SAMO ADMIN VIDI KORISNIKE =====
             if (currentUser !== 'admin') {
                 section.style.display = 'none';
                 section.style.visibility = 'hidden';
@@ -3411,7 +3630,6 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                 return;
             }
 
-            // Admin - prikaži sve
             section.style.display = 'block';
             section.style.visibility = 'visible';
             section.style.pointerEvents = 'auto';
@@ -3434,10 +3652,12 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
                     `;
                 }
 
+                const roleLabel = username === 'admin' ? getText('adminLabel') : getText('userLabel');
+
                 div.innerHTML = `
                     <div class="user-info">
                         <strong>👤 ${username}</strong>
-                        <small>${username === 'admin' ? '🔑 Administrator' : '👤 Korisnik'}</small>
+                        <small>${roleLabel}</small>
                     </div>
                     <div class="user-actions">
                         ${actions}
@@ -3460,12 +3680,14 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             if (password.length < 3) { alert(getText('msgPasswordShort')); return; }
 
             users[username] = password;
+            saveData(); // <--- OVO JE KLJUČNO!
             closeModal('addUserModal');
-            saveData();
             renderUserList();
+
             document.getElementById('newUsername').value = '';
             document.getElementById('newUserPassword').value = '';
             document.getElementById('newUserConfirm').value = '';
+
             alert(getText('msgUserAdded', { name: username }));
         }
 
@@ -3635,7 +3857,12 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         function openReminderFromDate() {
             if (selectedDate) {
                 document.getElementById('reminderDate').value = selectedDate;
-                populateReminderShifts(selectedDate);
+                populateReminderShifts(selectedDate); // Pozovi sa tačnim datumom
+            } else {
+                // Ako nema izabranog datuma, koristi današnji
+                const today = new Date().toISOString().slice(0, 10);
+                document.getElementById('reminderDate').value = today;
+                populateReminderShifts(today);
             }
             showTab('notifications');
             setTimeout(() => {
@@ -3645,12 +3872,39 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
 
         function populateReminderShifts(date) {
             const sel = document.getElementById('reminderShiftSelect');
-            sel.innerHTML = '<option value="all">' + getText('reminderShiftLabel') + ' (sve)</option>';
-            const dayShifts = getShiftsForDate(date);
-            dayShifts.forEach((s, i) => {
+            if (!sel) return;
+
+            sel.innerHTML = '<option value="all">' + getText('reminderShiftLabel') + ' (' + getText('reminderAllShifts') + ')</option>';
+
+            // Uzmi SVE smene za taj datum (NE FILTRIRAJ po korisniku!)
+            const dayShifts = shifts.filter(s => s.date === date);
+
+            if (dayShifts.length === 0) {
+                // Ako nema smena, dodaj opciju da to pokaže
+                const opt = document.createElement('option');
+                opt.value = 'none';
+                opt.textContent = '⚠️ Nema smena za ovaj dan';
+                opt.disabled = true;
+                sel.appendChild(opt);
+                return;
+            }
+
+            // Grupiši po kategoriji + korisniku da ne bude duplih
+            const uniqueShifts = [];
+            const seen = new Set();
+            dayShifts.forEach(s => {
+                const key = s.category + '|' + s.user + '|' + s.start + '|' + s.end;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniqueShifts.push(s);
+                }
+            });
+
+            uniqueShifts.forEach((s, i) => {
                 const opt = document.createElement('option');
                 opt.value = i;
-                opt.textContent = getCategoryDisplayName(s.category) + ' (' + s.start + '-' + s.end + ')';
+                const catDisplay = getCategoryDisplayName(s.category);
+                opt.textContent = catDisplay + ' (' + s.user + ', ' + s.start + '-' + s.end + ')';
                 sel.appendChild(opt);
             });
         }
@@ -3982,7 +4236,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
             const isEnglish = (currentLang === 'en');
             let content = isEnglish ? `
         ╔══════════════════════════════════════════════════════════════════════════╗
-        ║                    📅 PERSONAL SCHEDULE - DETAILED HELP                ║
+                        📅 PERSONAL SCHEDULE - DETAILED HELP               
         ╚══════════════════════════════════════════════════════════════════════════╝
 
         👤 CURRENT USER: ${currentUser}
@@ -4222,7 +4476,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         • The app automatically saves all your data
             ` : (isCyrillic ? `
         ╔══════════════════════════════════════════════════════════════════════════╗
-        ║                   📅 ЛИЧНИ РАСПОРЕД - ДЕТАЉНО УПУТСТВО                ║
+                        📅 ЛИЧНИ РАСПОРЕД - ДЕТАЉНО УПУТСТВО                
         ╚══════════════════════════════════════════════════════════════════════════╝
 
         👤 ТРЕНУТНИ КОРИСНИК: ${currentUser}
@@ -4395,7 +4649,7 @@ ako hocu bez automatskog unosa korisnickog ime i lozinke onda ovako: <input type
         • Апликација аутоматски чува податке
             ` : `
         ╔══════════════════════════════════════════════════════════════════════════╗
-        ║                    📅 LIČNI RASPORED - DETALJNO UPUTSTVO               ║
+                    📅 LIČNI RASPORED - DETALJNO UPUTSTVO               
         ╚══════════════════════════════════════════════════════════════════════════╝
 
         👤 TRENUTNI KORISNIK: ${currentUser}
